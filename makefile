@@ -5,7 +5,7 @@ AR = /usr/bin/avr-ar
 OBJ_COPY = /usr/bin/avr-objcopy
 AVRDUDE = /usr/bin/avrdude
 AVRDUDECONF = /usr/share/arduino/hardware/tools/avrdude.conf 
-
+OBJ_DIR = obj/
 MAIN_SKETCH = Blink.cpp
 
 # CPU settings 
@@ -17,16 +17,55 @@ GENERAL_FLAGS = -c -g -Os -Wall -ffunction-sections -fdata-sections -mmcu=$(MCU)
 CPP_FLAGS = $(GENERAL_FLAGS) -fno-exceptions
 CC_FLAGS  = $(GENERAL_FLAGS)
 
-# location of include files
+# Generic functions
+objforfile = $(dir $(1))$(OBJ_DIR)$(addsuffix .o, $(basename $(notdir $(1))))
+csrcforfile = $(addsuffix .c, $(dir $(1))../$(basename $(notdir $(1))))
+cppsrcforfile = $(addsuffix .cpp, $(dir $(1))../$(basename $(notdir $(1))))
+
+# Arduino lib 
 ARDUINO_LIB_DIR = src/Arduino/
-MEAGA_LIB_DIR = src/mega/
+ARDUINO_LIB_C_FILES = $(wildcard $(ARDUINO_LIB_DIR)*.c)
+ARDUINO_LIB_CPP_FILES = $(wildcard $(ARDUINO_LIB_DIR)*.cpp)
+ARDUINO_LIB_OBJ_DIR = $(ARDUINO_LIB_DIR)$(OBJ_DIR)
+ARDUINO_LIB_C_OBJ_FILES =$(addprefix $(ARDUINO_LIB_OBJ_DIR), $(addsuffix .o, $(basename $(notdir $(ARDUINO_LIB_C_FILES)))))
+ARDUINO_LIB_CPP_OBJ_FILES =$(addprefix $(ARDUINO_LIB_OBJ_DIR), $(addsuffix .o, $(basename $(notdir $(ARDUINO_LIB_CPP_FILES)))))
+
+# AVR lib
 AVR_LIB_DIR = src/avr-libc/
+AVR_LIB_C_FILES = $(wildcard $(AVR_LIB_DIR)*.c)
+AVR_LIB_OBJ_DIR = $(AVR_LIB_DIR)$(OBJ_DIR)
+AVR_LIB_C_OBJ_FILES =$(addprefix $(AVR_LIB_OBJ_DIR), $(addsuffix .o, $(basename $(notdir $(AVR_LIB_C_FILES)))))
+
+# Mega lib
+MEAGA_LIB_DIR = src/mega/
+
 INCLUDE_FILES = -I$(ARDUINO_LIB_DIR) -I$(MEAGA_LIB_DIR)
 
+debug:
+	echo $(call csrcforfile,dupa/obj/plik.c) 
+
 clean :
-	rm -f *.o
-	rm -f *.d
+	rm -f $(ARDUINO_LIB_DIR)$(OBJ_DIR)*
+	rm -f $(AVR_LIB_DIR)$(OBJ_DIR)*
 	rm -f core.a
+
+$(ARDUINO_LIB_C_OBJ_FILES) : $(ARDUINO_LIB_C_FILES)
+	$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $(call csrcforfile,$@)
+
+$(ARDUINO_LIB_CPP_OBJ_FILES) : $(ARDUINO_LIB_CPP_FILES)
+	$(CPP) $(CPP_FLAGS) $(INCLUDE_FILES) -o $@ $(call cppsrcforfile,$@)
+
+$(AVR_LIB_C_OBJ_FILES) : $(AVR_LIB_C_FILES)
+	$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $(call csrcforfile,$@)
+
+
+arduino : $(ARDUINO_LIB_C_OBJ_FILES) $(ARDUINO_LIB_CPP_OBJ_FILES) 
+	echo "done building arduino"
+
+avr : $(AVR_LIB_C_OBJ_FILES) 
+	echo "done building avr"
+	
+
 
 core.a :
 	$(CC) $(CC_FLAGS) $(INCLUDE_FILES) $(AVR_LIB_DIR)malloc.c -o malloc.o
