@@ -61,21 +61,21 @@ clean :
 	@rm -f $(MAIN_PROGRAM).hex
 	@rm -f $(MAIN_PROGRAM).eep
 
-$(ARDUINO_LIB_C_OBJ_FILES) : $(ARDUINO_LIB_C_FILES)
+$(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.c
 	@echo "Comiling $@"
-	@$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $(call csrcforfile,$@)
+	@$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $<
 
-$(ARDUINO_LIB_CPP_OBJ_FILES) : $(ARDUINO_LIB_CPP_FILES)
+$(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.cpp
 	@echo "Comiling $@"
-	@$(CPP) $(CPP_FLAGS) -Wno-unused-variable -Wno-sign-compare $(INCLUDE_FILES) -o $@ $(call cppsrcforfile,$@)
+	@$(CPP) $(CPP_FLAGS) -Wno-unused-variable -Wno-sign-compare $(INCLUDE_FILES) -o $@ $<
 
-$(AVR_LIB_C_OBJ_FILES) : $(AVR_LIB_C_FILES)
+$(AVR_LIB_DIR)$(OBJ_DIR)%.o : $(AVR_LIB_DIR)%.c 
 	@echo "Comiling $@"
-	@$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $(call csrcforfile,$@)
+	@$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $<
 
-$(ROBOBO_LIB_CPP_OBJ_FILES) : $(ROBOBO_LIB_CPP_FILES)
+$(ROBOBO_LIB_DIR)$(OBJ_DIR)%.o : $(ROBOBO_LIB_DIR)%.cpp
 	@echo "Comiling $@"
-	@$(CPP) $(CPP_FLAGS) $(INCLUDE_FILES) -o $@ $(call cppsrcforfile,$@)
+	@$(CPP) $(CPP_FLAGS) $(INCLUDE_FILES) -o $@ $<
 
 core.a : $(ALL_OBJ_FILES)
 	@echo "archiving objects to core.a"
@@ -83,7 +83,7 @@ core.a : $(ALL_OBJ_FILES)
 
 build: core.a
 	@echo "Linking"
-	@$(CC) -Os -Wl,--gc-sections,--relax -mmcu=$(MCU) -o $(MAIN_PROGRAM).elf core.a -lm
+	$(CC) -Os -Wl,--gc-sections,--relax -mmcu=$(MCU) -o $(MAIN_PROGRAM).elf core.a -lm
 	@echo "Binary object creation"
 	@$(OBJ_COPY) -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0 $(MAIN_PROGRAM).elf $(MAIN_PROGRAM).eep
 	@$(OBJ_COPY) -O ihex -R .eeprom $(MAIN_PROGRAM).elf $(MAIN_PROGRAM).hex
