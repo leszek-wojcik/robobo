@@ -9,6 +9,7 @@ AVRDUDE = /usr/bin/avrdude
 AVRDUDECONF = /usr/share/arduino/hardware/tools/avrdude.conf 
 OBJ_DIR = obj/
 MAIN_PROGRAM = robobo
+MINICOM = /usr/bin/minicom -D /dev/ttyACM0 -b 115200
 
 # CPU settings 
 F_CPU = 16000000
@@ -92,5 +93,8 @@ install: build
 	@echo "Serial Transfer"
 	$(AVRDUDE) -C$(AVRDUDECONF) -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:$(MAIN_PROGRAM).hex:i 
 
-all: install
+terminal: install
+	$(MINICOM)
+
+all: terminal
 	@echo "done compiling and uploading"
