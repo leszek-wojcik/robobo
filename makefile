@@ -25,6 +25,7 @@ CPP_FLAGS = $(GENERAL_FLAGS) -fno-exceptions
 CC_FLAGS  = $(GENERAL_FLAGS)
 INCLUDE_FILES = -I$(ARDUINO_LIB_DIR) -I$(MEAGA_LIB_DIR) -I$(ROBOBO_LIB_DIR) 
 UT_INCLUDE_FILES = -I$(MEAGA_LIB_DIR) -I$(ROBOBO_UT_DIR) -I$(ROBOBO_LIB_DIR) 
+UT_LIBRARIES = -lgtest -lgtest_main -lpthread -lstdc++ 
 
 # Arduino lib 
 ARDUINO_LIB_DIR = src/Arduino/
@@ -93,11 +94,11 @@ $(ROBOBO_LIB_DIR)$(OBJ_DIR)%.o : $(ROBOBO_LIB_DIR)%.cpp
 
 $(ROBOBO_UT_OBJ_DIR)%.o : $(ROBOBO_UT_DIR)%.cpp
 	@echo "Compiling $@"
-	$(CCP_OFFTARGET) -c $(UT_INCLUDE_FILES) -o $@ $<
+	@$(CCP_OFFTARGET) -c $(UT_INCLUDE_FILES) -o $@ $<
 
 $(ROBOBO_UT_OBJ_DIR)%.o : $(ROBOBO_LIB_DIR)%.cpp
 	@echo "Compiling $@"
-	$(CCP_OFFTARGET) -c $(UT_INCLUDE_FILES) -o $@ $<
+	@$(CCP_OFFTARGET) -c $(UT_INCLUDE_FILES) -o $@ $<
 
 core.a : $(ALL_OBJ_FILES)
 	@echo "archiving objects to core.a"
@@ -121,7 +122,6 @@ all: terminal
 	@echo "done compiling and uploading"
 
 ut: $(ROBOBO_UT_CPP_OBJ_FILES)
-	@echo "done compiling ut"
-	@echo $(ROBOBO_UT_CPP_OBJ_FILES)
-	$(CCP_OFFTARGET) -g -Os -Wall $(ROBOBO_UT_CPP_OBJ_FILES) -o $(MAIN_PROGRAM).ut -lgtest -lgtest_main -lpthread -lstdc++ 
-
+	@echo "Linking"
+	@$(CCP_OFFTARGET) -g -Os -Wall $(ROBOBO_UT_CPP_OBJ_FILES) -o $(MAIN_PROGRAM).ut $(UT_LIBRARIES)
+	@./$(MAIN_PROGRAM).ut
