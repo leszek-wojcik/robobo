@@ -8,8 +8,12 @@ OBJ_COPY = /usr/bin/avr-objcopy
 AVRDUDE = /usr/bin/avrdude
 AVRDUDECONF = /usr/share/arduino/hardware/tools/avrdude.conf 
 OBJ_DIR = obj/
+UT_DIR = ut/
 MAIN_PROGRAM = robobo
 MINICOM = /usr/bin/minicom -D /dev/ttyACM0 -b 115200
+CC_OFFTARGET = /usr/bin/gcc
+CCP_OFFTARGET = /usr/bin/g++
+AVR_INCLUDE = /usr/lib/avr/include
 
 # CPU settings 
 F_CPU = 16000000
@@ -19,7 +23,8 @@ MCU = atmega2560
 GENERAL_FLAGS = -c -g -Os -Wall -ffunction-sections -fdata-sections -mmcu=$(MCU) -DF_CPU=$(F_CPU)L -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=105 -D__PROG_TYPES_COMPAT__
 CPP_FLAGS = $(GENERAL_FLAGS) -fno-exceptions
 CC_FLAGS  = $(GENERAL_FLAGS)
-INCLUDE_FILES = -I$(ARDUINO_LIB_DIR) -I$(MEAGA_LIB_DIR)
+INCLUDE_FILES = -I$(ARDUINO_LIB_DIR) -I$(MEAGA_LIB_DIR) -I$(ROBOBO_LIB_DIR) 
+UT_INCLUDE_FILES = -I$(MEAGA_LIB_DIR) -I$(ROBOBO_UT_DIR) -I$(ROBOBO_LIB_DIR) 
 
 # Arduino lib 
 ARDUINO_LIB_DIR = src/Arduino/
@@ -46,37 +51,53 @@ ROBOBO_LIB_OBJ_DIR = $(ROBOBO_LIB_DIR)$(OBJ_DIR)
 ROBOBO_LIB_C_OBJ_FILES = $(call objectfilesfromlist, $(ROBOBO_LIB_OBJ_DIR), $(ROBOBO_LIB_C_FILES))
 ROBOBO_LIB_CPP_OBJ_FILES = $(call objectfilesfromlist, $(ROBOBO_LIB_OBJ_DIR), $(ROBOBO_LIB_CPP_FILES))
 
-# ALL
+# ALL TARGET
 ALL_C_OBJ_FILES =$(ARDUINO_LIB_C_OBJ_FILES) $(AVR_LIB_C_OBJ_FILES) $(ROBOBO_LIB_C_OBJ_FILES) 
 ALL_CPP_OBJ_FILES = $(ARDUINO_LIB_CPP_OBJ_FILES) $(ROBOBO_LIB_CPP_OBJ_FILES) 
 ALL_OBJ_FILES = $(ALL_CPP_OBJ_FILES) $(ALL_C_OBJ_FILES)
 
+# Unit test
+ROBOBO_UT_DIR = $(ROBOBO_LIB_DIR)$(UT_DIR)
+ROBOBO_UT_CPP_FILES = $(call cppfilesfromdir,$(ROBOBO_UT_DIR))  
+ROBOBO_UT_OBJ_DIR = $(ROBOBO_LIB_DIR)$(UT_DIR)$(OBJ_DIR)
+ROBOBO_UT_CPP_OBJ_FILES = $(call objectfilesfromlist, $(ROBOBO_UT_OBJ_DIR), $(ROBOBO_UT_CPP_FILES)) $(call objectfilesfromlist, $(ROBOBO_UT_OBJ_DIR), $(ROBOBO_LIB_CPP_FILES))
+ROBOBO_UT_CPP_OBJ_FILES := $(filter-out src/robobo/ut/obj/main.o, $(ROBOBO_UT_CPP_OBJ_FILES))
 clean :
 	@rm -f $(ARDUINO_LIB_DIR)$(OBJ_DIR)*
 	@rm -f $(AVR_LIB_DIR)$(OBJ_DIR)*
 	@rm -f $(ROBOBO_LIB_DIR)$(OBJ_DIR)*
+	@rm -f $(ROBOBO_UT_OBJ_DIR)*
 	@rm -f core.a
 	@rm -f $(MAIN_PROGRAM).d
 	@rm -f $(MAIN_PROGRAM).o
 	@rm -f $(MAIN_PROGRAM).elf
 	@rm -f $(MAIN_PROGRAM).hex
 	@rm -f $(MAIN_PROGRAM).eep
+	@rm -f $(MAIN_PROGRAM).ut
 
 $(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.c
-	@echo "Comiling $@"
+	@echo "Compiling $@"
 	@$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $<
 
 $(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.cpp
-	@echo "Comiling $@"
+	@echo "Compiling $@"
 	@$(CPP) $(CPP_FLAGS) -Wno-unused-variable -Wno-sign-compare $(INCLUDE_FILES) -o $@ $<
 
 $(AVR_LIB_DIR)$(OBJ_DIR)%.o : $(AVR_LIB_DIR)%.c 
-	@echo "Comiling $@"
+	@echo "Compiling $@"
 	@$(CC) $(CC_FLAGS) $(INCLUDE_FILES) -o $@ $<
 
 $(ROBOBO_LIB_DIR)$(OBJ_DIR)%.o : $(ROBOBO_LIB_DIR)%.cpp
-	@echo "Comiling $@"
+	@echo "Compiling $@"
 	@$(CPP) $(CPP_FLAGS) $(INCLUDE_FILES) -o $@ $<
+
+$(ROBOBO_UT_OBJ_DIR)%.o : $(ROBOBO_UT_DIR)%.cpp
+	@echo "Compiling $@"
+	$(CCP_OFFTARGET) -c $(UT_INCLUDE_FILES) -o $@ $<
+
+$(ROBOBO_UT_OBJ_DIR)%.o : $(ROBOBO_LIB_DIR)%.cpp
+	@echo "Compiling $@"
+	$(CCP_OFFTARGET) -c $(UT_INCLUDE_FILES) -o $@ $<
 
 core.a : $(ALL_OBJ_FILES)
 	@echo "archiving objects to core.a"
@@ -98,3 +119,9 @@ terminal: install
 
 all: terminal
 	@echo "done compiling and uploading"
+
+ut: $(ROBOBO_UT_CPP_OBJ_FILES)
+	@echo "done compiling ut"
+	@echo $(ROBOBO_UT_CPP_OBJ_FILES)
+	$(CCP_OFFTARGET) -g -Os -Wall $(ROBOBO_UT_CPP_OBJ_FILES) -o $(MAIN_PROGRAM).ut -lgtest -lgtest_main -lpthread -lstdc++ 
+
