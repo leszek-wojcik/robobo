@@ -1,0 +1,19 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.o
+*.obj
+
+
+# Compiled Static libraries
+*.la
+*.a
+*.lib
+
+# vim swap
+*.swp
+
+#cscope
+cscope.files
+cscope.out
