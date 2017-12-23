@@ -15,6 +15,7 @@ int main(void)
 	pinMode(glob->encoder1aPin, INPUT );
 	pinMode(glob->encoder1bPin, INPUT );
 	attachInterrupt(digitalPinToInterrupt(glob->encoder1aPin),encoder1_ISR, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(glob->encoder1bPin),encoder1_ISR, CHANGE);
     
 	for (;;) {
 		digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
@@ -22,7 +23,7 @@ int main(void)
 		digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
 		delay(50);                 // wait for a second
 
-		Serial.println(glob->encoder1aVal);
+		Serial.println(glob->encoder1pos);
 
 		if (serialEventRun) serialEventRun();
 	}

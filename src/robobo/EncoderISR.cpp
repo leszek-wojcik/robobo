@@ -24,13 +24,35 @@ void encoder1_ISR()
     {
         diff = 1;
     }
+
+    i->encoder1pos += diff;
 }
 
 
 void encoder2_ISR()
 {
-    Globals::instance->encoder2aVal = digitalRead(Globals::instance->encoder2aPin);
-    Globals::instance->encoder2bVal = digitalRead(Globals::instance->encoder2aPin);
+    int8_t diff;
+    Globals *i = Globals::instance; 
+
+    i->encoder2aPrevVal = i->encoder2aVal;
+    i->encoder2bPrevVal = i->encoder2bVal;
+
+    i->encoder2aVal = digitalRead(i->encoder2aPin);
+    i->encoder2bVal = digitalRead(i->encoder2bPin);
+
+    diff =  greyValue(i->encoder2aVal, i->encoder2bVal) - 
+            greyValue(i->encoder2aPrevVal, i->encoder2bPrevVal);
+
+    if (diff == 3)
+    {
+        diff = -1;
+    }
+    else if (diff == -3)
+    {
+        diff = 1;
+    }
+
+    i->encoder2pos += diff;
 }
 
 uint8_t greyLookup[2][2] = {{2,1},{3,0}};

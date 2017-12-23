@@ -21,6 +21,8 @@ class Globals
         uint8_t encoder1bVal;
         uint8_t encoder1bPrevVal;
 
+        int32_t encoder1pos;
+
         uint8_t encoder2aPin;
         uint8_t encoder2aVal;
         uint8_t encoder2aPrevVal;
@@ -28,6 +30,8 @@ class Globals
         uint8_t encoder2bPin;
         uint8_t encoder2bVal;
         uint8_t encoder2bPrevVal;
+
+        int32_t encoder2pos;
         
         // Serial
         long serialSpeed; 

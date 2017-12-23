@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "gmock/gmock.h"
+#include "Globals.h"
 
 class ArduinoMock
 {
@@ -12,8 +13,8 @@ class RoboboTests : public ::testing::Test
 {
     public:
         static ArduinoMock *arduino;
-        RoboboTests() { }
-        virtual void SetUp(){ arduino = new::testing::NiceMock<ArduinoMock>(); }
+        RoboboTests() { Globals::createInstance(); }
+        virtual void SetUp(){ arduino = new::testing::NiceMock<ArduinoMock>();}
         virtual void TearDown(){ delete arduino; }
         
 
