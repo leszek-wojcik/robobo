@@ -25,7 +25,7 @@ CPP_FLAGS = $(GENERAL_FLAGS) -fno-exceptions
 CC_FLAGS  = $(GENERAL_FLAGS)
 INCLUDE_FILES = -I$(ARDUINO_LIB_DIR) -I$(MEAGA_LIB_DIR) -I$(ROBOBO_LIB_DIR) 
 UT_INCLUDE_FILES = -I$(MEAGA_LIB_DIR) -I$(ROBOBO_UT_DIR) -I$(ROBOBO_LIB_DIR) 
-UT_LIBRARIES = -lgtest -lgtest_main -lpthread -lstdc++ 
+UT_LIBRARIES = -lgmock -lgtest -lgtest_main -lpthread -lstdc++ 
 
 # Arduino lib 
 ARDUINO_LIB_DIR = src/Arduino/
