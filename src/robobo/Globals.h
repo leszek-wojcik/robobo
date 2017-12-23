@@ -1,5 +1,8 @@
 #ifndef ROBOBO_GLOBALS_INCLUDED
 #define ROBOBO_GLOBALS_INCLUDED
+
+#include "Arduino.h"
+
 class Globals
 {
     private:
@@ -10,17 +13,21 @@ class Globals
         static Globals* createInstance();
 
         // Encoders
-        int encoder1aPin;
-        bool encoder1aVal;
+        uint8_t encoder1aPin;
+        uint8_t encoder1aVal;
+        uint8_t encoder1aPrevVal;
 
-        int encoder1bPin;
-        bool encoder1bVal;
+        uint8_t encoder1bPin;
+        uint8_t encoder1bVal;
+        uint8_t encoder1bPrevVal;
 
-        int encoder2aPin;
-        bool encoder2aVal;
+        uint8_t encoder2aPin;
+        uint8_t encoder2aVal;
+        uint8_t encoder2aPrevVal;
 
-        int encoder2bPin;
-        bool encoder2bVal;
+        uint8_t encoder2bPin;
+        uint8_t encoder2bVal;
+        uint8_t encoder2bPrevVal;
         
         // Serial
         long serialSpeed; 

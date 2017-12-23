@@ -6,15 +6,20 @@ Globals::Globals()
     // Encoders
     encoder1aPin=19;
     encoder1aVal=0;
+    encoder1aPrevVal=0;
 
     encoder1bPin=20;
     encoder1bVal=0;
+    encoder1bPrevVal=0;
 
     encoder2aPin=17;
     encoder2aVal=0;
+    encoder2aPrevVal=0;
 
     encoder2bPin=18;
     encoder2bVal=0;
+    encoder2bPrevVal=0;
+
 
     //Serial
     serialSpeed=115200;
