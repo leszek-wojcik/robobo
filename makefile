@@ -14,6 +14,7 @@ MINICOM = /usr/bin/minicom -D /dev/ttyACM0 -b 115200
 CC_OFFTARGET = /usr/bin/gcc
 CCP_OFFTARGET = /usr/bin/g++
 AVR_INCLUDE = /usr/lib/avr/include
+DOXYGEN = /usr/bin/doxygen
 
 # CPU settings 
 F_CPU = 16000000
@@ -75,6 +76,7 @@ clean :
 	@rm -f $(MAIN_PROGRAM).hex
 	@rm -f $(MAIN_PROGRAM).eep
 	@rm -f $(MAIN_PROGRAM).ut
+	@rm -r docs/*
 
 $(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.c
 	@echo "Compiling $@"
@@ -125,3 +127,7 @@ ut: $(ROBOBO_UT_CPP_OBJ_FILES)
 	@echo "Linking"
 	@$(CCP_OFFTARGET) -g -Os -Wall $(ROBOBO_UT_CPP_OBJ_FILES) -o $(MAIN_PROGRAM).ut $(UT_LIBRARIES)
 	@./$(MAIN_PROGRAM).ut
+
+.PHONY: docs
+docs: 
+	@$(DOXYGEN) Doxyfile 
