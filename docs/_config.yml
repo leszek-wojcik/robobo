@@ -21,7 +21,7 @@ description: >- # this means to ignore newlines until "baseurl:"
     and collaborative. Hope you can use my expirience for your small and large
     project. My goal is to share my knowledge and practices taken from my past work
     expirience. 
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/robobo/" # the subpath of your site, e.g. /blog
 url: "https://leszek-wojcik.github.io/robobo/" 
 #twitter_username: jekyllrb
 github_username:  leszek-wojcik
