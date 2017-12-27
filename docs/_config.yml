@@ -38,7 +38,7 @@ plugins:
 exclude:
    - Gemfile
    - Gemfile.lock
-   - doxygen
+#   - doxygen
 #   - vendor/bundle/
 #   - vendor/cache/
 #   - vendor/gems/
