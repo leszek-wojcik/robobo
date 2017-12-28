@@ -3,25 +3,27 @@
 
 Globals::Globals()
 {
-    // Encoders
-    encoder1aPin=19;
-    encoder1aVal=0;
-    encoder1aPrevVal=1;
 
-    encoder1bPin=20;
-    encoder1bVal=0;
-    encoder1bPrevVal=1;
+    dc1.encoderAPin = 19;
+    dc1.encoderAVal = 0;
+    dc1.encoderAPrevVal = 1;
 
-    encoder2aPin=17;
-    encoder2aVal=0;
-    encoder2aPrevVal=1;
+    dc1.encoderBPin = 20;
+    dc1.encoderBVal = 0;
+    dc1.encoderBPrevVal = 1;
 
-    encoder2bPin=18;
-    encoder2bVal=0;
-    encoder2bPrevVal=1;
+    dc1.encoderPos = 0;
 
-    encoder1pos = 0;
-    encoder2pos = 0;
+
+    dc2.encoderAPin=17;
+    dc2.encoderAVal=0;
+    dc2.encoderAPrevVal=1;
+
+    dc2.encoderBPin=18;
+    dc2.encoderBVal=0;
+    dc2.encoderBPrevVal=1;
+
+    dc2.encoderPos = 0;
 
     //Serial
     serialSpeed=115200;

@@ -7,14 +7,14 @@ void encoder1_ISR()
     int8_t diff;
     Globals *i = Globals::instance; 
 
-    i->encoder1aPrevVal = i->encoder1aVal;
-    i->encoder1bPrevVal = i->encoder1bVal;
+    i->dc1.encoderAPrevVal = i->dc1.encoderAVal;
+    i->dc1.encoderBPrevVal = i->dc1.encoderBVal;
 
-    i->encoder1aVal = digitalRead(i->encoder1aPin);
-    i->encoder1bVal = digitalRead(i->encoder1bPin);
+    i->dc1.encoderAVal = digitalRead(i->dc1.encoderAPin);
+    i->dc1.encoderBVal = digitalRead(i->dc1.encoderBPin);
 
-    diff =  greyValue(i->encoder1aVal, i->encoder1bVal) - 
-            greyValue(i->encoder1aPrevVal, i->encoder1bPrevVal);
+    diff =  greyValue(i->dc1.encoderAVal, i->dc1.encoderBVal) - 
+            greyValue(i->dc1.encoderAPrevVal, i->dc1.encoderBPrevVal);
 
     if (diff == 3)
     {
@@ -25,7 +25,7 @@ void encoder1_ISR()
         diff = 1;
     }
 
-    i->encoder1pos += diff;
+    i->dc1.encoderPos += diff;
 }
 
 
@@ -34,14 +34,14 @@ void encoder2_ISR()
     int8_t diff;
     Globals *i = Globals::instance; 
 
-    i->encoder2aPrevVal = i->encoder2aVal;
-    i->encoder2bPrevVal = i->encoder2bVal;
+    i->dc2.encoderAPrevVal = i->dc2.encoderAVal;
+    i->dc2.encoderBPrevVal = i->dc2.encoderBVal;
 
-    i->encoder2aVal = digitalRead(i->encoder2aPin);
-    i->encoder2bVal = digitalRead(i->encoder2bPin);
+    i->dc2.encoderAVal = digitalRead(i->dc2.encoderAPin);
+    i->dc2.encoderBVal = digitalRead(i->dc2.encoderBPin);
 
-    diff =  greyValue(i->encoder2aVal, i->encoder2bVal) - 
-            greyValue(i->encoder2aPrevVal, i->encoder2bPrevVal);
+    diff =  greyValue(i->dc2.encoderAVal, i->dc2.encoderBVal) - 
+            greyValue(i->dc2.encoderAPrevVal, i->dc2.encoderBPrevVal);
 
     if (diff == 3)
     {
@@ -52,7 +52,7 @@ void encoder2_ISR()
         diff = 1;
     }
 
-    i->encoder2pos += diff;
+    i->dc2.encoderPos += diff;
 }
 
 uint8_t greyLookup[2][2] = {{2,1},{3,0}};

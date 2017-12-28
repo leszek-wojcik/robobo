@@ -11,20 +11,20 @@ TEST_F(RoboboTests, store_previous_value_1)
 
     Globals *i = Globals::getInstance();
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(1));
     encoder1_ISR();
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(1));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1aPrevVal,1);
-    ASSERT_EQ( i->encoder1bPrevVal,1);
+    ASSERT_EQ( i->dc1.encoderAPrevVal,1);
+    ASSERT_EQ( i->dc1.encoderBPrevVal,1);
 
 }
 
@@ -33,167 +33,167 @@ TEST_F(RoboboTests, store_previous_value_2)
 
     Globals *i = Globals::getInstance();
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderBPin))
         .WillOnce(Return(1));
     encoder2_ISR();
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderAPin))
         .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderBPin))
         .WillOnce(Return(1));
     encoder2_ISR();
 
-    ASSERT_EQ( i->encoder2aPrevVal,1);
-    ASSERT_EQ( i->encoder2bPrevVal,1);
+    ASSERT_EQ( i->dc2.encoderAPrevVal,1);
+    ASSERT_EQ( i->dc2.encoderBPrevVal,1);
 
 }
 
 TEST_F(RoboboTests, move_right_1) {
 
     Globals *i = Globals::getInstance();
-    i->encoder1pos = 0;
-    i->encoder1aVal = 1;
-    i->encoder1bVal = 1;
+    i->dc1.encoderPos = 0;
+    i->dc1.encoderAVal = 1;
+    i->dc1.encoderBVal = 1;
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
-        .WillOnce(Return(1));
-    encoder1_ISR();
-
-    ASSERT_EQ( i->encoder1pos,0);
-
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
-        .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(1));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,1);
+    ASSERT_EQ( i->dc1.encoderPos,0);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
-        .WillOnce(Return(0));
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
+        .WillOnce(Return(1));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,2);
+    ASSERT_EQ( i->dc1.encoderPos,1);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
-        .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
+        .WillOnce(Return(0));
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(0));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,3);
+    ASSERT_EQ( i->dc1.encoderPos,2);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
+        .WillOnce(Return(0));
+    encoder1_ISR();
+
+    ASSERT_EQ( i->dc1.encoderPos,3);
+
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
+        .WillOnce(Return(1));
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(1));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,4);
+    ASSERT_EQ( i->dc1.encoderPos,4);
 
 }
 
 TEST_F(RoboboTests, move_left_1) {
 
     Globals *i = Globals::getInstance();
-    i->encoder1pos = 0;
-    i->encoder1aVal = 1;
-    i->encoder1bVal = 1;
+    i->dc1.encoderPos = 0;
+    i->dc1.encoderAVal = 1;
+    i->dc1.encoderBVal = 1;
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(1));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,0);
+    ASSERT_EQ( i->dc1.encoderPos,0);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(0));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,-1);
+    ASSERT_EQ( i->dc1.encoderPos,-1);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(0));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,-2);
+    ASSERT_EQ( i->dc1.encoderPos,-2);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(1));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,-3);
+    ASSERT_EQ( i->dc1.encoderPos,-3);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder1bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc1.encoderBPin))
         .WillOnce(Return(1));
     encoder1_ISR();
 
-    ASSERT_EQ( i->encoder1pos,-4);
+    ASSERT_EQ( i->dc1.encoderPos,-4);
 
 }
 
 TEST_F(RoboboTests, move_right_2) {
 
     Globals *i = Globals::getInstance();
-    i->encoder2pos = 0;
-    i->encoder2aVal = 1;
-    i->encoder2bVal = 1;
+    i->dc2.encoderPos = 0;
+    i->dc2.encoderAVal = 1;
+    i->dc2.encoderBVal = 1;
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2bPin))
-        .WillOnce(Return(1));
-    encoder2_ISR();
-
-    ASSERT_EQ( i->encoder2pos,0);
-
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2aPin))
-        .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderBPin))
         .WillOnce(Return(1));
     encoder2_ISR();
 
-    ASSERT_EQ( i->encoder2pos,1);
+    ASSERT_EQ( i->dc2.encoderPos,0);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderAPin))
         .WillOnce(Return(0));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2bPin))
-        .WillOnce(Return(0));
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderBPin))
+        .WillOnce(Return(1));
     encoder2_ISR();
 
-    ASSERT_EQ( i->encoder2pos,2);
+    ASSERT_EQ( i->dc2.encoderPos,1);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2aPin))
-        .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderAPin))
+        .WillOnce(Return(0));
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderBPin))
         .WillOnce(Return(0));
     encoder2_ISR();
 
-    ASSERT_EQ( i->encoder2pos,3);
+    ASSERT_EQ( i->dc2.encoderPos,2);
 
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2aPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderAPin))
         .WillOnce(Return(1));
-    EXPECT_CALL(*arduino, digitalRead(i->encoder2bPin))
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderBPin))
+        .WillOnce(Return(0));
+    encoder2_ISR();
+
+    ASSERT_EQ( i->dc2.encoderPos,3);
+
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderAPin))
+        .WillOnce(Return(1));
+    EXPECT_CALL(*arduino, digitalRead(i->dc2.encoderBPin))
         .WillOnce(Return(1));
     encoder2_ISR();
 
-    ASSERT_EQ( i->encoder2pos,4);
+    ASSERT_EQ( i->dc2.encoderPos,4);
 
 }
 
