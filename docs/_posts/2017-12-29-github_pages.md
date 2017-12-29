@@ -8,7 +8,7 @@ categories: githubpages
 If you would like to start your github hosted page I will briefly describe what I've
 done. You can see my code in repository so I think this could be useful. 
 
-#Why would you even like to use github pages? 
+# Why would you even like to use github pages? 
 I assume nowdays if you want to share your project you need a webpage.
 Otherwise nobody will pay attention to your work unless you are Apple or
 Google.  I think it is extremely useful to get webpage created out from your
@@ -25,7 +25,7 @@ extensions stands for MarkDown format. You can find details on markdown format
 [here] (https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf). It
 convinient and simple. 
 
-#Lets get started. 
+# Lets get started. 
 Although it seems like github provide easy to use guide I fell into several
 pitfalls. I'm not so into Ruby technology that is probably a reason. You don't
 need to actually have a deep understating of it to use it. 
@@ -53,7 +53,7 @@ bundle exec jekyll serve
 ```
 you are ready for some more explanation about themes.
 
-#Themes
+# Themes
 Before selecting theme you would like to use be advised that only subset of
 themes are prepared to do the work that is provided by default ```minima``` theme.
 For myself I was truly after blog functionality. Minima theme provides you
