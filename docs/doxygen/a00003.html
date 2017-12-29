@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Robobo: RoboboTests Class Reference</title>
+<title>Robobo: Motor Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -104,41 +104,51 @@ $(document).ready(function(){initNavTree('a00003.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="a00018.html">List of all members</a>  </div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a00019.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">RoboboTests Class Reference</div>  </div>
+<div class="title">Motor Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Inherits Test.</p>
+<p><code>#include &lt;<a class="el" href="a00008_source.html">Globals.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:af5498176088d36f8361a525776469764"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5498176088d36f8361a525776469764"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetUp</b> ()</td></tr>
-<tr class="separator:af5498176088d36f8361a525776469764"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae535b8d95fc9cb75d21c9a4381a11aee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae535b8d95fc9cb75d21c9a4381a11aee"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>TearDown</b> ()</td></tr>
-<tr class="separator:ae535b8d95fc9cb75d21c9a4381a11aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:ac196e70d861fcfa672cb23c6d39e7704"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac196e70d861fcfa672cb23c6d39e7704"></a>
-static <a class="el" href="a00001.html">ArduinoMock</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>arduino</b> = NULL</td></tr>
-<tr class="separator:ac196e70d861fcfa672cb23c6d39e7704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a625f1a25c61af8d8a6f4d63e283e3424"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a625f1a25c61af8d8a6f4d63e283e3424"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderAPin</b></td></tr>
+<tr class="separator:a625f1a25c61af8d8a6f4d63e283e3424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58cc877a0b1c6346983a28cc583a9239"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58cc877a0b1c6346983a28cc583a9239"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderAVal</b></td></tr>
+<tr class="separator:a58cc877a0b1c6346983a28cc583a9239"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf7412b252ae685854280a1eba140791"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf7412b252ae685854280a1eba140791"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderAPrevVal</b></td></tr>
+<tr class="separator:acf7412b252ae685854280a1eba140791"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab73cfdf69320f519fc5ac63b0cf5b8be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab73cfdf69320f519fc5ac63b0cf5b8be"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderBPin</b></td></tr>
+<tr class="separator:ab73cfdf69320f519fc5ac63b0cf5b8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add469e996fef39bdef9d6cfe88f58e98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add469e996fef39bdef9d6cfe88f58e98"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderBVal</b></td></tr>
+<tr class="separator:add469e996fef39bdef9d6cfe88f58e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9485ad2e0ddcefbbbc7ddb98cdbd9336"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9485ad2e0ddcefbbbc7ddb98cdbd9336"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderBPrevVal</b></td></tr>
+<tr class="separator:a9485ad2e0ddcefbbbc7ddb98cdbd9336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1613b041aa81f0a698686a97cb92c302"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1613b041aa81f0a698686a97cb92c302"></a>
+int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderPos</b></td></tr>
+<tr class="separator:a1613b041aa81f0a698686a97cb92c302"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/robobo/ut/<a class="el" href="a00013_source.html">RoboboTests.h</a></li>
-<li>src/robobo/ut/RoboboTests.cpp</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a00003.html">Motor</a> class is to represent all data associated with DC <a class="el" href="a00003.html">Motor</a>.</p>
+<p><a class="el" href="a00003.html">Motor</a> class captures two wires from DC motor encoder. Stores previous and current value of encoder signal. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/robobo/<a class="el" href="a00008_source.html">Globals.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00003.html">RoboboTests</a></li>
+    <li class="navelem"><a class="el" href="a00003.html">Motor</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
