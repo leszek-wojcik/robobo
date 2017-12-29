@@ -2,6 +2,12 @@
 #define ROBOBO_GLOBALS_INCLUDED
 
 #include "Arduino.h"
+/**
+Motor class is to represent all data associated with DC Motor. 
+
+Motor class captures two wires from DC motor encoder. Stores previous and
+current value of encoder signal.     
+*/
 class Motor
 {
     public:
@@ -17,9 +23,18 @@ class Motor
         int32_t encoderPos;
 };
 
+/**
+Globals class is simple wrapper around global values that are accessible from
+everywhere in programs
+
+Globass class implemented as singleton. Globals allows to create only one
+instance of class.  Constructor of object is responsible to use all hard-coded
+values through out program
+*/
 class Globals
 {
     private:
+        /** Privte constructor allows to create object only from static method of class */
         Globals();
     public:
         static Globals* instance; 
@@ -28,27 +43,6 @@ class Globals
 
         Motor dc1;
         Motor dc2;
-
-        // Encoders
-        //uint8_t encoder1aPin;
-        //uint8_t encoder1aVal;
-        //uint8_t encoder1aPrevVal;
-
-        //uint8_t encoder1bPin;
-        //uint8_t encoder1bVal;
-        //uint8_t encoder1bPrevVal;
-
-        //int32_t encoder1pos;
-
-        uint8_t encoder2aPin;
-        uint8_t encoder2aVal;
-        uint8_t encoder2aPrevVal;
-
-        uint8_t encoder2bPin;
-        uint8_t encoder2bVal;
-        uint8_t encoder2bPrevVal;
-
-        int32_t encoder2pos;
         
         // Serial
         long serialSpeed; 
