@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Github Pages"
+title:  "Enabling Github Pages for Arduino Project"
 date:   2017-12-29 20:19:00 +0100
 categories: githubpages
 ---
