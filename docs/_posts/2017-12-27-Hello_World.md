@@ -2,8 +2,8 @@
 layout: post
 title:  "Hello World Robobo"
 date:   2017-12-27 21:19:00 +0100
-description: Robobo is C++ project with Doxygen generated documentation, blog,
-off-target unit tests written in GoogleTest and GoogleMock framework on Github.
+description: "Robobo is C++ project with Doxygen generated documentation, blog,
+off-target unit tests written in GoogleTest and GoogleMock framework on Github."
 categories: makefile githubpages
 ---
 
