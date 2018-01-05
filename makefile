@@ -85,7 +85,6 @@ clean :
 	@rm -f $(MAIN_PROGRAM).hex
 	@rm -f $(MAIN_PROGRAM).eep
 	@rm -f $(MAIN_PROGRAM).ut
-	@rm -f docs/doxygen/*
 
 $(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.c
 	@echo "Compiling $@"
