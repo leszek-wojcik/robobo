@@ -7,9 +7,9 @@ generated documentation, multipurpose makefile system, blog, off-target unit
 tests written in GoogleTest and GoogleMock. 
 
 Project webpage: 
-- https://leszek-wojcik.github.io/robobo/ Technical
+- https://leszek-wojcik.github.io/robobo/ 
 
-Documentation: 
+Technical Documentation: 
 - https://leszek-wojcik.github.io/robobo/doxygen
 
 Blog entries are articles that describe step by step explanations of Robobo
