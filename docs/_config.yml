@@ -21,8 +21,8 @@ description: >- # this means to ignore newlines until "baseurl:"
     knowoledge.  Robobo can be also treated as reference C++ project with Doxygen
     generated documentation, multipurpose makefile system, blog, off-target unit
     tests written in GoogleTest and GoogleMock. 
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://leszek-wojcik.github.io/robobo/" 
+baseurl: "/robobo" # the subpath of your site, e.g. /blog
+url: "https://leszek-wojcik.github.io" 
 #twitter_username: jekyllrb
 github_username:  leszek-wojcik
 
