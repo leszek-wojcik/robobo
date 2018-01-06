@@ -64,11 +64,20 @@ ROBOBO_UT_CPP_FILES = $(call cppfilesfromdir,$(ROBOBO_UT_DIR))
 ROBOBO_UT_OBJ_DIR = $(ROBOBO_LIB_DIR)$(UT_DIR)$(OBJ_DIR)
 ROBOBO_UT_CPP_OBJ_FILES = $(call objectfilesfromlist, $(ROBOBO_UT_OBJ_DIR), $(ROBOBO_UT_CPP_FILES)) $(call objectfilesfromlist, $(ROBOBO_UT_OBJ_DIR), $(ROBOBO_LIB_CPP_FILES))
 ROBOBO_UT_CPP_OBJ_FILES := $(filter-out src/robobo/ut/obj/main.o, $(ROBOBO_UT_CPP_OBJ_FILES))
+
+OBJ_DIRS = $(ROBOBO_UT_OBJ_DIR) $(ROBOBO_LIB_OBJ_DIR) $(AVR_LIB_OBJ_DIR) $(ARDUINO_LIB_OBJ_DIR)
+
+.PHONY: dirs
+dirs: $(OBJ_DIRS)
+
+$(OBJ_DIRS): 
+	@mkdir $(OBJ_DIRS)
+
 clean :
-	@rm -f $(ARDUINO_LIB_DIR)$(OBJ_DIR)*
-	@rm -f $(AVR_LIB_DIR)$(OBJ_DIR)*
-	@rm -f $(ROBOBO_LIB_DIR)$(OBJ_DIR)*
-	@rm -f $(ROBOBO_UT_OBJ_DIR)*
+	@rm -f -r $(ARDUINO_LIB_DIR)$(OBJ_DIR)
+	@rm -f -r $(AVR_LIB_DIR)$(OBJ_DIR)
+	@rm -f -r $(ROBOBO_LIB_DIR)$(OBJ_DIR)
+	@rm -f -r $(ROBOBO_UT_OBJ_DIR)
 	@rm -f core.a
 	@rm -f $(MAIN_PROGRAM).d
 	@rm -f $(MAIN_PROGRAM).o
@@ -76,7 +85,6 @@ clean :
 	@rm -f $(MAIN_PROGRAM).hex
 	@rm -f $(MAIN_PROGRAM).eep
 	@rm -f $(MAIN_PROGRAM).ut
-	@rm -r docs/doxygen/*
 
 $(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.c
 	@echo "Compiling $@"
@@ -102,7 +110,7 @@ $(ROBOBO_UT_OBJ_DIR)%.o : $(ROBOBO_LIB_DIR)%.cpp
 	@echo "Compiling $@"
 	@$(CCP_OFFTARGET) -c $(UT_INCLUDE_FILES) -o $@ $<
 
-core.a : $(ALL_OBJ_FILES)
+core.a : dirs $(ALL_OBJ_FILES)
 	@echo "archiving objects to core.a"
 	@$(AR) rcs core.a $(ALL_OBJ_FILES)
 
@@ -123,7 +131,7 @@ terminal: install
 all: terminal
 	@echo "done compiling and uploading"
 
-ut: $(ROBOBO_UT_CPP_OBJ_FILES)
+ut: dirs $(ROBOBO_UT_CPP_OBJ_FILES)
 	@echo "Linking"
 	@$(CCP_OFFTARGET) -g -Os -Wall $(ROBOBO_UT_CPP_OBJ_FILES) -o $(MAIN_PROGRAM).ut $(UT_LIBRARIES)
 	@./$(MAIN_PROGRAM).ut
