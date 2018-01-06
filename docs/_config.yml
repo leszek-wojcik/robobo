@@ -16,11 +16,11 @@
 title: Robobo
 #email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-    ROBOBO is AVR Arduino project. Goal is to build robotic ARM. Arduino Mega is
-    used. Project aims to use latest toolchains available to make work efficient
-    and collaborative. Hope you can use my expirience for your small and large
-    project. My goal is to share my knowledge and practices taken from my past work
-    expirience. 
+    Robobo is educational and presentation project. It aims to provide entry level
+    for embedded programing targeted to Arduino users who wishes to expand their
+    knowoledge.  Robobo can be also treated as reference C++ project with Doxygen
+    generated documentation, multipurpose makefile system, blog, off-target unit
+    tests written in GoogleTest and GoogleMock. 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://leszek-wojcik.github.io/robobo/" 
 #twitter_username: jekyllrb
