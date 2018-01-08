@@ -8,7 +8,7 @@
 Globals class is simple wrapper around global values that are accessible from
 everywhere in programs
 
-Globass class implemented as singleton. Globals allows to create only one
+Global class is singleton implemented. Globals allows to create only one
 instance of class.  Constructor of object is responsible to use all hard-coded
 values through out program
 */

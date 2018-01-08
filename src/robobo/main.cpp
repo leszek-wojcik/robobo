@@ -8,12 +8,10 @@ int main(void)
 {
 	init();
 	Globals *glob = Globals::createInstance();
-
+    glob->dc1.setPinModes();
 	Serial.begin(glob->serialSpeed);
 
 	pinMode(led, OUTPUT);     
-	pinMode(glob->dc1.encoderAPin, INPUT );
-	pinMode(glob->dc1.encoderBPin, INPUT );
 	attachInterrupt(digitalPinToInterrupt(glob->dc1.encoderAPin),encoder1_ISR, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(glob->dc1.encoderBPin),encoder1_ISR, CHANGE);
     
@@ -24,6 +22,9 @@ int main(void)
 		delay(50);                 // wait for a second
 
 		Serial.println(glob->dc2.encoderPos);
+        
+        glob->dc1.setDirectionLeft();
+        glob->dc1.setVoltage(120);
 
 		if (serialEventRun) serialEventRun();
 	}

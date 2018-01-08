@@ -3,6 +3,8 @@
 
 #include "Arduino.h"
 #include "MotorI.h"
+
+
 /**
 Motor class is to represent all data associated with DC Motor. 
 
@@ -12,6 +14,10 @@ current value of encoder signal.
 class DCMotor : public MotorI
 {
     public:
+        /** This function is responsible for seting correct pin modes in
+         ** Arduino */
+        void setPinModes();
+
         // Encoders
         uint8_t encoderAPin;
         uint8_t encoderAVal;
@@ -21,6 +27,11 @@ class DCMotor : public MotorI
         uint8_t encoderBVal;
         uint8_t encoderBPrevVal;
 
+        uint8_t hBridgeAPin;
+        uint8_t hBridgeBPin;
+        
+        uint8_t voltagePin;
+
         int32_t encoderPos;
 
         void setPosition(int32_t);
@@ -28,6 +39,12 @@ class DCMotor : public MotorI
 
         /** This method is called on interrupt associated with encoder */
         void encoderInterrupt(void);
+
+        //TODO:make private
+        void calculatePID(void);
+        void setDirectionRight(void);
+        void setDirectionLeft(void);
+        void setVoltage(uint8_t val);
 };
 
 #endif

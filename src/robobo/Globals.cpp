@@ -14,6 +14,10 @@ Globals::Globals()
 
     dc1.encoderPos = 0;
 
+    dc1.hBridgeAPin = 22;
+    dc1.hBridgeAPin = 24;
+    dc1.voltagePin  = 2;
+
 
     dc2.encoderAPin=17;
     dc2.encoderAVal=0;
