@@ -2,26 +2,7 @@
 #define ROBOBO_GLOBALS_INCLUDED
 
 #include "Arduino.h"
-/**
-Motor class is to represent all data associated with DC Motor. 
-
-Motor class captures two wires from DC motor encoder. Stores previous and
-current value of encoder signal.     
-*/
-class Motor
-{
-    public:
-        // Encoders
-        uint8_t encoderAPin;
-        uint8_t encoderAVal;
-        uint8_t encoderAPrevVal;
-
-        uint8_t encoderBPin;
-        uint8_t encoderBVal;
-        uint8_t encoderBPrevVal;
-
-        int32_t encoderPos;
-};
+#include "Motor.h"
 
 /**
 Globals class is simple wrapper around global values that are accessible from
