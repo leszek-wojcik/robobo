@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "EncoderISR.h"
+#include "grey.h"
  
 TEST (GreyLookupTest, Lookuptest) { 
     EXPECT_EQ (0, greyValue(1,1));

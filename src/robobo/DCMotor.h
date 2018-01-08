@@ -9,7 +9,7 @@ Motor class is to represent all data associated with DC Motor.
 Motor class captures two wires from DC motor encoder. Stores previous and
 current value of encoder signal.     
 */
-class Motor : public MotorI
+class DCMotor : public MotorI
 {
     public:
         // Encoders
@@ -25,6 +25,9 @@ class Motor : public MotorI
 
         void setPosition(int32_t);
         int32_t getPosition();
+
+        /** This method is called on interrupt associated with encoder */
+        void encoderInterrupt(void);
 };
 
 #endif
