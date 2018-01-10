@@ -26,6 +26,10 @@ int main(void)
         glob->dc1.setDirectionLeft();
         glob->dc1.setVoltage(120);
 
+		delay(5000);               // wait for a secon
+        glob->dc1.stop();
+        break;
+
 		if (serialEventRun) serialEventRun();
 	}
         

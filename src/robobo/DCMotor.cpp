@@ -56,6 +56,12 @@ void DCMotor::setVoltage(uint8_t val)
     analogWrite(voltagePin, val);
 }
 
+void DCMotor::stop(void)
+{
+    analogWrite(voltagePin, 0);
+    digitalWrite(hBridgeAPin, 0);
+    digitalWrite(hBridgeBPin, 0);
+}
 
 void DCMotor::setPosition(int32_t x)
 {

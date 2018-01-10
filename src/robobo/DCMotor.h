@@ -36,15 +36,19 @@ class DCMotor : public MotorI
 
         void setPosition(int32_t);
         int32_t getPosition();
+        void stop(void);
 
         /** This method is called on interrupt associated with encoder */
         void encoderInterrupt(void);
 
-        //TODO:make private
+    private:
         void calculatePID(void);
         void setDirectionRight(void);
         void setDirectionLeft(void);
         void setVoltage(uint8_t val);
+
+    friend int main(void);
+
 };
 
 #endif
