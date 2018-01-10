@@ -35,8 +35,35 @@ void DCMotor::encoderInterrupt(void)
         diff = 1;
     }
 
-    encoderPos += diff;
+    encoderPosition += diff;
+    
+    calculatePID();
 
+}
+
+void DCMotor::calculatePID(void)
+{
+    int32_t diff = requestedPosition - encoderPosition;
+    int32_t output = diff * kP;
+
+    // TODO: Here we can avoid unnecessry calls to Arduino. by checking current
+    // brdidge status
+    if (output < 0 )
+    {
+        setDirectionLeft();
+    }
+    else
+    {
+        setDirectionRight();
+    }
+
+    output = abs(output);
+
+    //need to scale target value to range 0-255 PWM
+    if (output >255)
+        output = 255;
+
+    analogWrite(voltagePin, output);
 }
 
 void DCMotor::setDirectionRight(void)
@@ -65,12 +92,10 @@ void DCMotor::stop(void)
 
 void DCMotor::setPosition(int32_t x)
 {
-    //TODO: implement
-    return;
+    requestedPosition = x;
 }
 int32_t DCMotor::getPosition()
 {
 
-    //TODO: implement
-    return 0;
+    return encoderPosition;
 }

@@ -12,7 +12,7 @@ Globals::Globals()
     dc1.encoderBVal = 0;
     dc1.encoderBPrevVal = 1;
 
-    dc1.encoderPos = 0;
+    dc1.encoderPosition = 0;
 
     dc1.hBridgeAPin = 22;
     dc1.hBridgeBPin = 24;
@@ -27,7 +27,7 @@ Globals::Globals()
     dc2.encoderBVal=0;
     dc2.encoderBPrevVal=1;
 
-    dc2.encoderPos = 0;
+    dc2.encoderPosition = 0;
 
     //Serial
     serialSpeed=115200;

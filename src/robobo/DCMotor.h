@@ -18,21 +18,23 @@ class DCMotor : public MotorI
          ** Arduino */
         void setPinModes();
 
-        // Encoders
+        // Pins
         uint8_t encoderAPin;
-        uint8_t encoderAVal;
-        uint8_t encoderAPrevVal;
-
         uint8_t encoderBPin;
-        uint8_t encoderBVal;
-        uint8_t encoderBPrevVal;
-
         uint8_t hBridgeAPin;
         uint8_t hBridgeBPin;
-        
         uint8_t voltagePin;
 
-        int32_t encoderPos;
+        uint8_t encoderAVal;
+        uint8_t encoderBVal;
+        uint8_t encoderAPrevVal;
+        uint8_t encoderBPrevVal;
+        int32_t encoderPosition;
+        int32_t requestedPosition;
+        
+        // PID Controller parameters
+        float kP;
+
 
         void setPosition(int32_t);
         int32_t getPosition();

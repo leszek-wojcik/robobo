@@ -6,8 +6,9 @@ void pinMode(uint8_t, uint8_t)
 {
 }
 
-void digitalWrite(uint8_t, uint8_t)
+void digitalWrite(uint8_t pin, uint8_t val)
 {
+    RoboboTests::arduino->digitalWrite(pin, val);
 }
 
 int digitalRead(uint8_t pin )
@@ -23,6 +24,7 @@ int analogRead(uint8_t)
 void analogReference(uint8_t mode)
 {
 }
-void analogWrite(uint8_t, int)
+void analogWrite(uint8_t pin, int val)
 {
+    RoboboTests::arduino->analogWrite(pin, val);
 }

@@ -21,7 +21,7 @@ int main(void)
 		digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
 		delay(50);                 // wait for a second
 
-		Serial.println(glob->dc2.encoderPos);
+		Serial.println(glob->dc2.encoderPosition);
         
         glob->dc1.setDirectionLeft();
         glob->dc1.setVoltage(120);
