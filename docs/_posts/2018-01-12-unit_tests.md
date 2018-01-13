@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hello World Robobo"
+title:  "Unit Tests for Embedded"
 date:   2018-01-12 21:19:00 +0100
 excerpt: "Article describes Unit Test approach for embedded projects using
 Arduino Robobo project as example"
@@ -9,10 +9,10 @@ categories: C C++ Unit Tests Google Test Google Mock
 
 Robobo project is an example of embedded project where unit tests are executed
 on development computer instead of Arduino target. Such approach is convenient
-for developer since there is not need to load software to target bards and unit
-tests results are provided immediately after execution. There is no need to load
-a software to Arduino target in order to verify that new functionality works
-and does not brake existing one. 
+for developer since he doesn't need to load software to target board in order
+to validate results of tests. Test feedback is delivered straight from unit
+test execution on developer Machine. For medium and large scale projects this
+is big benefit as it speeds up development process. 
 
 # Unit tests
 Arduino code (lets call it production code) is different than unit test code.
@@ -72,4 +72,13 @@ sizeof(double): 8
 ### Arduino Mega
 
 
+## Endianess
+Another important aspect of running unit tests on PC when dealing with embedded
+development is [endianees](https://en.wikipedia.org/wiki/Endianness). For our
+Arduino case study we are lucky that both Intel x86 and AVR use little endian. 
 
+You might want to ask why endianness is so important from off-target unit tests
+angle. Consider function which relies on bit shift operator `<<`. If such
+operator is exists in our code then we almost certinly fall into troubles when
+executing same code on little and big endian. On big endian machines when bit
+shift `<<` in majority of cases we are increasing value of 
