@@ -1,33 +1,17 @@
 #include "Globals.h"
 #include "Arduino.h"
+#include "DCMotor.h"
+#include "EncoderISR.h"
+
 
 Globals::Globals()
 {
 
-    dc1.encoderAPin = 19;
-    dc1.encoderAVal = 0;
-    dc1.encoderAPrevVal = 1;
+    dc1 = new DCMotor(19, 20, 22, 24, 2);
+	attachInterrupt(digitalPinToInterrupt(19),encoder1_ISR, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(20),encoder1_ISR, CHANGE);
 
-    dc1.encoderBPin = 20;
-    dc1.encoderBVal = 0;
-    dc1.encoderBPrevVal = 1;
-
-    dc1.encoderPosition = 0;
-
-    dc1.hBridgeAPin = 22;
-    dc1.hBridgeBPin = 24;
-    dc1.voltagePin  = 2;
-
-
-    dc2.encoderAPin=17;
-    dc2.encoderAVal=0;
-    dc2.encoderAPrevVal=1;
-
-    dc2.encoderBPin=18;
-    dc2.encoderBVal=0;
-    dc2.encoderBPrevVal=1;
-
-    dc2.encoderPosition = 0;
+    dc2 = new DCMotor(17, 18, 0,   0, 0); 
 
     //Serial
     serialSpeed=115200;

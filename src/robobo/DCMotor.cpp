@@ -3,20 +3,52 @@
 #include "grey.h"
 
 
+//TODO: provide constructor parameters
+DCMotor::DCMotor(   uint8_t encoderAPinV, 
+                    uint8_t encoderBPinV, 
+                    uint8_t hBridgeAPinV,
+                    uint8_t hBridgeBPinV,
+                    uint8_t voltagePinV ):
+    encoderAPin(encoderAPinV),
+    encoderBPin(encoderBPinV),
+    hBridgeAPin(hBridgeAPinV),
+    hBridgeBPin(hBridgeBPinV),
+    voltagePin (voltagePinV )
+{
+    setPinModes();
+    setInitVals();
+}
+
 void DCMotor::setPinModes(void)
 {
 	pinMode(encoderAPin, INPUT );
 	pinMode(encoderBPin, INPUT );
     pinMode(hBridgeAPin, OUTPUT);
-    pinMode(hBridgeAPin, OUTPUT);
+    pinMode(hBridgeBPin, OUTPUT);
     pinMode(voltagePin,  OUTPUT);
+}
+
+void DCMotor::setInitVals(void)
+{
+    encoderAVal = 0;
+    encoderBVal = 0;
+    encoderAPrevVal = 1;
+    encoderBPrevVal = 1;
+    encoderPosition = 0;
+    requestedPosition = 0;
+    direction = 0;
+    
+
+    //TODO: This is temporary place
+    controllerIntegral = 0;
+    kP = 5;
+    
 }
 
 
 void DCMotor::encoderInterrupt(void)
 {
     int8_t diff;
-
     encoderAPrevVal = encoderAVal;
     encoderBPrevVal = encoderBVal;
 
@@ -46,8 +78,6 @@ void DCMotor::calculatePID(void)
     int32_t diff = requestedPosition - encoderPosition;
     int32_t output = diff * kP;
 
-    // TODO: Here we can avoid unnecessry calls to Arduino. by checking current
-    // brdidge status
     if (output < 0 )
     {
         setDirectionLeft();
@@ -64,18 +94,27 @@ void DCMotor::calculatePID(void)
         output = 255;
 
     analogWrite(voltagePin, output);
+
 }
 
 void DCMotor::setDirectionRight(void)
 {
-    digitalWrite(hBridgeAPin, 1);
-    digitalWrite(hBridgeBPin, 0);
+    if (direction <= 0)
+    {
+        digitalWrite(hBridgeAPin, 1);
+        digitalWrite(hBridgeBPin, 0);
+        direction = 1;
+    }
 }
 
 void DCMotor::setDirectionLeft(void)
 {
-    digitalWrite(hBridgeAPin, 0);
-    digitalWrite(hBridgeBPin, 1);
+    if (direction >= 0)
+    {
+        digitalWrite(hBridgeAPin, 0);
+        digitalWrite(hBridgeBPin, 1);
+        direction = -1;
+    }
 }
 
 void DCMotor::setVoltage(uint8_t val)

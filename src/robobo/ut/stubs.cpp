@@ -28,3 +28,7 @@ void analogWrite(uint8_t pin, int val)
 {
     RoboboTests::arduino->analogWrite(pin, val);
 }
+
+void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) 
+{
+}

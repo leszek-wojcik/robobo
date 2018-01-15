@@ -2,7 +2,7 @@
 #define ROBOBO_GLOBALS_INCLUDED
 
 #include "Arduino.h"
-#include "DCMotor.h"
+#include "MotorI.h"
 
 /**
 Globals class is simple wrapper around global values that are accessible from
@@ -22,8 +22,8 @@ class Globals
         static Globals* getInstance();
         static Globals* createInstance();
 
-        DCMotor dc1;
-        DCMotor dc2;
+        MotorI *dc1;
+        MotorI *dc2;
         
         // Serial
         long serialSpeed; 

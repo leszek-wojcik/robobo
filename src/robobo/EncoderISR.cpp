@@ -5,12 +5,12 @@
 void encoder1_ISR()
 {
     Globals *i = Globals::instance; 
-    i->dc1.encoderInterrupt();
+    i->dc1->encoderInterrupt();
 }
 
 void encoder2_ISR()
 {
     Globals *i = Globals::instance; 
-    i->dc2.encoderInterrupt();
+    i->dc2->encoderInterrupt();
 }
 
