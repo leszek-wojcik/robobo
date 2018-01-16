@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['globals',['Globals',['../a00002.html',1,'']]]
+  ['dcmotor',['DCMotor',['../a00002.html',1,'']]]
 ];

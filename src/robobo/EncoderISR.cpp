@@ -1,16 +1,16 @@
 #include "Arduino.h"
-#include "Globals.h"
+#include "Robobo.h"
 #include "EncoderISR.h"
 
 void encoder1_ISR()
 {
-    Globals *i = Globals::instance; 
+    Robobo *i = Robobo::instance; 
     i->dc1->encoderInterrupt();
 }
 
 void encoder2_ISR()
 {
-    Globals *i = Globals::instance; 
+    Robobo *i = Robobo::instance; 
     i->dc2->encoderInterrupt();
 }
 

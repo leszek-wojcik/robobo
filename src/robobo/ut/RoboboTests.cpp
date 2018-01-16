@@ -1,6 +1,6 @@
 #include "RoboboTests.h"
 #include "EncoderISR.h"
-#include "Globals.h"
+#include "Robobo.h"
 #include "DCMotor.h"
 
 using ::testing::_;
@@ -12,7 +12,7 @@ ArduinoMock * RoboboTests::arduino = NULL;
 TEST_F(RoboboTests, PID_proportional_1)
 {
     DCMotor dc1(1,2,3,4,5);
-    Globals *i = Globals::getInstance();
+    Robobo *i = Robobo::getInstance();
     i->dc1 = &dc1;
    
     dc1.setPosition(100);
@@ -27,7 +27,7 @@ TEST_F(RoboboTests, PID_proportional_2)
 {
     // This scenario test control output when controller determined need for
     // switching direction. Expectation is that HBridge Pins will change
-    Globals *i = Globals::getInstance();
+    Robobo *i = Robobo::getInstance();
     DCMotor dc1(1,2,3,4,5);
     i->dc1 = &dc1;
 
@@ -44,7 +44,7 @@ TEST_F(RoboboTests, PID_proportional_2)
 
 TEST_F(RoboboTests, store_previous_value_1) 
 {
-    Globals *i = Globals::getInstance();
+    Robobo *i = Robobo::getInstance();
     DCMotor dc1(1,2,3,4,5);
     i->dc1 = &dc1;
 
@@ -67,7 +67,7 @@ TEST_F(RoboboTests, store_previous_value_1)
 
 TEST_F(RoboboTests, store_previous_value_2) 
 {
-    Globals *i = Globals::getInstance();
+    Robobo *i = Robobo::getInstance();
     DCMotor dc2(1,2,3,4,5);
     i->dc2 = &dc2;
 
@@ -90,7 +90,7 @@ TEST_F(RoboboTests, store_previous_value_2)
 
 TEST_F(RoboboTests, move_right_1) {
 
-    Globals *i = Globals::getInstance();
+    Robobo *i = Robobo::getInstance();
     DCMotor dc1(1,2,3,4,5);
     i->dc1 = &dc1;
     dc1.encoderPosition = 0;
@@ -141,7 +141,7 @@ TEST_F(RoboboTests, move_right_1) {
 
 TEST_F(RoboboTests, move_left_1) {
 
-    Globals *i = Globals::getInstance();
+    Robobo *i = Robobo::getInstance();
     DCMotor dc1(1,2,3,4,5);
     i->dc1 = &dc1;
     dc1.encoderPosition = 0;
@@ -192,7 +192,7 @@ TEST_F(RoboboTests, move_left_1) {
 
 TEST_F(RoboboTests, move_right_2) {
 
-    Globals *i = Globals::getInstance();
+    Robobo *i = Robobo::getInstance();
     DCMotor dc2(1,2,3,4,5);
     i->dc2 = &dc2;
 

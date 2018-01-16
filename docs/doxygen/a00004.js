@@ -1,6 +1,8 @@
 var a00004 =
 [
-    [ "RoboboTests", "a00004.html#ab11f6e4dde4e6b1caddb22e8a4e05df9", null ],
-    [ "SetUp", "a00004.html#af5498176088d36f8361a525776469764", null ],
-    [ "TearDown", "a00004.html#ae535b8d95fc9cb75d21c9a4381a11aee", null ]
+    [ "encoder1_ISR", "a00004.html#ad481dfd07bbe4c4a096538769eb16225", null ],
+    [ "encoder2_ISR", "a00004.html#a61ded840d0caf9c587806b787606153d", null ],
+    [ "dc1", "a00004.html#a4f0a5d02bd1061415da668319be63294", null ],
+    [ "dc2", "a00004.html#a4d4d7b40078d77939249475a1c53176a", null ],
+    [ "serialSpeed", "a00004.html#a0484469f2b28de6ca1328e726b8308ca", null ]
 ];

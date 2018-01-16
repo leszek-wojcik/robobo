@@ -1,8 +1,26 @@
 var a00002 =
 [
-    [ "encoder1_ISR", "a00002.html#ad481dfd07bbe4c4a096538769eb16225", null ],
-    [ "encoder2_ISR", "a00002.html#a61ded840d0caf9c587806b787606153d", null ],
-    [ "dc1", "a00002.html#aa9ea37e593a5a500cb3c35a645b9f29e", null ],
-    [ "dc2", "a00002.html#a17c1c048228f4603310e6ceea2bc0251", null ],
-    [ "serialSpeed", "a00002.html#a8117926022642b35b9ac865a617a931f", null ]
+    [ "DCMotor", "a00002.html#acf85601b65201e8cbedf42495de6e045", null ],
+    [ "encoderInterrupt", "a00002.html#aaaa40ed439df5d9173637a5d69cc8beb", null ],
+    [ "getPosition", "a00002.html#ac189bb543d0438edb8047c7f09864038", null ],
+    [ "setInitVals", "a00002.html#a38af02dbff77d79abaa20aa43153e5da", null ],
+    [ "setPinModes", "a00002.html#a3dddad097cddabd565f6a3549d059e3b", null ],
+    [ "setPosition", "a00002.html#a7c61b86a620403225d12a6fc1948ebf5", null ],
+    [ "stop", "a00002.html#a8f7faf24f840a278d5511f23f6472d1a", null ],
+    [ "main", "a00002.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
+    [ "controllerIntegral", "a00002.html#a4370a7c451dd12bf7861a1ceb2040582", null ],
+    [ "direction", "a00002.html#a3c43a2321b646e497c76b66a486511b1", null ],
+    [ "encoderAPin", "a00002.html#a7f17a9b65a39ae86c9579ac22afbf00d", null ],
+    [ "encoderAPrevVal", "a00002.html#aa223c07c039995268a3363c6b78279f0", null ],
+    [ "encoderAVal", "a00002.html#af07e0c827f8155480f5e88f308a18b08", null ],
+    [ "encoderBPin", "a00002.html#afeb1414d8788c16134f123e78e1e8996", null ],
+    [ "encoderBPrevVal", "a00002.html#a07387a8b3bb7c76b6042f1097582eb3d", null ],
+    [ "encoderBVal", "a00002.html#a49805e84e478a8ca475180b5085b8b16", null ],
+    [ "encoderPosition", "a00002.html#a1e7bcc863e0ff260943ab6909d7d8b65", null ],
+    [ "hBridgeAPin", "a00002.html#a105c34998fdd179a11d59bfc69ceaf82", null ],
+    [ "hBridgeBPin", "a00002.html#a6a0e31319b06d17587ed385d8a4680b4", null ],
+    [ "kI", "a00002.html#ad2034de50e13f5e82bbe9f027056edd2", null ],
+    [ "kP", "a00002.html#a54c9bb144d55c06d7e00cd005917138e", null ],
+    [ "requestedPosition", "a00002.html#a15153801bafa7491e60593593da82405", null ],
+    [ "voltagePin", "a00002.html#ae395c81110ff6b8453c80b9062874154", null ]
 ];

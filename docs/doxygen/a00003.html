@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Robobo: Motor Class Reference</title>
+<title>Robobo: MotorI Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,6 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
       <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -104,51 +105,39 @@ $(document).ready(function(){initNavTree('a00003.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="a00019.html">List of all members</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a00025.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Motor Class Reference</div>  </div>
+<div class="title">MotorI Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00008_source.html">Globals.h</a>&gt;</code></p>
+<p>Inherited by <a class="el" href="a00002.html">DCMotor</a>.</p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a625f1a25c61af8d8a6f4d63e283e3424"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a625f1a25c61af8d8a6f4d63e283e3424"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderAPin</b></td></tr>
-<tr class="separator:a625f1a25c61af8d8a6f4d63e283e3424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58cc877a0b1c6346983a28cc583a9239"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58cc877a0b1c6346983a28cc583a9239"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderAVal</b></td></tr>
-<tr class="separator:a58cc877a0b1c6346983a28cc583a9239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf7412b252ae685854280a1eba140791"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf7412b252ae685854280a1eba140791"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderAPrevVal</b></td></tr>
-<tr class="separator:acf7412b252ae685854280a1eba140791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab73cfdf69320f519fc5ac63b0cf5b8be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab73cfdf69320f519fc5ac63b0cf5b8be"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderBPin</b></td></tr>
-<tr class="separator:ab73cfdf69320f519fc5ac63b0cf5b8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add469e996fef39bdef9d6cfe88f58e98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add469e996fef39bdef9d6cfe88f58e98"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderBVal</b></td></tr>
-<tr class="separator:add469e996fef39bdef9d6cfe88f58e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9485ad2e0ddcefbbbc7ddb98cdbd9336"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9485ad2e0ddcefbbbc7ddb98cdbd9336"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderBPrevVal</b></td></tr>
-<tr class="separator:a9485ad2e0ddcefbbbc7ddb98cdbd9336"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1613b041aa81f0a698686a97cb92c302"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1613b041aa81f0a698686a97cb92c302"></a>
-int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>encoderPos</b></td></tr>
-<tr class="separator:a1613b041aa81f0a698686a97cb92c302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a21731747fb5ed8ee5234fad400b68a64"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21731747fb5ed8ee5234fad400b68a64"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setPosition</b> (int32_t)=0</td></tr>
+<tr class="separator:a21731747fb5ed8ee5234fad400b68a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2438eba5bf9508b06aecb1cdb62f3465"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2438eba5bf9508b06aecb1cdb62f3465"></a>
+virtual int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> ()=0</td></tr>
+<tr class="separator:a2438eba5bf9508b06aecb1cdb62f3465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8811b9eeec0aee3f843a6c432570d182"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8811b9eeec0aee3f843a6c432570d182"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> (void)=0</td></tr>
+<tr class="separator:a8811b9eeec0aee3f843a6c432570d182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb65211ed5e3c8c36224c2f861b71a9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb65211ed5e3c8c36224c2f861b71a9d"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>encoderInterrupt</b> (void)=0</td></tr>
+<tr class="separator:abb65211ed5e3c8c36224c2f861b71a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a00003.html">Motor</a> class is to represent all data associated with DC <a class="el" href="a00003.html">Motor</a>.</p>
-<p><a class="el" href="a00003.html">Motor</a> class captures two wires from DC motor encoder. Stores previous and current value of encoder signal. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/robobo/<a class="el" href="a00008_source.html">Globals.h</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/robobo/<a class="el" href="a00013_source.html">MotorI.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00003.html">Motor</a></li>
+    <li class="navelem"><a class="el" href="a00003.html">MotorI</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>

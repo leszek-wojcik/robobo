@@ -1,10 +1,10 @@
-#include "Globals.h"
+#include "Robobo.h"
 #include "Arduino.h"
 #include "DCMotor.h"
 #include "EncoderISR.h"
 
 
-Globals::Globals()
+Robobo::Robobo()
 {
 
     dc1 = new DCMotor(19, 20, 22, 24, 2);
@@ -17,17 +17,17 @@ Globals::Globals()
     serialSpeed=115200;
 }
 
-Globals* Globals::getInstance() 
+Robobo* Robobo::getInstance() 
 {
-    if (Globals::instance == NULL)
-        Globals::instance = new Globals();
+    if (Robobo::instance == NULL)
+        Robobo::instance = new Robobo();
 
-    return Globals::instance;
+    return Robobo::instance;
 }
 
-Globals* Globals::createInstance()
+Robobo* Robobo::createInstance()
 {
-    return Globals::getInstance();
+    return Robobo::getInstance();
 }
 
-Globals* Globals::instance=NULL; 
+Robobo* Robobo::instance=NULL; 

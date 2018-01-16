@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Robobo: RoboboTests Class Reference</title>
+<title>Robobo: Robobo Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,6 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
       <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -104,41 +105,67 @@ $(document).ready(function(){initNavTree('a00004.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="a00020.html">List of all members</a>  </div>
+<a href="#friends">Friends</a> &#124;
+<a href="a00026.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">RoboboTests Class Reference</div>  </div>
+<div class="title">Robobo Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Inherits Test.</p>
+<p><code>#include &lt;<a class="el" href="a00015_source.html">Robobo.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:af5498176088d36f8361a525776469764"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5498176088d36f8361a525776469764"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetUp</b> ()</td></tr>
-<tr class="separator:af5498176088d36f8361a525776469764"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae535b8d95fc9cb75d21c9a4381a11aee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae535b8d95fc9cb75d21c9a4381a11aee"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>TearDown</b> ()</td></tr>
-<tr class="separator:ae535b8d95fc9cb75d21c9a4381a11aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a0cd99fc2ed86b15dcf41c4fbfea137c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0cd99fc2ed86b15dcf41c4fbfea137c9"></a>
+static <a class="el" href="a00004.html">Robobo</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getInstance</b> ()</td></tr>
+<tr class="separator:a0cd99fc2ed86b15dcf41c4fbfea137c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86602d622efd1b116f7acf186dd79d82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a86602d622efd1b116f7acf186dd79d82"></a>
+static <a class="el" href="a00004.html">Robobo</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createInstance</b> ()</td></tr>
+<tr class="separator:a86602d622efd1b116f7acf186dd79d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a4f0a5d02bd1061415da668319be63294"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f0a5d02bd1061415da668319be63294"></a>
+<a class="el" href="a00003.html">MotorI</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>dc1</b></td></tr>
+<tr class="separator:a4f0a5d02bd1061415da668319be63294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4d7b40078d77939249475a1c53176a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d4d7b40078d77939249475a1c53176a"></a>
+<a class="el" href="a00003.html">MotorI</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>dc2</b></td></tr>
+<tr class="separator:a4d4d7b40078d77939249475a1c53176a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0484469f2b28de6ca1328e726b8308ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0484469f2b28de6ca1328e726b8308ca"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>serialSpeed</b></td></tr>
+<tr class="separator:a0484469f2b28de6ca1328e726b8308ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ac196e70d861fcfa672cb23c6d39e7704"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac196e70d861fcfa672cb23c6d39e7704"></a>
-static <a class="el" href="a00001.html">ArduinoMock</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>arduino</b> = NULL</td></tr>
-<tr class="separator:ac196e70d861fcfa672cb23c6d39e7704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab137b3dce7804708a6fc7ae87a727441"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab137b3dce7804708a6fc7ae87a727441"></a>
+static <a class="el" href="a00004.html">Robobo</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>instance</b> =NULL</td></tr>
+<tr class="separator:ab137b3dce7804708a6fc7ae87a727441"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ad481dfd07bbe4c4a096538769eb16225"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad481dfd07bbe4c4a096538769eb16225"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>encoder1_ISR</b> (void)</td></tr>
+<tr class="separator:ad481dfd07bbe4c4a096538769eb16225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ded840d0caf9c587806b787606153d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61ded840d0caf9c587806b787606153d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>encoder2_ISR</b> (void)</td></tr>
+<tr class="separator:a61ded840d0caf9c587806b787606153d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/robobo/ut/<a class="el" href="a00014_source.html">RoboboTests.h</a></li>
-<li>src/robobo/ut/RoboboTests.cpp</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a00004.html">Robobo</a> class is simple wrapper around global values that are accessible from everywhere in programs</p>
+<p>Global class is singleton implemented. <a class="el" href="a00004.html">Robobo</a> allows to create only one instance of class. Constructor of object is responsible to use all hard-coded values through out program </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/robobo/<a class="el" href="a00015_source.html">Robobo.h</a></li>
+<li>src/robobo/Robobo.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00004.html">RoboboTests</a></li>
+    <li class="navelem"><a class="el" href="a00004.html">Robobo</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>

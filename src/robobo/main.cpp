@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "Globals.h"
+#include "Robobo.h"
 #include "EncoderISR.h"
 
 int led = 13;
@@ -7,7 +7,7 @@ int led = 13;
 int main(void)
 {
 	init();
-	Globals *glob = Globals::createInstance();
+	Robobo *glob = Robobo::createInstance();
 	Serial.begin(glob->serialSpeed);
 
 	pinMode(led, OUTPUT);     
