@@ -8,6 +8,7 @@ class MotorI
         virtual int32_t getPosition() = 0;
         virtual void stop(void) = 0;
         virtual void encoderInterrupt(void) = 0;
+        virtual void reset(void) = 0;
 
 };
 #endif 

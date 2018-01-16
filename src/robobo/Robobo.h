@@ -14,19 +14,16 @@ values through out program
 */
 class Robobo
 {
-    private:
-        /** Privte constructor allows to create object only from static method of class */
-        Robobo();
     public:
-        static Robobo* instance; 
-        static Robobo* getInstance();
-        static Robobo* createInstance();
+        Robobo();
+        void createSetupV1(void);
 
         MotorI *dc1;
         MotorI *dc2;
         
         // Serial
         long serialSpeed; 
+        static Robobo *instance;
 
         friend void encoder1_ISR(void);
         friend void encoder2_ISR(void);

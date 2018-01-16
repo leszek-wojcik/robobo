@@ -3,7 +3,6 @@
 #include "grey.h"
 
 
-//TODO: provide constructor parameters
 DCMotor::DCMotor(   uint8_t encoderAPinV, 
                     uint8_t encoderBPinV, 
                     uint8_t hBridgeAPinV,
@@ -16,7 +15,7 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     voltagePin (voltagePinV )
 {
     setPinModes();
-    setInitVals();
+    reset();
 }
 
 void DCMotor::setPinModes(void)
@@ -28,7 +27,7 @@ void DCMotor::setPinModes(void)
     pinMode(voltagePin,  OUTPUT);
 }
 
-void DCMotor::setInitVals(void)
+void DCMotor::reset(void)
 {
     encoderAVal = 0;
     encoderBVal = 0;

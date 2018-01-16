@@ -7,8 +7,9 @@ int led = 13;
 int main(void)
 {
 	init();
-	Robobo *glob = Robobo::createInstance();
-	Serial.begin(glob->serialSpeed);
+	Robobo r;
+    r.createSetupV1();
+	Serial.begin(r.serialSpeed);
 
 	pinMode(led, OUTPUT);     
     
@@ -18,11 +19,11 @@ int main(void)
 		digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
 		delay(50);                 // wait for a second
 
-		glob->dc1->setPosition(100);
+		r.dc1->setPosition(100);
         encoder1_ISR();
 		delay(5000);              
-		Serial.println(glob->dc1->getPosition());
-        glob->dc1->stop();
+		Serial.println(r.dc1->getPosition());
+        r.dc1->stop();
         break;
 
 		if (serialEventRun) serialEventRun();

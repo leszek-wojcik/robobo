@@ -19,7 +19,7 @@ class DCMotor : public MotorI
         void setPinModes();
 
         /** Nulls out private areas of class */
-        void setInitVals();
+        void reset();
 
         DCMotor(    uint8_t encoderAPinV, 
                     uint8_t encoderBPinV, 

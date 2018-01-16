@@ -1,6 +1,10 @@
 #include "Arduino.h"
 #include "gmock/gmock.h"
 #include "Robobo.h"
+#include "DCMotor.h"
+#include <iostream>
+
+using namespace std;
 
 class ArduinoMock
 {
@@ -11,14 +15,35 @@ class ArduinoMock
         MOCK_METHOD2(analogWrite, void (uint8_t pin, int val) );
 };
 
-class RoboboTests : public ::testing::Test
+class RoboboTests : public ::testing::Test, public Robobo
 {
     public:
         static ArduinoMock *arduino;
-        RoboboTests() { Robobo::createInstance(); }
-        virtual void SetUp(){ arduino = new::testing::NiceMock<ArduinoMock>();}
-        virtual void TearDown(){ delete arduino; }
-        
+
+        DCMotor *dcm1;
+        DCMotor *dcm2;
+
+        RoboboTests() 
+        { 
+
+            // We need to configure parent class object
+            dcm1 = new DCMotor(1,2,3,4,5);
+            dcm2 = new DCMotor(11,12,13,14,15);
+            dc1 = dcm1;
+            dc2 = dcm2;
+        }
+
+        virtual void SetUp()
+        { 
+            arduino = new::testing::NiceMock<ArduinoMock>();
+            dcm1->reset();
+            dcm2->reset();
+        }
+
+        virtual void TearDown()
+        { 
+            delete arduino; 
+        }
 
 };
 
