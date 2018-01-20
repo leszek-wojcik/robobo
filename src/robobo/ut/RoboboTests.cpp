@@ -9,6 +9,7 @@ using ::testing::Return;
 using namespace std;
 
 ArduinoMock * RoboboTests::arduino = NULL;
+FreeRTOSMock * RoboboTests::rtos = NULL;
 
 
 TEST_F(RoboboTests, PID_proportional_1)

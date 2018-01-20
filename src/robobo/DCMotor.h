@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 #include "MotorI.h"
+#include "ActiveObject.h"
 
 
 /**
@@ -11,7 +12,7 @@ Motor class is to represent all data associated with DC Motor.
 Motor class captures two wires from DC motor encoder. Stores previous and
 current value of encoder signal.     
 */
-class DCMotor : public MotorI
+class DCMotor : public MotorI, public ActiveObject
 {
     public:
         /** This function is responsible for seting correct pin modes in

@@ -25,7 +25,7 @@ GENERAL_FLAGS = -c -g -Os -Wall -ffunction-sections -fdata-sections -mmcu=$(MCU)
 CPP_FLAGS = $(GENERAL_FLAGS) -fno-exceptions
 CC_FLAGS  = $(GENERAL_FLAGS)
 INCLUDE_FILES = -I$(ARDUINO_LIB_DIR) -I$(MEAGA_LIB_DIR) -I$(ROBOBO_LIB_DIR) -I$(FREERTOS_LIB_DIR)
-UT_INCLUDE_FILES = -I$(MEAGA_LIB_DIR) -I$(ROBOBO_UT_DIR) -I$(ROBOBO_LIB_DIR) -I$(FREERTOS_LIB_DIR)
+UT_INCLUDE_FILES =  -I$(MEAGA_LIB_DIR) -I$(ROBOBO_UT_DIR) -I$(ROBOBO_LIB_DIR) -I$(FREERTOS_LIB_DIR)
 UT_LIBRARIES = -lgmock -lgtest -lgtest_main -lpthread -lstdc++ 
 
 # Arduino lib 
@@ -110,7 +110,7 @@ $(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.c
 
 $(ARDUINO_LIB_DIR)$(OBJ_DIR)%.o : $(ARDUINO_LIB_DIR)%.cpp
 	@echo "Compiling $@"
-	@$(CPP) $(CPP_FLAGS) -Wno-unused-variable -Wno-sign-compare $(INCLUDE_FILES) -o $@ $<
+	@$(CPP) $(CPP_FLAGS) -Wno-deprecated-declarations  -Wno-unused-variable -Wno-sign-compare $(INCLUDE_FILES) -o $@ $<
 
 $(AVR_LIB_DIR)$(OBJ_DIR)%.o : $(AVR_LIB_DIR)%.c 
 	@echo "Compiling $@"

@@ -2,23 +2,17 @@
 #include "gmock/gmock.h"
 #include "Robobo.h"
 #include "DCMotor.h"
+#include "ArduinoMock.h"
+#include "FreeRTOSMock.h"
 #include <iostream>
 
 using namespace std;
-
-class ArduinoMock
-{
-    public: 
-        virtual ~ArduinoMock(){}
-        MOCK_METHOD1(digitalRead, uint8_t (uint8_t pin) );
-        MOCK_METHOD2(digitalWrite, void (uint8_t pin, uint8_t val) );
-        MOCK_METHOD2(analogWrite, void (uint8_t pin, int val) );
-};
 
 class RoboboTests : public ::testing::Test, public Robobo
 {
     public:
         static ArduinoMock *arduino;
+        static FreeRTOSMock *rtos;
 
         DCMotor *dcm1;
         DCMotor *dcm2;
@@ -36,6 +30,7 @@ class RoboboTests : public ::testing::Test, public Robobo
         virtual void SetUp()
         { 
             arduino = new::testing::NiceMock<ArduinoMock>();
+            rtos = new::testing::NiceMock<FreeRTOSMock>();
             dcm1->reset();
             dcm2->reset();
         }
@@ -43,6 +38,7 @@ class RoboboTests : public ::testing::Test, public Robobo
         virtual void TearDown()
         { 
             delete arduino; 
+            delete rtos; 
         }
 
 };

@@ -14,7 +14,6 @@ void digitalWrite(uint8_t pin, uint8_t val)
 int digitalRead(uint8_t pin )
 {
     return RoboboTests::arduino->digitalRead(pin);
-    //return 0;
 }
 
 int analogRead(uint8_t)
