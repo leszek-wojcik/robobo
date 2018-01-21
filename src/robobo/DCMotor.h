@@ -53,6 +53,7 @@ class DCMotor : public MotorI, public ActiveObject
         void setPosition(int32_t);
         int32_t getPosition();
         void stop(void);
+        void timerExpiry(void);
 
         /** This method is called on interrupt associated with encoder */
         void encoderInterrupt(void);
