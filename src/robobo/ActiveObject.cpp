@@ -1,7 +1,7 @@
 #include "ActiveObject.h"
 
 void ActiveObject::startTimer
-    (   void *method, 
+    (   void *data, 
         const TickType_t period, 
         const UBaseType_t reload )
 {
@@ -16,5 +16,5 @@ void ActiveObject::startTimer
 void ActiveObjectCallback( TimerHandle_t xTimer )
 {
     ActiveObject *ptr = static_cast<ActiveObject*>(pvTimerGetTimerID(xTimer));
-    //TODO: exec function
+    ptr->timerExpiry();
 }

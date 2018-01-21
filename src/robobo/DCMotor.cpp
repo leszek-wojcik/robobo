@@ -1,6 +1,7 @@
 #include "DCMotor.h"
 #include "EncoderISR.h"
 #include "grey.h"
+using namespace std;
 
 
 DCMotor::DCMotor(   uint8_t encoderAPinV, 
@@ -16,6 +17,11 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
 {
     setPinModes();
     reset();
+}
+
+void DCMotor::timerExpiry(void)
+{
+
 }
 
 void DCMotor::setPinModes(void)
@@ -131,14 +137,7 @@ void DCMotor::stop(void)
 void DCMotor::setPosition(int32_t x)
 {
     requestedPosition = x;
-
-//    TimerHandle_t xTimerCreate
-//                 ( const char * const pcTimerName,
-//                   const TickType_t xTimerPeriod,
-//                   const UBaseType_t uxAutoReload,
-//                   void * const pvTimerID,
-//                   TimerCallbackFunction_t pxCallbackFunction );
-
+    startTimer(NULL,1,1);
 }
 
 int32_t DCMotor::getPosition()

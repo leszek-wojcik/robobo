@@ -12,7 +12,7 @@ Motor class is to represent all data associated with DC Motor.
 Motor class captures two wires from DC motor encoder. Stores previous and
 current value of encoder signal.     
 */
-class DCMotor : public MotorI, public ActiveObject
+class DCMotor : public ActiveObject,  public MotorI
 {
     public:
         /** This function is responsible for seting correct pin modes in

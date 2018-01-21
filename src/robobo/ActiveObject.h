@@ -6,12 +6,17 @@
 
 class ActiveObject
 {
-    void startTimer (
-            void *method, 
-            const TickType_t xTimerPeriod, 
-            const UBaseType_t uxAutoReload );
+    public: 
+        ActiveObject()
+        {
+        }
 
-    virtual void timerExpiry(void);
+        void startTimer (
+                void *data, 
+                const TickType_t xTimerPeriod, 
+                const UBaseType_t uxAutoReload );
+
+        virtual void timerExpiry(void) = 0;
 };
 
 void ActiveObjectCallback( TimerHandle_t xTimer );
