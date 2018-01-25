@@ -63,7 +63,7 @@ int main(int argc,char *argv[])
 }
 ```
 
-Arduino Mega:
+Arduino:
 
 ```c
 void loop()
@@ -87,18 +87,18 @@ void loop()
 }
 ```
 
-
 # Arduino Mega Builtin data type sizes
 
 Below table represents result from program executions on both platforms.
 
-|PC output            |   Arduino output      |
-|---------------------|-----------------------|
-|`sizeof(int):    4`  |  `sizeof(int):    2`  |
-|`sizeof(short):  2`  |  `sizeof(short):  2`  |
-|`sizeof(long):   8`  |  `sizeof(long):   4`  |
-|`sizeof(float):  4`  |  `sizeof(float):  4`  |
-|`sizeof(double): 8`  |  `sizeof(double): 4`  | 
+|PC output            |   Arduino MEGA        |  Arduino Due         |            
+|---------------------|-----------------------|----------------------|          
+|`sizeof(int):    4`  |  `sizeof(int):    2`  |  `sizeof(int):    4` |                              
+|`sizeof(short):  2`  |  `sizeof(short):  2`  |  `sizeof(short):  2` |                              
+|`sizeof(long):   8`  |  `sizeof(long):   4`  |  `sizeof(long):   4` |                              
+|`sizeof(float):  4`  |  `sizeof(float):  4`  |  `sizeof(float):  4` |                              
+|`sizeof(double): 8`  |  `sizeof(double): 4`  |  `sizeof(double): 8` |                               
+
 
 As you can see Arduino types differ from PC. Since Arduino Mega uses 8bit
 controller builtin data types are smaller than on PC.
@@ -162,7 +162,11 @@ step we print out value stored in `val`. Printing out is *interpretation*
 of variable memory. On little-endian this will produce a value of `0x0201`
 while on big-endian we produce a value of `0x0102`. Same operation on two
 different endianness will output two different values. In our case both
-programs results producing same value as both platforms are little endian.
+programs results producing same value `0x0201` (which is equal to 513 in
+decimal notation) as both platforms are little endian. 
+
+Lets put this precisely: ATSAM3X8E, ATmega2560 and Intel x86 are all little
+endian.
 
 There is a few of engineering practices built on endiannes pitfalls. Engineers
 would like to write a code that is portable between machines. In this article I
