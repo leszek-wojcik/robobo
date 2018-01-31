@@ -17,6 +17,7 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
 {
     setPinModes();
     reset();
+    createTimer(NULL,1,1);
 }
 
 void DCMotor::timerExpiry(void)
@@ -137,7 +138,7 @@ void DCMotor::stop(void)
 void DCMotor::setPosition(int32_t x)
 {
     requestedPosition = x;
-    startTimer(NULL,1,1);
+    //startTimer(NULL,1,1);
 }
 
 int32_t DCMotor::getPosition()

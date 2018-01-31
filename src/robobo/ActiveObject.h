@@ -3,15 +3,19 @@
 
 #include "Arduino_FreeRTOS.h"
 #include "timers.h"
+//#include <map>
 
 class ActiveObject
 {
+    private:
+  //      std::map<void *, void*> dataToTimer;
+
     public: 
         ActiveObject()
         {
         }
 
-        void startTimer (
+        void createTimer (
                 void *data, 
                 const TickType_t xTimerPeriod, 
                 const UBaseType_t uxAutoReload );

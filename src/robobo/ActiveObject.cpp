@@ -1,6 +1,6 @@
 #include "ActiveObject.h"
 
-void ActiveObject::startTimer
+void ActiveObject::createTimer
     (   void *data, 
         const TickType_t period, 
         const UBaseType_t reload )

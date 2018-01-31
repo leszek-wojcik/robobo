@@ -1,10 +1,16 @@
 #ifndef FREERTOSMOCK_INCLUDED
 #define FREERTOSMOCK_INCLUDED
 #include "gmock/gmock.h"
+#include <iostream>
+using namespace std;
 
 class FreeRTOSMock
 {
     public: 
+        FreeRTOSMock()
+        {
+        }
+
         virtual ~FreeRTOSMock(){}
         MOCK_METHOD5(xTimerCreate, 
             TimerHandle_t

@@ -13,8 +13,8 @@ FreeRTOSMock * RoboboTests::rtos = NULL;
 
 TEST_F(RoboboTests, Timer)
 {
-    EXPECT_CALL(*rtos, xTimerCreate(_,1,1,dcm1,ActiveObjectCallback));
-    dcm1->setPosition(100);
+    EXPECT_CALL(*rtos, xTimerCreate(_,1,1,_,ActiveObjectCallback));
+    DCMotor dcm3(1,2,3,4,5);
 }
 
 TEST_F(RoboboTests, PID_proportional_1)
