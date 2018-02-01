@@ -1,0 +1,9 @@
+build.ninja
+CMakeCache.txt
+rules.ninja
+CMakeFiles
+CMakeFiles/*
+cmake_install.cmake
+.ninja_deps
+robobo.ut
+.ninja_log
