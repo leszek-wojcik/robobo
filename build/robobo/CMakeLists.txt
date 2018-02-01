@@ -9,12 +9,13 @@ SET(CMAKE_AR /usr/bin/avr-ar)
 SET(CMAKE_C_LINK_EXECUTABLE /usr/bin/avr-gcc)
 SET(LINKER_LANGUAGE "C")
 SET(OBJ_COPY /usr/bin/avr-objcopy)
-SET(MAIN_PROGRAM crobobo)
+SET(MAIN_PROGRAM robobo)
 
 SET(CMAKE_FIND_ROOT_PATH /usr/)
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+SET(CMAKE_SOURCE_DIR /home/leszek/github/robobo/)
 
 
 SET(GENERAL_DEFINES  "-DF_CPU=16000000L -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=105 -D__PROG_TYPES_COMPAT__")
@@ -25,26 +26,29 @@ SET(CMAKE_CXX_FLAGS "${GENERAL_DEFINES} ${GENERAL_FLAGS} ${GENERAL_CPP_FLAGS}")
 SET(CMAKE_C_FLAGS "${GENERAL_DEFINES} ${GENERAL_FLAGS}")
 SET(CMAKE_CXX_ARCHIVE_CREATE "${CMAKE_AR} rcs -o <TARGET> <LINK_FLAGS> <OBJECTS>")
 
+set(UNITTEST_BUILD_DIR "build/ut"     CACHE INTERNAL "")
+set(ROBOBO_BUILD_DIR   "build/robobo" CACHE INTERNAL "")
+
 
 file(GLOB ROBOBO_SRC
-    "src/robobo/*.cpp"
-    "src/robobo/*.c"
-    "src/Arduino/*.c"
-    "src/Arduino/*.cpp"
-    "src/FreeRTOS/*.cpp"
-    "src/FreeRTOS/*.c"
-    "src/avr-libc/*.c"
+   "../../src/robobo/*.cpp"
+   "../../src/robobo/*.c"
+   "../../src/main/*.cpp"
+   "../../src/Arduino/*.c"
+   "../../src/Arduino/*.cpp"
+   "../../src/FreeRTOS/*.cpp"
+   "../../src/FreeRTOS/*.c"
+   "../../src/avr-libc/*.c"
 )
 
 include_directories( 
-    "src/robobo"
-    "src/Arduino"
-    "src/mega"
-    "src/FreeRTOS/"
+    "../../src/robobo"
+    "../../src/Arduino"
+    "../../src/mega"
+    "../../src/FreeRTOS/"
     )
 
 add_library(core ${ROBOBO_SRC})
-
 
 add_custom_command (
         OUTPUT 
