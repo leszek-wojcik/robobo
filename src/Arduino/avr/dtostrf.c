@@ -1,5 +1,7 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
+  dtostrf - Emulation for dtostrf function from avr-libc
+  Copyright (c) 2013 Arduino.  All rights reserved.
+  Written by Cristian Maglie <c.maglie@arduino.cc>
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -8,35 +10,20 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-  See the GNU Lesser General Public License for more details.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef WiringPrivate_h
-#define WiringPrivate_h
-
-#include <stdint.h>
 #include <stdio.h>
-#include <stdarg.h>
 
-#ifdef __cplusplus
-extern "C"{
-#endif
+char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
+  char fmt[20];
+  sprintf(fmt, "%%%d.%df", width, prec);
+  sprintf(sout, fmt, val);
+  return sout;
+}
 
-// Includes Atmel CMSIS
-#include <chip.h>
-
-#include "wiring_constants.h"
-
-#ifdef __cplusplus
-} // extern "C"
-
-#include "HardwareSerial.h"
-
-#endif
-
-#endif

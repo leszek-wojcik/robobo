@@ -130,7 +130,7 @@ $(ROBOBO_UT_OBJ_DIR)%.o : $(ROBOBO_LIB_DIR)%.cpp
 
 core.a : dirs $(ALL_OBJ_FILES)
 	@echo "archiving objects to core.a"
-	@$(AR) rcs core.a $(ALL_OBJ_FILES)
+	$(AR) rcs core.a $(ALL_OBJ_FILES)
 
 build: core.a
 	@echo "Linking"

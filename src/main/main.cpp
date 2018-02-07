@@ -1,32 +1,51 @@
 #include <Arduino.h>
 #include "Robobo.h"
 #include "EncoderISR.h"
-#include "Arduino_FreeRTOS.h"
-#include "task.h"
+//#include "Arduino_FreeRTOS.h"
+//#include "task.h"
 
-int led = 13;
+void initVariant() __attribute__((weak));
+void initVariant() { }
+
 
 int main(void)
 {
+	watchdogSetup();
 	init();
-	Robobo r;
+	initVariant();
+
+	delay(1);
+
+#if defined(USBCON)
+	USBDevice.attach();
+#endif
+
+    pinMode(LED_BUILTIN, OUTPUT);
+
+  	Robobo r;
     r.createSetupV1();
-	Serial.begin(r.serialSpeed);
+//	Serial.begin(r.serialSpeed);
 
     
-    digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
-    delay(200);               // wait for a secon
-    digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
-    delay(50);                 // wait for a second
 
-    r.dc1->setPosition(100);
-    encoder1_ISR();
-    delay(5000);              
-    Serial.println(r.dc1->getPosition());
-    r.dc1->stop();
+//    r.dc1->setPosition(100);
+//    encoder1_ISR();
+//    delay(5000);              
+//    Serial.println(r.dc1->getPosition());
+//    r.dc1->stop();
+//
+//	vTaskStartScheduler(); // initialise and run the freeRTOS scheduler. Execution should never return here.
+//	vApplicationMallocFailedHook(); // Probably we've failed trying to initialise heap for the scheduler. Let someone know.
 
-	vTaskStartScheduler(); // initialise and run the freeRTOS scheduler. Execution should never return here.
-	vApplicationMallocFailedHook(); // Probably we've failed trying to initialise heap for the scheduler. Let someone know.
+    for (;;)
+    {
+        digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+        delay(100);                        // wait for a second
+        digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+        delay(3000);    
+
+		if (serialEventRun) serialEventRun();
+    }
         
 	return 0;
 }

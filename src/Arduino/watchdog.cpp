@@ -16,22 +16,40 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdlib.h>
+#include <chip.h>
 
-extern "C" void __cxa_pure_virtual(void) __attribute__ ((__noreturn__));
-extern "C" void __cxa_deleted_virtual(void) __attribute__ ((__noreturn__));
+#include "watchdog.h"
 
-void __cxa_pure_virtual(void) {
-  // We might want to write some diagnostics to uart in this case
-  //std::terminate();
-  while (1)
-    ;
+
+void watchdogEnable (uint32_t timeout)
+{
+	/* this assumes the slow clock is running at 32.768 kHz
+	   watchdog frequency is therefore 32768 / 128 = 256 Hz */
+	timeout = timeout * 256 / 1000; 
+	if (timeout == 0)
+		timeout = 1;
+	else if (timeout > 0xFFF)
+		timeout = 0xFFF;
+	timeout = WDT_MR_WDRSTEN | WDT_MR_WDV(timeout) | WDT_MR_WDD(timeout);
+	WDT_Enable (WDT, timeout);
 }
 
-void __cxa_deleted_virtual(void) {
-  // We might want to write some diagnostics to uart in this case
-  //std::terminate();
-  while (1)
-    ;
+void watchdogDisable(void)
+{
+	WDT_Disable (WDT);
 }
+
+void watchdogReset(void)
+{
+	WDT_Restart (WDT);
+}
+
+
+extern "C"
+void _watchdogDefaultSetup (void)
+{
+	WDT_Disable (WDT);
+}
+void watchdogSetup (void) __attribute__ ((weak, alias("_watchdogDefaultSetup")));
+
 

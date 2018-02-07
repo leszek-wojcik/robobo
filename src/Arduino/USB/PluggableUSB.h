@@ -21,13 +21,12 @@
 #define PUSB_h
 
 #include "USBAPI.h"
-#include <stdint.h>
 
 #if defined(USBCON)
 
 class PluggableUSBModule {
 public:
-  PluggableUSBModule(uint8_t numEps, uint8_t numIfs, uint8_t *epType) :
+  PluggableUSBModule(uint8_t numEps, uint8_t numIfs, uint32_t *epType) :
     numEndpoints(numEps), numInterfaces(numIfs), endpointType(epType)
   { }
 
@@ -42,7 +41,7 @@ protected:
 
   const uint8_t numEndpoints;
   const uint8_t numInterfaces;
-  const uint8_t *endpointType;
+  const uint32_t *endpointType;
 
   PluggableUSBModule *next = NULL;
 

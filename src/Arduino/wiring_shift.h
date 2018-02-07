@@ -16,27 +16,27 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef HardwareSerial_h
-#define HardwareSerial_h
+#ifndef _WIRING_SHIFT_
+#define _WIRING_SHIFT_
 
-#include <inttypes.h>
-
-#include "Stream.h"
-
-class HardwareSerial : public Stream
-{
-  public:
-    virtual void begin(unsigned long);
-    virtual void end();
-    virtual int available(void) = 0;
-    virtual int peek(void) = 0;
-    virtual int read(void) = 0;
-    virtual void flush(void) = 0;
-    virtual size_t write(uint8_t) = 0;
-    using Print::write; // pull in write(str) and write(buf, size) from Print
-    virtual operator bool() = 0;
-};
-
-extern void serialEventRun(void) __attribute__((weak));
-
+#ifdef __cplusplus
+ extern "C" {
 #endif
+
+/*
+ * \brief
+ */
+extern uint32_t shiftIn( uint32_t ulDataPin, uint32_t ulClockPin, uint32_t ulBitOrder ) ;
+
+
+/*
+ * \brief
+ */
+extern void shiftOut( uint32_t ulDataPin, uint32_t ulClockPin, uint32_t ulBitOrder, uint32_t ulVal ) ;
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _WIRING_SHIFT_ */

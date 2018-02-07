@@ -1,6 +1,5 @@
 /*
-  USBAPI.h
-  Copyright (c) 2005-2014 Arduino.  All right reserved.
+  Copyright (c) 2012 Arduino.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -9,8 +8,8 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
@@ -20,40 +19,14 @@
 #ifndef __USBAPI__
 #define __USBAPI__
 
-#include <inttypes.h>
-#include <avr/pgmspace.h>
-#include <avr/eeprom.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
+#if defined __cplusplus
 
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned long u32;
-
-#include "Arduino.h"
-
-// This definitions is usefull if you want to reduce the EP_SIZE to 16
-// at the moment only 64 and 16 as EP_SIZE for all EPs are supported except the control endpoint
-#ifndef USB_EP_SIZE
-#define USB_EP_SIZE 64
-#endif
-
-#if defined(USBCON)
-
-#include "USBDesc.h"
-#include "USBCore.h"
+#include "RingBuffer.h"
+#include "Stream.h"
 
 //================================================================================
 //================================================================================
 //	USB
-
-#define EP_TYPE_CONTROL				(0x00)
-#define EP_TYPE_BULK_IN				((1<<EPTYPE1) | (1<<EPDIR))
-#define EP_TYPE_BULK_OUT			(1<<EPTYPE1)
-#define EP_TYPE_INTERRUPT_IN		((1<<EPTYPE1) | (1<<EPTYPE0) | (1<<EPDIR))
-#define EP_TYPE_INTERRUPT_OUT		((1<<EPTYPE1) | (1<<EPTYPE0))
-#define EP_TYPE_ISOCHRONOUS_IN		((1<<EPTYPE0) | (1<<EPDIR))
-#define EP_TYPE_ISOCHRONOUS_OUT		(1<<EPTYPE0)
 
 class USBDevice_
 {
@@ -61,10 +34,9 @@ public:
 	USBDevice_();
 	bool configured();
 
-	void attach();
-	void detach();	// Serial port goes down too...
+	bool attach();
+	bool detach();	// Serial port goes down too...
 	void poll();
-	bool wakeupHost(); // returns false, when wakeup cannot be processed
 };
 extern USBDevice_ USBDevice;
 
@@ -72,42 +44,25 @@ extern USBDevice_ USBDevice;
 //================================================================================
 //	Serial over CDC (Serial1 is the physical port)
 
-struct ring_buffer;
-
-#ifndef SERIAL_BUFFER_SIZE
-#if ((RAMEND - RAMSTART) < 1023)
-#define SERIAL_BUFFER_SIZE 16
-#else
-#define SERIAL_BUFFER_SIZE 64
-#endif
-#endif
-#if (SERIAL_BUFFER_SIZE>256)
-#error Please lower the CDC Buffer size
-#endif
-
 class Serial_ : public Stream
 {
 private:
-	int peek_buffer;
+	RingBuffer *_cdc_rx_buffer;
 public:
-	Serial_() { peek_buffer = -1; };
-	void begin(unsigned long);
-	void begin(unsigned long, uint8_t);
+	void begin(uint32_t baud_count);
+	void begin(uint32_t baud_count, uint8_t config);
 	void end(void);
 
 	virtual int available(void);
+	virtual int availableForWrite(void);
+	virtual void accept(void);
 	virtual int peek(void);
 	virtual int read(void);
-	virtual int availableForWrite(void);
 	virtual void flush(void);
 	virtual size_t write(uint8_t);
-	virtual size_t write(const uint8_t*, size_t);
-	using Print::write; // pull in write(str) and write(buf, size) from Print
+	virtual size_t write(const uint8_t *buffer, size_t size);
+	using Print::write; // pull in write(str) from Print
 	operator bool();
-
-	volatile uint8_t _rx_buffer_head;
-	volatile uint8_t _rx_buffer_tail;
-	unsigned char _rx_buffer[SERIAL_BUFFER_SIZE];
 
 	// This method allows processing "SEND_BREAK" requests sent by
 	// the USB host. Those requests indicate that the host wants to
@@ -147,15 +102,12 @@ public:
 		MARK_PARITY = 3,
 		SPACE_PARITY = 4,
 	};
-
 };
-extern Serial_ Serial;
-
-#define HAVE_CDCSERIAL
+extern Serial_ SerialUSB;
 
 //================================================================================
 //================================================================================
-//  Low level API
+//	Low level API
 
 typedef struct
 {
@@ -181,27 +133,30 @@ bool	MSC_Data(uint8_t rx,uint8_t tx);
 //	CSC 'Driver'
 
 int		CDC_GetInterface(uint8_t* interfaceNum);
+int		CDC_GetOtherInterface(uint8_t* interfaceNum);
 int		CDC_GetDescriptor(int i);
 bool	CDC_Setup(USBSetup& setup);
 
 //================================================================================
 //================================================================================
 
-#define TRANSFER_PGM		0x80
 #define TRANSFER_RELEASE	0x40
 #define TRANSFER_ZERO		0x20
 
-int USB_SendControl(uint8_t flags, const void* d, int len);
-int USB_RecvControl(void* d, int len);
-int USB_RecvControlLong(void* d, int len);
+void USBD_InitControl(int end);
+int USBD_SendControl(uint8_t flags, const void* d, uint32_t len);
+int USBD_RecvControl(void* d, uint32_t len);
+uint8_t USBD_SendInterfaces(void);
+bool USBD_ClassInterfaceRequest(USBSetup& setup);
 
-uint8_t	USB_Available(uint8_t ep);
-uint8_t USB_SendSpace(uint8_t ep);
-int USB_Send(uint8_t ep, const void* data, int len);	// blocking
-int USB_Recv(uint8_t ep, void* data, int len);		// non-blocking
-int USB_Recv(uint8_t ep);							// non-blocking
-void USB_Flush(uint8_t ep);
+
+uint32_t USBD_Available(uint32_t ep);
+uint32_t USBD_SendSpace(uint32_t ep);
+uint32_t USBD_Send(uint32_t ep, const void* d, uint32_t len);
+uint32_t USBD_Recv(uint32_t ep, void* data, uint32_t len);		// non-blocking
+uint32_t USBD_Recv(uint32_t ep);							// non-blocking
+void USBD_Flush(uint32_t ep);
+uint32_t USBD_Connected(void);
 
 #endif
-
-#endif /* if defined(USBCON) */
+#endif

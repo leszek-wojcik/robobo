@@ -17,7 +17,7 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
 {
     setPinModes();
     reset();
-    createTimer(NULL,1,1);
+//    createTimer(NULL,1,1);
 }
 
 void DCMotor::timerExpiry(void)

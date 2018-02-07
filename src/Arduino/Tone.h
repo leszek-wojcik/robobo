@@ -16,27 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef HardwareSerial_h
-#define HardwareSerial_h
+#ifndef _WIRING_TONE_
+#define _WIRING_TONE_
 
-#include <inttypes.h>
 
-#include "Stream.h"
-
-class HardwareSerial : public Stream
-{
-  public:
-    virtual void begin(unsigned long);
-    virtual void end();
-    virtual int available(void) = 0;
-    virtual int peek(void) = 0;
-    virtual int read(void) = 0;
-    virtual void flush(void) = 0;
-    virtual size_t write(uint8_t) = 0;
-    using Print::write; // pull in write(str) and write(buf, size) from Print
-    virtual operator bool() = 0;
-};
-
-extern void serialEventRun(void) __attribute__((weak));
-
-#endif
+#endif /* _WIRING_TONE_ */

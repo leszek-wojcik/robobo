@@ -16,27 +16,25 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef HardwareSerial_h
-#define HardwareSerial_h
+#ifndef _WIRING_PULSE_
+#define _WIRING_PULSE_
 
-#include <inttypes.h>
-
-#include "Stream.h"
-
-class HardwareSerial : public Stream
-{
-  public:
-    virtual void begin(unsigned long);
-    virtual void end();
-    virtual int available(void) = 0;
-    virtual int peek(void) = 0;
-    virtual int read(void) = 0;
-    virtual void flush(void) = 0;
-    virtual size_t write(uint8_t) = 0;
-    using Print::write; // pull in write(str) and write(buf, size) from Print
-    virtual operator bool() = 0;
-};
-
-extern void serialEventRun(void) __attribute__((weak));
-
+#ifdef __cplusplus
+ extern "C" {
 #endif
+
+unsigned long countPulseASM(const volatile uint32_t *port, uint32_t bit, uint32_t stateMask, unsigned long maxloops);
+/*
+ * \brief Measures the length (in microseconds) of a pulse on the pin; state is HIGH
+ * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
+ * to 3 minutes in length, but must be called at least a few dozen microseconds
+ * before the start of the pulse.
+ */
+extern uint32_t pulseIn( uint32_t ulPin, uint32_t ulState, uint32_t ulTimeout = 1000000L ) ;
+extern uint32_t pulseInLong( uint8_t pin, uint8_t state, unsigned long timeout = 1000000L ) ;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _WIRING_PULSE_ */

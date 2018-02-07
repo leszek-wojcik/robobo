@@ -16,22 +16,37 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdlib.h>
+#ifndef _WATCHDOG_
+#define _WATCHDOG_
 
-extern "C" void __cxa_pure_virtual(void) __attribute__ ((__noreturn__));
-extern "C" void __cxa_deleted_virtual(void) __attribute__ ((__noreturn__));
+#include <stdint.h>
 
-void __cxa_pure_virtual(void) {
-  // We might want to write some diagnostics to uart in this case
-  //std::terminate();
-  while (1)
-    ;
-}
+// Watchdog functions
 
-void __cxa_deleted_virtual(void) {
-  // We might want to write some diagnostics to uart in this case
-  //std::terminate();
-  while (1)
-    ;
-}
+/*
+ * \brief Enable the watchdog with the specified timeout. Should only be called once.
+ *
+ * \param timeount in milliseconds.
+ */
+void watchdogEnable (uint32_t timeout);
+
+/*
+ * \brief Disable the watchdog timer. Should only be called once.
+ *
+ */
+void watchdogDisable (void);
+
+/*
+ * \brief Reset the watchdog counter.
+ *
+ */
+void watchdogReset (void);
+
+/*
+ * \brief Watchdog initialize hook. This function is called from init(). If the user does not provide
+ * this function, then the default action is to disable watchdog.
+ */
+void watchdogSetup (void);
+
+#endif /* _WATCHDOG_ */
 

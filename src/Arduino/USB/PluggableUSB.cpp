@@ -18,12 +18,14 @@
 */
 
 #include "USBAPI.h"
+#include "USBDesc.h"
+#include "USBCore.h"
 #include "PluggableUSB.h"
 
-#if defined(USBCON)	
+#if defined(USBCON)
 #ifdef PLUGGABLE_USB_ENABLED
 
-extern uint8_t _initEndpoints[];
+extern uint32_t EndPoints[];
 
 int PluggableUSB_::getInterface(uint8_t* interfaceCount)
 {
@@ -90,7 +92,7 @@ bool PluggableUSB_::plug(PluggableUSBModule *node)
 	node->pluggedEndpoint = lastEp;
 	lastIf += node->numInterfaces;
 	for (uint8_t i = 0; i < node->numEndpoints; i++) {
-		_initEndpoints[lastEp] = node->endpointType[i];
+		EndPoints[lastEp] = node->endpointType[i];
 		lastEp++;
 	}
 	return true;
@@ -111,5 +113,4 @@ PluggableUSB_::PluggableUSB_() : lastIf(CDC_ACM_INTERFACE + CDC_INTERFACE_COUNT)
 }
 
 #endif
-
-#endif /* if defined(USBCON) */
+#endif

@@ -16,27 +16,28 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef HardwareSerial_h
-#define HardwareSerial_h
+#ifndef _ITOA_
+#define _ITOA_
 
-#include <inttypes.h>
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
 
-#include "Stream.h"
+#if 0
 
-class HardwareSerial : public Stream
-{
-  public:
-    virtual void begin(unsigned long);
-    virtual void end();
-    virtual int available(void) = 0;
-    virtual int peek(void) = 0;
-    virtual int read(void) = 0;
-    virtual void flush(void) = 0;
-    virtual size_t write(uint8_t) = 0;
-    using Print::write; // pull in write(str) and write(buf, size) from Print
-    virtual operator bool() = 0;
-};
+extern void itoa( int n, char s[] ) ;
 
-extern void serialEventRun(void) __attribute__((weak));
+#else
 
-#endif
+extern char* itoa( int value, char *string, int radix ) ;
+extern char* ltoa( long value, char *string, int radix ) ;
+extern char* utoa( unsigned int value, char *string, int radix ) ;
+extern char* ultoa( unsigned long value, char *string, int radix ) ;
+#endif /* 0 */
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
+
+#endif // _ITOA_
+
