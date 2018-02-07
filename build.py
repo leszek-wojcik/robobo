@@ -30,6 +30,7 @@ from ronin.projects import Project
 from ronin.utils.paths import glob
 from ronin.ninja import configure_ninja
 from ronin.ninja import NinjaFile
+from ronin.extensions import ExplicitExtension
 
 with new_context(output_path_relative='build') as ctx:
 
@@ -39,18 +40,22 @@ with new_context(output_path_relative='build') as ctx:
                     columns=100,
                     strict=False)
 
-    utproject = Project(name='off target unit tests',variant='ut')
+    utproject = Project(name='Off-target unit tests',variant='ut')
     
+    unittestextensions = [Package('gmock_main')]
+    unittestextensions += [ExplicitExtension(libraries=['pthread'])]
     unittestcompile = GccCompile(command='/usr/bin/g++')
-    unittestcompile.define("DUPA",value=1)
-    unittestcompile.add_include_path('src/')
+    unittestcompile.add_include_path('src/robobo/ut/')
+    unittestcompile.add_include_path('src/robobo/')
+    unittestcompile.add_include_path('src/FreeRTOS/')
     unittestlink = GccLink(command='/usr/bin/g++')
-    unittestsources = glob('ut/*.cpp')
-    unittestsources += (glob('src/simple.cpp'))
+    unittestsources = glob('src/robobo/ut/*.cpp')
+    unittestsources += glob('src/robobo/*.cpp')
 
     Phase(  project=utproject,
             name='utcompile',
             executor=unittestcompile,
+            extensions=unittestextensions,
             inputs=unittestsources 
             )
 
@@ -58,34 +63,34 @@ with new_context(output_path_relative='build') as ctx:
             name='utlink',
             executor=unittestlink,
             inputs_from=['utcompile'],
-            extensions=[],
+            extensions=unittestextensions,
             output='unittests',
             run_output=1 if ctx.build.run else 0)
 
-    ardproject = Project('target build')
-    
-    ardcompile = GccCompile(command='/usr/bin/clang++')
-    ardcompile.define("DUPA",value=1)
-    ardlink = GccLink(command='/usr/bin/clang++')
-    ardsources = glob('src/*.cpp')
-
-    Phase(  project=ardproject,
-            name='ardcompile',
-            executor=ardcompile,
-            inputs=ardsources)
-
-    Phase(  project=ardproject,
-            name='ardlink',
-            executor=ardlink,
-            inputs_from=['ardcompile'],
-            extensions=[],
-            output='ard',
-            run_output=1 if ctx.build.run else 0)
-
-#    cli(utproject,ardproject)
-    n = NinjaFile(utproject,file_name='utproject')
-    n.generate()
-
-    n = NinjaFile(ardproject,file_name='ardproject')
-    n.generate()
+#    ardproject = Project('target build')
+#    
+#    ardcompile = GccCompile(command='/usr/bin/clang++')
+#    ardcompile.define("DUPA",value=1)
+#    ardlink = GccLink(command='/usr/bin/clang++')
+#    ardsources = glob('src/*.cpp')
+#
+#    Phase(  project=ardproject,
+#            name='ardcompile',
+#            executor=ardcompile,
+#            inputs=ardsources)
+#
+#    Phase(  project=ardproject,
+#            name='ardlink',
+#            executor=ardlink,
+#            inputs_from=['ardcompile'],
+#            extensions=[],
+#            output='ard',
+#            run_output=1 if ctx.build.run else 0)
+#
+    cli(utproject)
+#    n = NinjaFile(utproject,file_name='utproject')
+#    n.generate()
+#
+#    n = NinjaFile(ardproject,file_name='ardproject')
+#    n.generate()
 
