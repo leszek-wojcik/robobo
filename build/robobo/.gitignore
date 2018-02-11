@@ -1,9 +1,0 @@
-build.ninja
-libcore.a
-CMakeCache.txt
-rules.ninja
-CMakeFiles
-CMakeFiles/*
-cmake_install.cmake
-.ninja_deps
-.ninja_log

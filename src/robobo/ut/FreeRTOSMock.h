@@ -2,6 +2,8 @@
 #define FREERTOSMOCK_INCLUDED
 #include "gmock/gmock.h"
 #include <iostream>
+#include "Arduino_FreeRTOS.h"
+#include "timers.h"
 using namespace std;
 
 class FreeRTOSMock
