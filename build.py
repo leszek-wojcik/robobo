@@ -16,6 +16,7 @@ from ronin.ninja import NinjaFile
 from ronin.extensions import ExplicitExtension
 from ronin.executors import ExecutorWithArguments
 
+
 class SAMLoaderExecutor(ExecutorWithArguments):
     
     def __init__(self, command=None, port="" ):
@@ -25,7 +26,7 @@ class SAMLoaderExecutor(ExecutorWithArguments):
         self.add_argument_unfiltered('-i')
         self.add_argument_unfiltered('-d')
         self.add_argument_unfiltered('--port='+port)
-        self.add_argument_unfiltered('-U false')
+        self.add_argument_unfiltered('-U true')
         self.add_argument_unfiltered('-e')
         self.add_argument_unfiltered('-w')
         self.add_argument_unfiltered('-v')
@@ -209,7 +210,7 @@ with new_context(output_path_relative='build') as ctx:
     ardASMCompile.add_argument("-mthumb")
     ardASMCompile.add_argument("-g")
     ardASMCompile.add_argument("-w")
-    ardASMCompile.add_argument("-x assembler-with-cpp")
+#    ardASMCompile.add_argument("-x assembler-with-cpp")
     ardASMCompile.add_argument("-MMD")
     ardASMCompile.add_argument("-mcpu=cortex-m3")
 
@@ -218,9 +219,9 @@ with new_context(output_path_relative='build') as ctx:
     aCXXSources          = glob("src/robobo/*.cpp")
     aCXXSources         += glob("src/Arduino/*.cpp")
     aCXXSources         += glob("src/Arduino/USB/*.cpp")
-    aVariantCXXSources   = glob("src/arduino_due_x/variant.cpp")
+    aCXXSources         += glob("src/arduino_due_x/variant.cpp")
+    aCXXSources         += glob("src/main/main.cpp")
     aASMSources          = glob("src/Arduino/*.S")
-    aMainSources         = glob("src/main/main.cpp")
 
     Phase(  project=ard,
             name='C Sources Compile',
@@ -233,19 +234,9 @@ with new_context(output_path_relative='build') as ctx:
             inputs=aCXXSources)
 
     Phase(  project=ard,
-            name='Variant CXX Sources Compile',
-            executor=ardCXXCompile,
-            inputs=aVariantCXXSources)
-
-    Phase(  project=ard,
             name='ASM Sources Compile',
             executor=ardASMCompile,
             inputs=aASMSources)
-
-    Phase(  project=ard,
-            name='Main function Compile',
-            executor=ardCXXCompile,
-            inputs=aMainSources)
 
     Phase(  project=ard,
             name='Core Link',
@@ -253,15 +244,11 @@ with new_context(output_path_relative='build') as ctx:
             inputs_from=['C Sources Compile','CXX Sources Compile','ASM Sources Compile'],
             output='core.a')
 
-
     Phase(  project=ard,
             name='Final Link',
             executor=ardLink,
-            inputs_from=[   'Main function Compile',
-                            'Variant CXX Sources Compile',
-                            'Core Link'],
+            inputs_from=['Core Link'],
             output='robobo.elf')
-
 
     Phase(  project=ard,
             name='Binary object creation',
@@ -272,7 +259,12 @@ with new_context(output_path_relative='build') as ctx:
     Phase(  project=ard,
             name='Upload',
             executor=ardLoader,
-            inputs_from=['Binary object creation'])
+            inputs_from=['Binary object creation'],
+            output='robobo.upl')
 
-    cli(ard)
+    if ctx.build.run:
+        cli(utproject)
+
+    if ctx.build.install:
+        cli(ard)
 

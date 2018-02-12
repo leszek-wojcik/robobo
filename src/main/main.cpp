@@ -24,29 +24,28 @@ int main(void)
 
   	Robobo r;
     r.createSetupV1();
-//	Serial.begin(r.serialSpeed);
+	Serial.begin(r.serialSpeed);
 
-    
 
-//    r.dc1->setPosition(100);
-//    encoder1_ISR();
-//    delay(5000);              
-//    Serial.println(r.dc1->getPosition());
-//    r.dc1->stop();
+    r.dc1->setPosition(100);
+    encoder1_ISR();
 //
 //	vTaskStartScheduler(); // initialise and run the freeRTOS scheduler. Execution should never return here.
 //	vApplicationMallocFailedHook(); // Probably we've failed trying to initialise heap for the scheduler. Let someone know.
 
-    for (;;)
+    for (int i=0;i<15000;i=i+4000)
     {
+
+        Serial.println(r.dc1->getPosition());
         digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-        delay(3000);                        // wait for a second
+        delay(100);                        // wait for a second
         digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-        delay(100);    
+        delay(400);    
 
 		if (serialEventRun) serialEventRun();
     }
         
+    r.dc1->stop();
 	return 0;
 }
 
