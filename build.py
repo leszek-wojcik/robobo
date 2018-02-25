@@ -17,23 +17,6 @@ from ronin.extensions import ExplicitExtension
 from ronin.executors import ExecutorWithArguments
 
 
-class SAMLoaderExecutor(ExecutorWithArguments):
-    
-    def __init__(self, command=None, port="" ):
-        
-        super(SAMLoaderExecutor, self).__init__()
-        self.command = command
-        self.add_argument_unfiltered('-i')
-        self.add_argument_unfiltered('-d')
-        self.add_argument_unfiltered('--port='+port)
-        self.add_argument_unfiltered('-U true')
-        self.add_argument_unfiltered('-e')
-        self.add_argument_unfiltered('-w')
-        self.add_argument_unfiltered('-v')
-        self.add_argument_unfiltered('-b')
-        self.add_argument_unfiltered('$in')
-        self.add_argument_unfiltered('-R')
-
 class ARExecutor(ExecutorWithArguments):
     
     def __init__(self, command=None ):
@@ -135,7 +118,6 @@ with new_context(output_path_relative='build') as ctx:
     ardAR         = ARExecutor(command='/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-ar')
     ardLink       = SAMLinkExecutor(command='/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-gcc')
     ardBinary     = BinExecutor(command= '/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-objcopy')
-    ardLoader     = SAMLoaderExecutor(command= '/home/leszek/.arduino15/packages/arduino/tools/bossac/1.6.1-arduino/bossac',port="ttyACM0")
 
     ardCCompile.define("F_CPU","84000000L")
     ardCCompile.define("ARDUINO","10805")
@@ -165,6 +147,7 @@ with new_context(output_path_relative='build') as ctx:
     ardCCompile.add_include_path("src/CMSIS/Device/ATMEL")
     ardCCompile.add_include_path("src/CMSIS/CMSIS/Include")
     ardCCompile.add_include_path("src/arduino_due_x")
+    ardCCompile.add_include_path("src/FreeRTOS")
 
     ardCXXCompile.define("F_CPU","84000000L")
     ardCXXCompile.define("ARDUINO","10805")
@@ -196,6 +179,7 @@ with new_context(output_path_relative='build') as ctx:
     ardCXXCompile.add_include_path("src/CMSIS/Device/ATMEL")
     ardCXXCompile.add_include_path("src/CMSIS/CMSIS/Include")
     ardCXXCompile.add_include_path("src/arduino_due_x")
+    ardCXXCompile.add_include_path("src/FreeRTOS")
 
     ardASMCompile.define("F_CPU","84000000L")
     ardASMCompile.define("ARDUINO","10805")
@@ -216,6 +200,7 @@ with new_context(output_path_relative='build') as ctx:
 
     aCSources            = glob("src/Arduino/*.c")
     aCSources           += glob("src/Arduino/avr/*.c")
+    aCSources           += glob("src/FreeRTOS/*.c")
     aCXXSources          = glob("src/robobo/*.cpp")
     aCXXSources         += glob("src/Arduino/*.cpp")
     aCXXSources         += glob("src/Arduino/USB/*.cpp")
@@ -256,15 +241,5 @@ with new_context(output_path_relative='build') as ctx:
             inputs_from=['Final Link'],
             output='robobo.bin')
 
-    Phase(  project=ard,
-            name='Upload',
-            executor=ardLoader,
-            inputs_from=['Binary object creation'],
-            output='robobo.upl')
-
-    if ctx.build.run:
-        cli(utproject)
-
-    if ctx.build.install:
-        cli(ard)
+    cli(ard,utproject)
 
