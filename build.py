@@ -112,12 +112,12 @@ with new_context(output_path_relative='build') as ctx:
 
     ard = Project(name='target build', variant="arm")
     
-    ardCCompile   = GccCompile(command='/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-gcc')
-    ardCXXCompile = GccCompile(command='/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-g++')
-    ardASMCompile = GccCompile(command='/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-gcc')
-    ardAR         = ARExecutor(command='/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-ar')
-    ardLink       = SAMLinkExecutor(command='/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-gcc')
-    ardBinary     = BinExecutor(command= '/home/leszek/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/arm-none-eabi-objcopy')
+    ardCCompile   = GccCompile(command='arm-none-eabi-gcc')
+    ardCXXCompile = GccCompile(command='arm-none-eabi-g++')
+    ardASMCompile = GccCompile(command='arm-none-eabi-gcc')
+    ardAR         = ARExecutor(command='arm-none-eabi-ar')
+    ardLink       = SAMLinkExecutor(command='arm-none-eabi-gcc')
+    ardBinary     = BinExecutor(command= 'arm-none-eabi-objcopy')
 
     ardCCompile.define("F_CPU","84000000L")
     ardCCompile.define("ARDUINO","10805")

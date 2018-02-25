@@ -64,6 +64,8 @@ int main(void)
 
   Serial.begin(9600);
   
+  Serial.println("start");
+
   // initialize semaphore
   sem = xSemaphoreCreateCounting(1, 0);
 
@@ -90,22 +92,22 @@ int main(void)
 //    r.dc1->setPosition(100);
 //    encoder1_ISR();
 
-    for (int i=0;i<10;i=i++)
-    {
+//    for (int i=0;i<10;i=i++)
+//    {
 
 //        Serial.println(r.dc1->getPosition());
-        digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-        delay(50);                        // wait for a second
-        digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-        delay(50);    
+//        digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+//        delay(50);                        // wait for a second
+//        digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+//        delay(50);    
 
-    }
+//    }
         
 //    r.dc1->stop();
-	vTaskStartScheduler(); 
+//	vTaskStartScheduler(); 
 
-    delay(500);    
+//    delay(500);    
 
-	return 0;
+//	return 0;
 }
 
