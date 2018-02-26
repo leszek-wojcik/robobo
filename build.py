@@ -15,6 +15,7 @@ from ronin.ninja import configure_ninja
 from ronin.ninja import NinjaFile
 from ronin.extensions import ExplicitExtension
 from ronin.executors import ExecutorWithArguments
+import sys
 
 
 class ARExecutor(ExecutorWithArguments):
@@ -241,5 +242,8 @@ with new_context(output_path_relative='build') as ctx:
             inputs_from=['Final Link'],
             output='robobo.bin')
 
-    cli(ard,utproject)
+    if (ctx.build.test):
+        cli(utproject)
+    else:
+        cli(ard)
 
