@@ -1,8 +1,11 @@
 #include <Arduino.h>
 #include "Robobo.h"
 #include "EncoderISR.h"
-#include <FreeRTOS_ARM.h>
 #include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "portmacro.h"
 #include "task.h"
 
 void initVariant() __attribute__((weak));

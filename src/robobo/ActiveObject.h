@@ -1,7 +1,8 @@
 #ifndef ACTIVEOBJECT_INCLUDED
 #define ACTIVEOBJECT_INCLUDED
 
-#include "Arduino_FreeRTOS.h"
+//#include "Arduino_FreeRTOS.h"
+#include <FreeRTOS.h>
 #include "timers.h"
 #include <map>
 
