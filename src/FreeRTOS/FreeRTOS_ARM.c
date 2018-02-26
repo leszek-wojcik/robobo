@@ -1,40 +1,43 @@
-/**
- * \file
- * \brief FreeRTOS for Due and Teensy 3.0
- */
-#include <FreeRTOS_ARM.h>
 #include <Arduino.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "portmacro.h"
+#include "task.h"
+
+
 //------------------------------------------------------------------------------
-/** calibration factor for delayMS */
 #define CAL_FACTOR (F_CPU/7000)
-/** delay between led error flashes
- * \param[in] millis milliseconds to delay
- */
-static void delayMS(uint32_t millis) {
-  uint32_t iterations = millis * CAL_FACTOR;
-  uint32_t i;
-  for(i = 0; i < iterations; ++i) {
-    asm volatile("nop\n\t");
-  }
+
+static void delayMS(uint32_t millis) 
+{
+    uint32_t iterations = millis * CAL_FACTOR;
+    uint32_t i;
+    for(i = 0; i < iterations; ++i) 
+    {
+        asm volatile("nop\n\t");
+    }
 }
 //------------------------------------------------------------------------------
 /** Blink error pattern
  *
  * \param[in] n  number of short pulses
  */
-static void errorBlink(int n) {
-	noInterrupts();
-  pinMode(13, OUTPUT);
-  for (;;) {
-    int i;
-    for (i = 0; i < n; i++) {
-      digitalWrite(13, 1);
-      delayMS(300);
-      digitalWrite(13, 0);
-      delayMS(300);
+static void errorBlink(int n) 
+{
+    noInterrupts();
+    pinMode(13, OUTPUT);
+    for (;;) {
+        int i;
+        for (i = 0; i < n; i++) {
+            digitalWrite(13, 1);
+            delayMS(300);
+            digitalWrite(13, 0);
+            delayMS(300);
+        }
+        delayMS(2000);
     }
-    delayMS(2000);
-  }
 }
 //------------------------------------------------------------------------------
 /** assertBlink

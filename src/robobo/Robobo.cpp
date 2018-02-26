@@ -7,7 +7,7 @@
 Robobo::Robobo()
 {
     //Serial
-    serialSpeed=115200;
+    serialSpeed=9600;
     instance = this;
 
 }

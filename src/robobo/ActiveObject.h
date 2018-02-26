@@ -9,14 +9,12 @@
 class ActiveObject
 {
     private:
-        std::map<void *, void*> dataToTimer;
+        std::map<ActiveObject *, void*> timerToData;
 
     public: 
-        ActiveObject()
-        {
-        }
+        ActiveObject();
 
-        void createTimer (
+        TimerHandle_t createTimer (
                 void *data, 
                 const TickType_t xTimerPeriod, 
                 const UBaseType_t uxAutoReload );

@@ -51,22 +51,20 @@ static void Thread2(void* arg) {
 
 int main(void)
 {
-//	watchdogSetup();
+	watchdogSetup();
 	init();
 //	initVariant();
 
-//	delay(1);
+	delay(1);
 
-//#if defined(USBCON)
-//	USBDevice.attach();
-//#endif
+#if defined(USBCON)
+	USBDevice.attach();
+#endif
 
-    pinMode(LED_BUILTIN, OUTPUT);
-
+  pinMode(LED_BUILTIN, OUTPUT);
   portBASE_TYPE s1, s2;
 
   Serial.begin(9600);
-  
   Serial.println("start");
 
   // initialize semaphore
@@ -78,18 +76,15 @@ int main(void)
   // create task at priority one
   s2 = xTaskCreate(Thread2, NULL, configMINIMAL_STACK_SIZE, NULL, 1, NULL);
 
-  // check for creation errors
   if (sem== NULL || s1 != pdPASS || s2 != pdPASS ) {
     Serial.println(F("Creation problem"));
     while(1);
   }
-  // start scheduler
-  vTaskStartScheduler();
-  Serial.println("Insufficient RAM");
-  while(1);
-//  	Robobo r;
-//    r.createSetupV1();
-//	Serial.begin(r.serialSpeed);
+
+
+  	Robobo r;
+    r.createSetupV1();
+	//Serial.begin(r.serialSpeed);
 
 
 //    r.dc1->setPosition(100);
@@ -107,10 +102,10 @@ int main(void)
 //    }
         
 //    r.dc1->stop();
-//	vTaskStartScheduler(); 
 
-//    delay(500);    
+  vTaskStartScheduler();
+  Serial.println("Insufficient RAM");
+  while(1);
 
-//	return 0;
 }
 

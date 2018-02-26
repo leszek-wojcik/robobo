@@ -17,12 +17,15 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
 {
     setPinModes();
     reset();
-//    createTimer(NULL,1,1);
+
+    triggerTimer = createTimer(NULL,1000,1);
+    xTimerStart(triggerTimer,0);
 }
 
 void DCMotor::timerExpiry(void)
 {
-
+    Serial.print((int)this);
+    Serial.println(" - inside timer expiry");
 }
 
 void DCMotor::setPinModes(void)

@@ -64,6 +64,8 @@ class DCMotor : public ActiveObject,  public MotorI
         void setDirectionLeft(void);
         void setVoltage(uint8_t val);
 
+        TimerHandle_t triggerTimer;
+
     friend int main(void);
 
 };
