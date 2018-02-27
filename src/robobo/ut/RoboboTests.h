@@ -13,6 +13,7 @@ class RoboboTests : public ::testing::Test, public Robobo
     public:
         static ArduinoMock *arduino;
         static FreeRTOSMock *rtos;
+        static ArduinoSerialMock Serial;
 
         DCMotor *dcm1;
         DCMotor *dcm2;

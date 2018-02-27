@@ -22,6 +22,14 @@ class FreeRTOSMock
                 void * const , TimerCallbackFunction_t) );
 
         MOCK_METHOD1(pvTimerGetTimerID, void *(const TimerHandle_t xTimer));
+
+        MOCK_METHOD5(xTimerGenericCommand, BaseType_t (TimerHandle_t , 
+                                const BaseType_t , 
+                                const TickType_t , 
+                                BaseType_t * const , 
+                                const TickType_t ) );
+
+        MOCK_METHOD0 (xTaskGetTickCount, TickType_t ());
 };
 
 #endif

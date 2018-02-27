@@ -10,12 +10,13 @@ using namespace std;
 
 ArduinoMock * RoboboTests::arduino = NULL;
 FreeRTOSMock * RoboboTests::rtos = NULL;
+ArduinoSerialMock Serial;
 
-//TEST_F(RoboboTests, Timer)
-//{
-//    EXPECT_CALL(*rtos, xTimerCreate(_,1,1,_,ActiveObjectCallback));
-//    DCMotor dcm3(1,2,3,4,5);
-//}
+TEST_F(RoboboTests, Timer)
+{
+    EXPECT_CALL(*rtos, xTimerCreate(_,1,1,_,ActiveObjectCallback));
+    DCMotor dcm3(1,2,3,4,5);
+}
 
 TEST_F(RoboboTests, PID_proportional_1)
 {

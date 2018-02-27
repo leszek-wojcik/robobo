@@ -4,8 +4,8 @@
 
 ActiveObject::ActiveObject()
 {
-    Serial.println("Task creation");
-    Serial.println((int)this);
+//    Serial.println("Task creation");
+//    Serial.println((long)this);
 }
 
 TimerHandle_t ActiveObject::createTimer

@@ -30,6 +30,9 @@
 #include <stdint.h>
 
 #include "binary.h"
+#include "ArduinoMock.h"
+extern ArduinoSerialMock Serial;
+
 
 #ifdef __cplusplus
 extern "C"{

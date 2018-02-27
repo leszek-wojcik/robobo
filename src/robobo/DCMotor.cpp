@@ -24,8 +24,8 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
 
 void DCMotor::timerExpiry(void)
 {
-    Serial.print((int)this);
-    Serial.println(" - inside timer expiry");
+//    Serial.print((long)this);
+//    Serial.println(" - inside timer expiry");
 }
 
 void DCMotor::setPinModes(void)
