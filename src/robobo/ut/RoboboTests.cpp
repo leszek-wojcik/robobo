@@ -14,7 +14,7 @@ ArduinoSerialMock Serial;
 
 TEST_F(RoboboTests, Timer)
 {
-    EXPECT_CALL(*rtos, xTimerCreate(_,1,1,_,ActiveObjectCallback));
+    EXPECT_CALL(*rtos, xTimerCreate(_,_,_,_,_));
     DCMotor dcm3(1,2,3,4,5);
 }
 
