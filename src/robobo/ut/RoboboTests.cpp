@@ -12,6 +12,7 @@ ArduinoMock * RoboboTests::arduino = NULL;
 FreeRTOSMock * RoboboTests::rtos = NULL;
 ArduinoSerialMock Serial;
 
+
 TEST_F(RoboboTests, Timer)
 {
     EXPECT_CALL(*rtos, xTimerCreate(_,_,_,_,_));
