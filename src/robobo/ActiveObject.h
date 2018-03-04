@@ -1,9 +1,9 @@
 #ifndef ACTIVEOBJECT_INCLUDED
 #define ACTIVEOBJECT_INCLUDED
 
-//#include "Arduino_FreeRTOS.h"
 #include <FreeRTOS.h>
 #include "timers.h"
+#include "MethodRequest.h"
 #include <map>
 
 class ActiveObject
@@ -15,7 +15,7 @@ class ActiveObject
         ActiveObject();
 
         TimerHandle_t createTimer (
-                void *data, 
+                MethodRequestBase *mr, 
                 const TickType_t xTimerPeriod, 
                 const UBaseType_t uxAutoReload );
 

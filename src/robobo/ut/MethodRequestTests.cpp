@@ -6,6 +6,23 @@ using ::testing::_;
 using ::testing::Return;
 using namespace std;
 
+TEST(MethodRequestTests, macro_MR1)
+{
+    class A
+    {
+        public:
+            MOCK_METHOD1(method1, void (int) );
+            MOCK_METHOD2(method2, void (int,int) );
+    };
+    
+    A a;
+
+    auto macromr = MR1(A,a,method1,int,1);
+    EXPECT_CALL(a, method1(1));
+    macromr->execute();
+    delete macromr;
+}
+
 TEST(MethodRequestTests, methodRequest)
 {
     class A
@@ -17,6 +34,7 @@ TEST(MethodRequestTests, methodRequest)
     
     A a;
     MethodRequestBase *ptr;
+
     
     MethodRequest<A,int> mr1(a, &A::method1 ,1);
 
@@ -35,3 +53,4 @@ TEST(MethodRequestTests, methodRequest)
     ptr->execute();
 
 }
+

@@ -1,6 +1,8 @@
 #ifndef METHOD_REQUEST_INCLUDED
 #define METHOD_REQUEST_INCLUDED
 
+#include <tuple>
+
 class MethodRequestBase
 {
     public:
@@ -38,5 +40,7 @@ class MethodRequest: public MethodRequestBase
         }
 
 };
+
+#define MR1(classtype,object,funct,argtype,argval)  new  MethodRequest<classtype, argtype>( object, & classtype::funct, argval)
 
 #endif

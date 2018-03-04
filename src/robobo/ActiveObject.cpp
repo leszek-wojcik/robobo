@@ -1,29 +1,31 @@
 #include "Arduino.h"
 #include "ActiveObject.h"
+#include "MethodRequest.h"
 
 
 ActiveObject::ActiveObject()
 {
-//    Serial.println("Task creation");
-//    Serial.println((long)this);
 }
 
 TimerHandle_t ActiveObject::createTimer
-     (   void *data, 
+     (   MethodRequestBase *mr, 
          const TickType_t period, 
          const UBaseType_t reload )
 {
+   // Allocate metod request on heap
 
     return xTimerCreate
         ( "tmr",
           period,
           reload,
-          this,
+          mr,
           ActiveObjectCallback );
 }
 
 void ActiveObjectCallback( TimerHandle_t xTimer )
 {
-    ActiveObject *ptr = static_cast<ActiveObject*>(pvTimerGetTimerID(xTimer));
-    ptr->timerExpiry();
+    MethodRequestBase *mr = static_cast<MethodRequestBase*>(pvTimerGetTimerID(xTimer));
+    mr->execute();
+
+    //TODO: clean up heap 
 }

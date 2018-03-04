@@ -7,6 +7,8 @@
 #include "semphr.h"
 #include "portmacro.h"
 #include "task.h"
+#include <tuple>
+#include "MethodRequest.h"
 
 void initVariant() __attribute__((weak));
 void initVariant() { }
@@ -51,6 +53,7 @@ static void Thread2(void* arg) {
 
 int main(void)
 {
+
 	watchdogSetup();
 	init();
 //	initVariant();
