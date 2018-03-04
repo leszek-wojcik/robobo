@@ -43,4 +43,6 @@ class MethodRequest: public MethodRequestBase
 
 #define MR1(classtype,object,funct,argtype,argval)  new  MethodRequest<classtype, argtype>( object, & classtype::funct, argval)
 
+#define MR0(classtype,object,funct)  new  MethodRequest<classtype >( object, & classtype::funct )
+
 #endif

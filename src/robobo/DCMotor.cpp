@@ -1,6 +1,8 @@
 #include "DCMotor.h"
 #include "EncoderISR.h"
 #include "grey.h"
+#include "MethodRequest.h"
+
 using namespace std;
 
 
@@ -18,14 +20,26 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     setPinModes();
     reset();
 
-    triggerTimer = createTimer(NULL,1000,1);
+//    auto reportMR = MR0(DCMotor, *this, reportMethod);
+//
+//    reportTimer = createTimer(reportMR,2000,1);
+//    xTimerStart(reportTimer,0);
+
+    auto updateControlMR = MR0(DCMotor, *this, updateControl);
+
+    triggerTimer = createTimer(updateControlMR,100,1);
     xTimerStart(triggerTimer,0);
+
 }
 
-void DCMotor::timerExpiry(void)
+void DCMotor::reportMethod(void)
 {
-//    Serial.print((long)this);
-//    Serial.println(" - inside timer expiry");
+    Serial.println(" - DC Report - ");
+    Serial.print(" Id ");
+    Serial.println((long)this);
+    Serial.print(" Encoder Position ");
+    Serial.println(encoderPosition);
+    Serial.println(" ------------- ");
 }
 
 void DCMotor::setPinModes(void)
@@ -52,6 +66,13 @@ void DCMotor::reset(void)
     controllerIntegral = 0;
     kP = 5;
     
+}
+
+void DCMotor::updateControl(void)
+{
+
+    Serial.println(" update control ");
+    this->encoderInterrupt();
 }
 
 

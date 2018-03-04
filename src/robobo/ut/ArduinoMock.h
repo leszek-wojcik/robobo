@@ -19,6 +19,7 @@ class ArduinoSerialMock
         MOCK_METHOD1(println, size_t (int) );
         MOCK_METHOD1(println, size_t (std::string) );
         MOCK_METHOD1(print,   size_t (int) );
+        MOCK_METHOD1(print,   size_t (std::string) );
 };
 
 #endif

@@ -12,20 +12,17 @@ TimerHandle_t ActiveObject::createTimer
          const TickType_t period, 
          const UBaseType_t reload )
 {
-   // Allocate metod request on heap
 
     return xTimerCreate
         ( "tmr",
           period,
           reload,
           mr,
-          ActiveObjectCallback );
+          ActiveObjectTimerCallback );
 }
 
-void ActiveObjectCallback( TimerHandle_t xTimer )
+void ActiveObjectTimerCallback( TimerHandle_t xTimer )
 {
     MethodRequestBase *mr = static_cast<MethodRequestBase*>(pvTimerGetTimerID(xTimer));
     mr->execute();
-
-    //TODO: clean up heap 
 }

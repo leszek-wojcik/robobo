@@ -85,6 +85,25 @@ TEST_F(RoboboTests, store_previous_value_2)
 
 }
 
+TEST_F(RoboboTests, dont_move) {
+    dcm1->encoderPosition = 0;
+    dcm1->encoderAVal = 1;
+    dcm1->encoderBVal = 1;
+
+    EXPECT_CALL(*arduino, digitalRead(dcm1->encoderAPin))
+        .WillOnce(Return(1));
+    EXPECT_CALL(*arduino, digitalRead(dcm1->encoderBPin))
+        .WillOnce(Return(1));
+    encoder1_ISR();
+    ASSERT_EQ( dcm1->encoderPosition,0);
+
+    EXPECT_CALL(*arduino, digitalRead(dcm1->encoderAPin))
+        .WillOnce(Return(1));
+    EXPECT_CALL(*arduino, digitalRead(dcm1->encoderBPin))
+        .WillOnce(Return(1));
+    encoder1_ISR();
+    ASSERT_EQ( dcm1->encoderPosition,0);
+}
 
 TEST_F(RoboboTests, move_right_1) {
 

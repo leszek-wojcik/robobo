@@ -19,9 +19,8 @@ class ActiveObject
                 const TickType_t xTimerPeriod, 
                 const UBaseType_t uxAutoReload );
 
-        virtual void timerExpiry(void) = 0;
 };
 
-void ActiveObjectCallback( TimerHandle_t xTimer );
+void ActiveObjectTimerCallback( TimerHandle_t xTimer );
 
 #endif

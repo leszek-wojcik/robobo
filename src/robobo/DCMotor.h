@@ -53,7 +53,10 @@ class DCMotor : public ActiveObject,  public MotorI
         void setPosition(int32_t);
         int32_t getPosition();
         void stop(void);
-        void timerExpiry(void);
+
+        // these methods are to run in timer expiration
+        void reportMethod(void);
+        void updateControl(void);
 
         /** This method is called on interrupt associated with encoder */
         void encoderInterrupt(void);
@@ -64,7 +67,9 @@ class DCMotor : public ActiveObject,  public MotorI
         void setDirectionLeft(void);
         void setVoltage(uint8_t val);
 
+
         TimerHandle_t triggerTimer;
+        TimerHandle_t reportTimer;
 
     friend int main(void);
 
