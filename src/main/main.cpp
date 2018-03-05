@@ -32,10 +32,8 @@ int main(void)
 
   	Robobo *r = new Robobo();
     r->createSetupV1();
+    r->dc1->setPosition(100);
 
-//  r->dc1->setPosition(100);
-//  encoder1_ISR();
-//  r->dc1->stop();
 
     vTaskStartScheduler();
     Serial.println("Insufficient RAM");

@@ -21,14 +21,17 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     setPinModes();
     reset();
 
-    auto reportMR = MR0(DCMotor, *this, reportMethod);
-    reportTimer = createTimer(reportMR,2000,1);
-    xTimerStart(reportTimer,0);
-
     auto updateControlMR = MR0(DCMotor, *this, updateControl);
     triggerTimer = createTimer(updateControlMR,1,1);
     xTimerStart(triggerTimer,0);
 
+}
+
+void DCMotor::enableReports(TickType_t period)
+{
+    auto reportMR = MR0(DCMotor, *this, reportMethod);
+    reportTimer = createTimer(reportMR,period,1);
+    xTimerStart(reportTimer,0);
 }
 
 void DCMotor::reportMethod(void)
@@ -39,6 +42,8 @@ void DCMotor::reportMethod(void)
     Serial.println((long)this);
     Serial.print(" Encoder Position ");
     Serial.println(encoderPosition);
+    Serial.print(" Requested Position ");
+    Serial.println(requestedPosition);
     Serial.println(" ------------- ");
 }
 
@@ -160,7 +165,6 @@ void DCMotor::stop(void)
 void DCMotor::setPosition(int32_t x)
 {
     requestedPosition = x;
-    //startTimer(NULL,1,1);
 }
 
 int32_t DCMotor::getPosition()

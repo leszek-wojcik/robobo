@@ -17,6 +17,7 @@ Robobo::Robobo()
 void Robobo::createSetupV1(void)
 {
     dc1 = new DCMotor(19, 20, 22, 24, 2);
+    dc1->enableReports(2000);
 
 	attachInterrupt(digitalPinToInterrupt(19),encoder1_ISR, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(20),encoder1_ISR, CHANGE);
