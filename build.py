@@ -90,11 +90,11 @@ with new_context(output_path_relative='build') as ctx:
     unittestextensions += [ExplicitExtension(libraries=['pthread'])]
     unittestcompile = GccCompile(command='/usr/bin/g++')
     unittestcompile.add_argument("-std=c++11")
-    unittestcompile.add_include_path('src/robobo/ut/')
+    unittestcompile.add_include_path('src/unittests/')
     unittestcompile.add_include_path('src/robobo/')
     unittestcompile.add_include_path('src/FreeRTOS/')
     unittestlink = GccLink(command='/usr/bin/g++')
-    unittestsources = glob('src/robobo/ut/*.cpp')
+    unittestsources = glob('src/unittests/*.cpp')
     unittestsources += glob('src/robobo/*.cpp')
 
     Phase(  project=utproject,

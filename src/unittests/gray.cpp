@@ -1,0 +1,9 @@
+#include "gtest/gtest.h"
+#include "grey.h"
+ 
+TEST (GreyLookupTest, Lookuptest) { 
+    EXPECT_EQ (0, greyValue(1,1));
+    EXPECT_EQ (1, greyValue(0,1));
+    EXPECT_EQ (2, greyValue(0,0));
+    EXPECT_EQ (3, greyValue(1,0));
+}
