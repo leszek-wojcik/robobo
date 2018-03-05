@@ -2,6 +2,7 @@
 #include "EncoderISR.h"
 #include "grey.h"
 #include "MethodRequest.h"
+#include "Robobo.h"
 
 using namespace std;
 
@@ -20,20 +21,19 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     setPinModes();
     reset();
 
-//    auto reportMR = MR0(DCMotor, *this, reportMethod);
-//
-//    reportTimer = createTimer(reportMR,2000,1);
-//    xTimerStart(reportTimer,0);
+    auto reportMR = MR0(DCMotor, *this, reportMethod);
+    reportTimer = createTimer(reportMR,2000,1);
+    xTimerStart(reportTimer,0);
 
     auto updateControlMR = MR0(DCMotor, *this, updateControl);
-
-    triggerTimer = createTimer(updateControlMR,100,1);
+    triggerTimer = createTimer(updateControlMR,1,1);
     xTimerStart(triggerTimer,0);
 
 }
 
 void DCMotor::reportMethod(void)
 {
+    Robobo *i = Robobo::instance; 
     Serial.println(" - DC Report - ");
     Serial.print(" Id ");
     Serial.println((long)this);
@@ -70,8 +70,6 @@ void DCMotor::reset(void)
 
 void DCMotor::updateControl(void)
 {
-
-    Serial.println(" update control ");
     this->encoderInterrupt();
 }
 
