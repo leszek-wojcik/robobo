@@ -24,9 +24,9 @@ class RoboboTests : public ::testing::Test, public Robobo
         RoboboTests() 
         { 
             arduino = new::testing::NiceMock<ArduinoMock>();
-            rtos = new::testing::NiceMock<FreeRTOSMock>();
-            pid1 = new::testing::NiceMock<PIDMock>();
-            pid2 = new::testing::NiceMock<PIDMock>();
+            rtos    = new::testing::NiceMock<FreeRTOSMock>();
+            pid1    = new::testing::NiceMock<PIDMock>();
+            pid2    = new::testing::NiceMock<PIDMock>();
 
             // We need to configure parent class object
             dcm1 = new DCMotor(1,2,3,4,5,pid1);
