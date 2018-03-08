@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 #include "MotorI.h"
+#include "ControlStrategy.h"
 
 /**
 Robobo class is simple wrapper around global values that are accessible from
@@ -20,6 +21,8 @@ class Robobo
 
         MotorI *dc1;
         MotorI *dc2;
+        ControlStrategy *pid1;
+        ControlStrategy *pid2;
         
         // Serial
         long serialSpeed; 

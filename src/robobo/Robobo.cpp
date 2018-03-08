@@ -11,18 +11,23 @@ Robobo::Robobo()
     instance = this;
     dc1 = NULL;
     dc2 = NULL;
+    pid1 = NULL;
+    pid2 = NULL;
 
 }
 
 void Robobo::createSetupV1(void)
 {
-    dc1 = new DCMotor(19, 20, 22, 24, 2);
+   
+    pid1 = new PID(0,0,0);
+    dc1 = new DCMotor(19, 20, 22, 24, 2, pid1);
     dc1->enableReports(2000);
 
 	attachInterrupt(digitalPinToInterrupt(19),encoder1_ISR, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(20),encoder1_ISR, CHANGE);
 
-    dc2 = new DCMotor(17, 18, 0,   0, 0); 
+    pid2 = new PID(0,0,0);
+    dc2 = new DCMotor(17, 18, 0, 0, 0,pid2); 
 
     if (dc1 == NULL || dc2 == NULL)
     {

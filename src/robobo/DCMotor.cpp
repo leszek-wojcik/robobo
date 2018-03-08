@@ -11,12 +11,14 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
                     uint8_t encoderBPinV, 
                     uint8_t hBridgeAPinV,
                     uint8_t hBridgeBPinV,
-                    uint8_t voltagePinV ):
+                    uint8_t voltagePinV,
+                    ControlStrategy *strategy):
     encoderAPin(encoderAPinV),
     encoderBPin(encoderBPinV),
     hBridgeAPin(hBridgeAPinV),
     hBridgeBPin(hBridgeBPinV),
-    voltagePin (voltagePinV )
+    voltagePin (voltagePinV ),
+    control(strategy)
 {
     setPinModes();
     reset();
@@ -68,7 +70,7 @@ void DCMotor::reset(void)
     
 
     //TODO: This is temporary place
-    controllerIntegral = 0;
+    integral = 0;
     kP = 5;
     
 }
@@ -109,7 +111,10 @@ void DCMotor::encoderInterrupt(void)
 void DCMotor::calculatePID(void)
 {
     int32_t diff = requestedPosition - encoderPosition;
-    int32_t output = diff * kP;
+    integral = integral + kI*micros();
+
+
+    int32_t output = diff * kP + integral;
 
     if (output < 0 )
     {

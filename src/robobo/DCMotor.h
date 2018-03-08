@@ -4,6 +4,8 @@
 #include "Arduino.h"
 #include "MotorI.h"
 #include "ActiveObject.h"
+#include "ControlStrategy.h"
+#include "PID.h"
 
 
 /**
@@ -26,7 +28,8 @@ class DCMotor : public ActiveObject,  public MotorI
                     uint8_t encoderBPinV, 
                     uint8_t hBridgeAPinV,
                     uint8_t hBridgeBPinV,
-                    uint8_t voltagePinV );
+                    uint8_t voltagePinV,
+                    ControlStrategy *strategy);
 
         // Pins
         uint8_t encoderAPin;
@@ -43,11 +46,11 @@ class DCMotor : public ActiveObject,  public MotorI
         int32_t encoderPosition;
         int32_t requestedPosition;
         int8_t  direction;
-        int32_t controllerIntegral;
         
         // PID Controller parameters
         float kP;
         float kI;
+        int32_t integral;
 
         // Interface functions
         void setPosition(int32_t);
@@ -63,6 +66,9 @@ class DCMotor : public ActiveObject,  public MotorI
         void encoderInterrupt(void);
 
     private:
+
+        ControlStrategy *control;
+    
         void calculatePID(void);
         void setDirectionRight(void);
         void setDirectionLeft(void);

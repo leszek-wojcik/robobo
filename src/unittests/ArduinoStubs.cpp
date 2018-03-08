@@ -23,9 +23,15 @@ int analogRead(uint8_t)
 void analogReference(uint8_t mode)
 {
 }
+
 void analogWrite(uint8_t pin, int val)
 {
     RoboboTests::arduino->analogWrite(pin, val);
+}
+
+unsigned long int micros(void)
+{
+    return RoboboTests::arduino->micros();
 }
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) 
