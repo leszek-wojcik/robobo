@@ -1,0 +1,27 @@
+var a00034 =
+[
+    [ "ADC12B_ACR", "a00034.html#a808e4b23cd7cb4b87219448babb88741", null ],
+    [ "ADC12B_CDR", "a00034.html#a49d358b28882f9505deb02e74aa6ed7e", null ],
+    [ "ADC12B_CHDR", "a00034.html#a6dbfb524d7abf5759e6038a36a3e0de1", null ],
+    [ "ADC12B_CHER", "a00034.html#a82c30b0d285db412a5b1f3496b25263d", null ],
+    [ "ADC12B_CHSR", "a00034.html#a6966a769c2286d4aff7eb2c2ac586c1e", null ],
+    [ "ADC12B_CR", "a00034.html#a8990bf9f4d99009e10e5cba6974a0e26", null ],
+    [ "ADC12B_EMR", "a00034.html#a512d577d91a7fced01503a280518eb95", null ],
+    [ "ADC12B_IDR", "a00034.html#a2a85e18922e972a660280b67957b4b1c", null ],
+    [ "ADC12B_IER", "a00034.html#a73e12ad4dbc90009f7208e07f6f8e89b", null ],
+    [ "ADC12B_IMR", "a00034.html#afebd95223148583fc2affab40efef6b9", null ],
+    [ "ADC12B_LCDR", "a00034.html#a1e570de23d0f6314ca068ecfa305b0bd", null ],
+    [ "ADC12B_MR", "a00034.html#a7304a8542f0d199626b81579c03a603b", null ],
+    [ "ADC12B_PTCR", "a00034.html#a8f1b4bbdbdeeceee7724fe0b4efc0895", null ],
+    [ "ADC12B_PTSR", "a00034.html#adda22ac78dcf6e27eba5ef47ad5a523f", null ],
+    [ "ADC12B_RCR", "a00034.html#a5f34cd68498ee1c24905f2f0161e251e", null ],
+    [ "ADC12B_RNCR", "a00034.html#a852439391cda7be065223e771c1794b2", null ],
+    [ "ADC12B_RNPR", "a00034.html#ae2abd8daae6829fd9a43c8b5b6d80d63", null ],
+    [ "ADC12B_RPR", "a00034.html#a8eb868d8adee528d3d029bdd4214ae48", null ],
+    [ "ADC12B_SR", "a00034.html#a2958e1daaeeff0561c1db3b95086da7a", null ],
+    [ "Reserved1", "a00034.html#a974c2c89e9a6bda3471204588672ffba", null ],
+    [ "Reserved2", "a00034.html#aa8db0e1a3bdb4c4eeb0ab5d2645a1e06", null ],
+    [ "Reserved3", "a00034.html#a39d5cb19e149929a0286ee7e6f5e1bad", null ],
+    [ "Reserved4", "a00034.html#ac7028f02026556b353fc3e881f8932fa", null ],
+    [ "Reserved5", "a00034.html#a703d5678dd5cbe758bce9b91f81b4e35", null ]
+];

@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['realcoefaq31',['realCoefAQ31',['../a01164.html#gacebced5a9d92f1913a0afe2adef7a886',1,'realCoefAQ31():&#160;arm_rfft_init_q31.c'],['../a01164.html#gacebced5a9d92f1913a0afe2adef7a886',1,'realCoefAQ31():&#160;arm_rfft_init_q31.c']]],
+  ['realcoefbq31',['realCoefBQ31',['../a01164.html#gaa3baee87ab9cc94a81d63135a004a3be',1,'realCoefBQ31():&#160;arm_rfft_init_q31.c'],['../a01164.html#gaa3baee87ab9cc94a81d63135a004a3be',1,'realCoefBQ31():&#160;arm_rfft_init_q31.c']]],
+  ['reciptable',['recipTable',['../a00080.html#a85836d0907077b9ac660f7bbbaa9d694',1,'arm_lms_norm_instance_q31::recipTable()'],['../a00079.html#a9aabb0e4c79f3db807e7a441fa36f5f8',1,'arm_lms_norm_instance_q15::recipTable()']]],
+  ['reserved1',['RESERVED1',['../a01279.html#ga75f78f3ce965e4dc57a8e6ba38fbe927',1,'DeviceAbbreviation']]],
+  ['rstc_5fcr',['RSTC_CR',['../a00152.html#a4279bfd396337265adfff02f886e890e',1,'Rstc']]],
+  ['rstc_5fmr',['RSTC_MR',['../a00152.html#ab8260e67a4954c22ed2b061355d1558c',1,'Rstc']]],
+  ['rstc_5fsr',['RSTC_SR',['../a00152.html#acf2e649797009d7c286672e04ece6339',1,'Rstc']]],
+  ['rtc_5fcalalr',['RTC_CALALR',['../a00153.html#a8d4db3cf7ea2ecbed154e62cc950a7c3',1,'Rtc']]],
+  ['rtc_5fcalr',['RTC_CALR',['../a00153.html#a7c26adcac101eb9c612e678182f83a2d',1,'Rtc']]],
+  ['rtc_5fcr',['RTC_CR',['../a00153.html#a3e3b4f296787ca2952d384e2b1c3e8e5',1,'Rtc']]],
+  ['rtc_5fidr',['RTC_IDR',['../a00153.html#a6b14fe30cbedd3dd8b9f37ed0c6807f2',1,'Rtc']]],
+  ['rtc_5fier',['RTC_IER',['../a00153.html#adcd76ec1af43b3358f8415986b923590',1,'Rtc']]],
+  ['rtc_5fimr',['RTC_IMR',['../a00153.html#a53201408770ba11b7eb43098508f7289',1,'Rtc']]],
+  ['rtc_5fmr',['RTC_MR',['../a00153.html#a72cc0f110b4a290b8cda93d6bdf8fa8c',1,'Rtc']]],
+  ['rtc_5fsccr',['RTC_SCCR',['../a00153.html#a4605ec246d51f35caa8663bb44aeb24d',1,'Rtc']]],
+  ['rtc_5fsr',['RTC_SR',['../a00153.html#ab18a4d074a08ebececb4118373bc796b',1,'Rtc']]],
+  ['rtc_5ftimalr',['RTC_TIMALR',['../a00153.html#af2d524e423564793e185a781f6b399f3',1,'Rtc']]],
+  ['rtc_5ftimr',['RTC_TIMR',['../a00153.html#a9e0e79a6c2e9e68fca519a91452975f0',1,'Rtc']]],
+  ['rtc_5fver',['RTC_VER',['../a00153.html#aa9787f4e4e9d752e5612ce3d91d147b4',1,'Rtc']]],
+  ['rtc_5fwpmr',['RTC_WPMR',['../a00153.html#ae09e4252162805b74233d6ac8292b303',1,'Rtc']]],
+  ['rtt_5far',['RTT_AR',['../a00154.html#ab354567ef5981e034d88c211e9a160f1',1,'Rtt']]],
+  ['rtt_5fmr',['RTT_MR',['../a00154.html#a7a9f1210794f4872d1fdc3845cd6d010',1,'Rtt']]],
+  ['rtt_5fsr',['RTT_SR',['../a00154.html#acc9de842dcf861743945dd4b788b2371',1,'Rtt']]],
+  ['rtt_5fvr',['RTT_VR',['../a00154.html#a77dd89ee836857f7a49586b024c1cbdc',1,'Rtt']]],
+  ['run',['RUN',['../a01279.html#ga26fbc9da6836bc757a69d5a7e7668d1e',1,'DeviceAbbreviation']]]
+];

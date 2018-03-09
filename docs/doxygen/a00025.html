@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Robobo: Member List</title>
+<title>Robobo: Use case #1</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,8 +46,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -66,14 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
-    </ul>
-  </div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -86,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a00003.html','');});
+$(document).ready(function(){initNavTree('a00025.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -105,21 +100,108 @@ $(document).ready(function(){initNavTree('a00003.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">MotorI Member List</div>  </div>
+<div class="title">Use case #1 </div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="a00003.html">MotorI</a>, including all inherited members.</p>
-<table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>encoderInterrupt</b>(void)=0 (defined in <a class="el" href="a00003.html">MotorI</a>)</td><td class="entry"><a class="el" href="a00003.html">MotorI</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>getPosition</b>()=0 (defined in <a class="el" href="a00003.html">MotorI</a>)</td><td class="entry"><a class="el" href="a00003.html">MotorI</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>setPosition</b>(int32_t)=0 (defined in <a class="el" href="a00003.html">MotorI</a>)</td><td class="entry"><a class="el" href="a00003.html">MotorI</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>stop</b>(void)=0 (defined in <a class="el" href="a00003.html">MotorI</a>)</td><td class="entry"><a class="el" href="a00003.html">MotorI</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><p>In this use case, CAN0 mailbox 0 works in PRODUCER mode, and CAN1 mailbox 0 works in CONSUMER mode. While CAN1 mailbox 0 receives a data frame from the bus, an interrupt is triggered.</p>
+<h1><a class="anchor" id="can_use_case_1_setup"></a>
+Setup steps</h1>
+<h2><a class="anchor" id="can_basic_use_case_setup_prereq"></a>
+Prerequisites</h2>
+<ul>
+<li>Power Management Controller driver</li>
+<li>CAN transceiver driver</li>
+</ul>
+<h2><a class="anchor" id="can_use_case_1_setup_code"></a>
+Example code</h2>
+<p>Add to application C-file: </p><div class="fragment"><div class="line"><a class="code" href="a00091.html">can_mb_conf_t</a> can0_mailbox;</div><div class="line"><a class="code" href="a00091.html">can_mb_conf_t</a> can1_mailbox;</div><div class="line"><span class="keyword">volatile</span> uint32_t g_ul_recv_status = 0;</div></div><!-- fragment --><div class="fragment"><div class="line"><span class="keywordtype">void</span> CAN1_Handler(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    uint32_t ul_status;</div><div class="line"></div><div class="line">    ul_status = can_mailbox_get_status(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, 0);</div><div class="line">    <span class="keywordflow">if</span> ((ul_status &amp; <a class="code" href="a01609.html#ga9ded6ae09bdaf8c3b1cef29e134b37cc">CAN_MSR_MRDY</a>) == CAN_MSR_MRDY) {</div><div class="line">        can1_mailbox.ul_mb_idx = 0;</div><div class="line">        can1_mailbox.<a class="code" href="a00091.html#ad0a891eeb2b0eed54ff5d8e0cc4339dd">ul_status</a> = ul_status;</div><div class="line">        can_mailbox_read(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, &amp;can1_mailbox);</div><div class="line">        g_ul_recv_status = 1;</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><div class="fragment"><div class="line"><a class="code" href="a01275.html#gad09de55bb493f4ebdd92305f24f27d62">pmc_enable_periph_clk</a>(<a class="code" href="a01641.html#ga25650788a1a03350af0764b53106d89b">ID_CAN0</a>);</div><div class="line"><a class="code" href="a01275.html#gad09de55bb493f4ebdd92305f24f27d62">pmc_enable_periph_clk</a>(<a class="code" href="a01641.html#gaeb666ed2b33d12453d2eb1d981616335">ID_CAN1</a>);</div><div class="line"></div><div class="line">can_init(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, ul_sysclk, <a class="code" href="a01013.html#ad9d75559dd4282244b51bebf03015885">CAN_BPS_1000K</a>);</div><div class="line">can_init(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, ul_sysclk, <a class="code" href="a01013.html#ad9d75559dd4282244b51bebf03015885">CAN_BPS_1000K</a>);</div><div class="line"></div><div class="line">can_reset_all_mailbox(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>);</div><div class="line">can_reset_all_mailbox(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>);</div><div class="line"></div><div class="line">can0_mailbox.ul_mb_idx = 0;</div><div class="line">can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;</div><div class="line">can0_mailbox.<a class="code" href="a00091.html#aa253c6e66d00416cd4629ad8bb4c2b46">ul_id_msk</a> = 0;</div><div class="line">can0_mailbox.<a class="code" href="a00091.html#a1f6ca2948ac1716486431c8f9ee66c99">ul_id</a> = CAN_MID_MIDvA(0x0b);</div><div class="line">can_mailbox_init(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, &amp;can0_mailbox);</div><div class="line"></div><div class="line">can0_mailbox.<a class="code" href="a00091.html#a4f8ec4aaec01dcaeee1a3b0c0b9df402">ul_datal</a> = 0x11223344;</div><div class="line">can0_mailbox.ul_datah = 0x44332211;</div><div class="line">can0_mailbox.<a class="code" href="a00091.html#a3faa4915b3b794af4f01eef51bd161c2">uc_length</a> = 8;</div><div class="line">can_mailbox_write(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, &amp;can0_mailbox);</div><div class="line"></div><div class="line">can1_mailbox.ul_mb_idx = 0;</div><div class="line">can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;</div><div class="line">can1_mailbox.<a class="code" href="a00091.html#a083053e15bc5e1c2de9d06300e61f0f9">uc_tx_prio</a> = 15;</div><div class="line">can1_mailbox.<a class="code" href="a00091.html#aa253c6e66d00416cd4629ad8bb4c2b46">ul_id_msk</a> = <a class="code" href="a01609.html#ga61d69b77a28b0b3b563e0413c38f6f37">CAN_MID_MIDvA_Msk</a> | <a class="code" href="a01609.html#ga60bdb00661904bfded41336e77e3b819">CAN_MID_MIDvB_Msk</a>;</div><div class="line">can1_mailbox.<a class="code" href="a00091.html#a1f6ca2948ac1716486431c8f9ee66c99">ul_id</a> = CAN_MID_MIDvA(0x0b);</div><div class="line">can_mailbox_init(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, &amp;can1_mailbox);</div><div class="line"></div><div class="line">can_enable_interrupt(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, <a class="code" href="a01609.html#ga788ec8f314dac4b3c734e4b99428e9c6">CAN_IER_MB0</a>);</div><div class="line">NVIC_EnableIRQ(<a class="code" href="a01734.html#gga666eb0caeb12ec0e281415592ae89083a802cacc548e38e940f87f8c3788bd2e0">CAN1_IRQn</a>);</div></div><!-- fragment --><h2><a class="anchor" id="can_use_case_1_setup_flow"></a>
+Workflow</h2>
+<ol type="1">
+<li>Define the CAN0 and CAN1 Transfer mailbox structure:<ul>
+<li><div class="fragment"><div class="line"><a class="code" href="a00091.html">can_mb_conf_t</a> can0_mailbox;</div><div class="line"><a class="code" href="a00091.html">can_mb_conf_t</a> can1_mailbox;</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Define the receive flag that is changed in CAN1 ISR handler:<ul>
+<li><div class="fragment"><div class="line"><span class="keyword">volatile</span> uint32_t g_ul_recv_status = 0; </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Define the CAN1 ISR handler in the application:<ul>
+<li><div class="fragment"><div class="line"><span class="keywordtype">void</span> CAN1_Handler(<span class="keywordtype">void</span>); </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>In CAN1_Handler(), get CAN1 mailbox 0 status:<ul>
+<li><div class="fragment"><div class="line">ul_status = can_mailbox_get_status(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, 0); </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>In CAN1_Handler(), check whether the mailbox 0 has received a data frame:<ul>
+<li><div class="fragment"><div class="line"><span class="keywordflow">if</span> ((ul_status &amp; <a class="code" href="a01609.html#ga9ded6ae09bdaf8c3b1cef29e134b37cc">CAN_MSR_MRDY</a>) == CAN_MSR_MRDY) {</div><div class="line">    can1_mailbox.ul_mb_idx = 0;</div><div class="line">    can1_mailbox.<a class="code" href="a00091.html#ad0a891eeb2b0eed54ff5d8e0cc4339dd">ul_status</a> = ul_status;</div><div class="line">    can_mailbox_read(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, &amp;can1_mailbox);</div><div class="line">    g_ul_recv_status = 1;</div><div class="line">}</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>In CAN1_Handler(), if mailbox 0 is ready, read the received data from CAN1 mailbox 0:<ul>
+<li><div class="fragment"><div class="line">can1_mailbox.ul_mb_idx = 0;</div><div class="line">can1_mailbox.<a class="code" href="a00091.html#ad0a891eeb2b0eed54ff5d8e0cc4339dd">ul_status</a> = ul_status;</div><div class="line">can_mailbox_read(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, &amp;can1_mailbox);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>In CAN1_Handler(), if mailbox 0 is ready, set up the receive flag:<ul>
+<li><div class="fragment"><div class="line">g_ul_recv_status = 1; </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Enable the module clock for CAN0 and CAN1:<ul>
+<li><div class="fragment"><div class="line"><a class="code" href="a01275.html#gad09de55bb493f4ebdd92305f24f27d62">pmc_enable_periph_clk</a>(<a class="code" href="a01641.html#ga25650788a1a03350af0764b53106d89b">ID_CAN0</a>);</div><div class="line"><a class="code" href="a01275.html#gad09de55bb493f4ebdd92305f24f27d62">pmc_enable_periph_clk</a>(<a class="code" href="a01641.html#gaeb666ed2b33d12453d2eb1d981616335">ID_CAN1</a>);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Initialize CAN0 and CAN1, baudrate is 1Mb/s:<ul>
+<li><div class="fragment"><div class="line">can_init(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, ul_sysclk, <a class="code" href="a01013.html#ad9d75559dd4282244b51bebf03015885">CAN_BPS_1000K</a>);</div><div class="line">can_init(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, ul_sysclk, <a class="code" href="a01013.html#ad9d75559dd4282244b51bebf03015885">CAN_BPS_1000K</a>);</div></div><!-- fragment --></li>
+<li><dl class="section note"><dt>Note</dt><dd>The CAN transceiver should be configured before initializing the CAN module.</dd></dl>
+</li>
+</ul>
+</li>
+<li>Reset all CAN0 and CAN1 mailboxes:<ul>
+<li><div class="fragment"><div class="line">can_reset_all_mailbox(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>);</div><div class="line">can_reset_all_mailbox(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Initialize CAN0 mailbox 0 as PRODUCER:<ul>
+<li><div class="fragment"><div class="line">can0_mailbox.ul_mb_idx = 0;</div><div class="line">can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;</div><div class="line">can0_mailbox.<a class="code" href="a00091.html#aa253c6e66d00416cd4629ad8bb4c2b46">ul_id_msk</a> = 0;</div><div class="line">can0_mailbox.<a class="code" href="a00091.html#a1f6ca2948ac1716486431c8f9ee66c99">ul_id</a> = CAN_MID_MIDvA(0x0b);</div><div class="line">can_mailbox_init(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, &amp;can0_mailbox);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Prepare the response information when it receives a remote frame:<ul>
+<li><div class="fragment"><div class="line">can0_mailbox.<a class="code" href="a00091.html#a4f8ec4aaec01dcaeee1a3b0c0b9df402">ul_datal</a> = 0x11223344;</div><div class="line">can0_mailbox.ul_datah = 0x44332211;</div><div class="line">can0_mailbox.<a class="code" href="a00091.html#a3faa4915b3b794af4f01eef51bd161c2">uc_length</a> = 8;</div><div class="line">can_mailbox_write(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, &amp;can0_mailbox);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Initialize CAN1 mailbox 0 as CONSUMER:<ul>
+<li><div class="fragment"><div class="line">can1_mailbox.ul_mb_idx = 0;</div><div class="line">can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;</div><div class="line">can1_mailbox.<a class="code" href="a00091.html#a083053e15bc5e1c2de9d06300e61f0f9">uc_tx_prio</a> = 15;</div><div class="line">can1_mailbox.<a class="code" href="a00091.html#aa253c6e66d00416cd4629ad8bb4c2b46">ul_id_msk</a> = <a class="code" href="a01609.html#ga61d69b77a28b0b3b563e0413c38f6f37">CAN_MID_MIDvA_Msk</a> | <a class="code" href="a01609.html#ga60bdb00661904bfded41336e77e3b819">CAN_MID_MIDvB_Msk</a>;</div><div class="line">can1_mailbox.<a class="code" href="a00091.html#a1f6ca2948ac1716486431c8f9ee66c99">ul_id</a> = CAN_MID_MIDvA(0x0b);</div><div class="line">can_mailbox_init(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, &amp;can1_mailbox);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Enable the CAN1 mailbox 0 interrupt:<ul>
+<li><div class="fragment"><div class="line">can_enable_interrupt(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, <a class="code" href="a01609.html#ga788ec8f314dac4b3c734e4b99428e9c6">CAN_IER_MB0</a>);</div><div class="line">NVIC_EnableIRQ(<a class="code" href="a01734.html#gga666eb0caeb12ec0e281415592ae89083a802cacc548e38e940f87f8c3788bd2e0">CAN1_IRQn</a>);</div></div><!-- fragment --></li>
+</ul>
+</li>
+</ol>
+<h1><a class="anchor" id="can_use_case_1_usage"></a>
+Usage steps</h1>
+<h2><a class="anchor" id="can_use_case_1_usage_code"></a>
+Example code</h2>
+<div class="fragment"><div class="line">can_global_send_transfer_cmd(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, <a class="code" href="a01609.html#ga9f935b4513fc708fc15921c6b42c93b3">CAN_TCR_MB0</a>);</div><div class="line">can_global_send_transfer_cmd(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, <a class="code" href="a01609.html#ga9f935b4513fc708fc15921c6b42c93b3">CAN_TCR_MB0</a>);</div><div class="line"></div><div class="line"><span class="keywordflow">while</span> (!g_ul_recv_status) {</div><div class="line">}</div></div><!-- fragment --><h2><a class="anchor" id="can_use_case_1_usage_flow"></a>
+Workflow</h2>
+<ol type="1">
+<li>Enable CAN0 mailbox 0 to receive remote frame and respond it:<ul>
+<li><div class="fragment"><div class="line">can_global_send_transfer_cmd(<a class="code" href="a01642.html#ga8882ee5d18ec64b8193396ec6bc66fe5">CAN0</a>, <a class="code" href="a01609.html#ga9f935b4513fc708fc15921c6b42c93b3">CAN_TCR_MB0</a>); </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Enable CAN1 mailbox 0 to send out a remote frame and then receive data frame from bus:<ul>
+<li><div class="fragment"><div class="line">can_global_send_transfer_cmd(<a class="code" href="a01642.html#ga4964ecb6a5c689aaf8ee2832b8093aac">CAN1</a>, <a class="code" href="a01609.html#ga9f935b4513fc708fc15921c6b42c93b3">CAN_TCR_MB0</a>); </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Wait for the communication to be completed.<ul>
+<li><div class="fragment"><div class="line"><span class="keywordflow">while</span> (!g_ul_recv_status) {</div><div class="line">}</div></div><!-- fragment --> </li>
+</ul>
+</li>
+</ol>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="a00024.html">Quickstart guide for SAM CAN module.</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>

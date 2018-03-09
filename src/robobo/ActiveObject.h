@@ -3,13 +3,13 @@
 
 #include <FreeRTOS.h>
 #include "timers.h"
+#include "queue.h"
 #include "MethodRequest.h"
-#include <map>
 
 class ActiveObject
 {
     private:
-        std::map<ActiveObject *, void*> timerToData;
+        QueueHandle_t queue; 
 
     public: 
         ActiveObject();
@@ -19,8 +19,11 @@ class ActiveObject
                 const TickType_t xTimerPeriod, 
                 const UBaseType_t uxAutoReload );
 
+        uint8_t executeMethod(MethodRequestBase *mr);
+
 };
 
 void ActiveObjectTimerCallback( TimerHandle_t xTimer );
+void ActiveObjectTaskFunction( void * );
 
 #endif

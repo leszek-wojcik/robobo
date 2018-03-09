@@ -1,0 +1,27 @@
+var a00161 =
+[
+    [ "Reserved1", "a00161.html#a2ff8698d0f96960ed002855150370cc8", null ],
+    [ "Reserved2", "a00161.html#ac80007f591e4f951493aac0d11620358", null ],
+    [ "Reserved3", "a00161.html#a726b90cd3ec01ab63b302c596788f175", null ],
+    [ "SPI_CR", "a00161.html#a33afd67999ab9780c43ddc5554f24339", null ],
+    [ "SPI_CSR", "a00161.html#aa4d8b60401718b185b421a1f0a847f2e", null ],
+    [ "SPI_IDR", "a00161.html#a95455aa2a1ea3de9b17655ef2ce52d0a", null ],
+    [ "SPI_IER", "a00161.html#ae2dbb8279a678d6f2f3a0e1a0e5deeae", null ],
+    [ "SPI_IMR", "a00161.html#aa2ca314316009921c37e12dae6f5fdfe", null ],
+    [ "SPI_MR", "a00161.html#abbd1f7b8d39b7925c04eb2650643a336", null ],
+    [ "SPI_PTCR", "a00161.html#adb51d773580201990def9857a485175c", null ],
+    [ "SPI_PTSR", "a00161.html#ae4d3f5e4f7d1fb545cf0c291f4099a51", null ],
+    [ "SPI_RCR", "a00161.html#a644dd76195db16ad0f249af2d4392d37", null ],
+    [ "SPI_RDR", "a00161.html#ad33d4ea48990c13075466d3a2e7b20ec", null ],
+    [ "SPI_RNCR", "a00161.html#a9a6b7987f60e68d7f2f3ec7e7deb8430", null ],
+    [ "SPI_RNPR", "a00161.html#a4be1a7117e9e2c1de116f55edeb8b2f9", null ],
+    [ "SPI_RPR", "a00161.html#ada5ff278d4315ffdcf5bc4c31d948faa", null ],
+    [ "SPI_SR", "a00161.html#af82dd3b5169fa132ae6148156091cb50", null ],
+    [ "SPI_TCR", "a00161.html#a7f582bde806b4a722a446e7c483abcd4", null ],
+    [ "SPI_TDR", "a00161.html#a5b4d85228f4b448f0f87c05400b498f1", null ],
+    [ "SPI_TNCR", "a00161.html#ac8ee8264b170175b9433ef17ec23fd96", null ],
+    [ "SPI_TNPR", "a00161.html#a9abceeec2ed6e3f07f6eb809f31e49ab", null ],
+    [ "SPI_TPR", "a00161.html#ae526ec89736bdd476545e546d9761540", null ],
+    [ "SPI_WPMR", "a00161.html#a92bee9e98ca5c06850242f0c9fa3e3e8", null ],
+    [ "SPI_WPSR", "a00161.html#a43712c3c1a37a40deaf5c39a3da2a51c", null ]
+];

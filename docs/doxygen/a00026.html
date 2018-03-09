@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Robobo: Member List</title>
+<title>Robobo: Quickstart guide for EMAC driver.</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,8 +46,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -66,14 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
-    </ul>
-  </div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -86,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a00004.html','');});
+$(document).ready(function(){initNavTree('a00026.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -105,21 +100,104 @@ $(document).ready(function(){initNavTree('a00004.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Robobo Member List</div>  </div>
+<div class="title">Quickstart guide for EMAC driver. </div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="a00004.html">Robobo</a>, including all inherited members.</p>
-<table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>createInstance</b>() (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>dc1</b> (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>dc2</b> (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>encoder1_ISR</b> (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>encoder2_ISR</b> (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>getInstance</b>() (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>instance</b> (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>serialSpeed</b> (defined in <a class="el" href="a00004.html">Robobo</a>)</td><td class="entry"><a class="el" href="a00004.html">Robobo</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><p>This is the quickstart guide for the Ethernet MAC, with step-by-step instructions on how to configure and use the driver in a selection of use cases.</p>
+<p>The use cases contain several code fragments. The code fragments in the steps for setup can be copied into a custom initialization function, while the steps for usage can be copied into, e.g., the main application function.</p>
+<h1><a class="anchor" id="emac_basic_use_case"></a>
+Basic use case</h1>
+<p>In the basic use case, the EMAC driver are configured for:</p><ul>
+<li>PHY component DM9161A is used</li>
+<li>EMAC uses RMII mode</li>
+<li>The number of receive buffer is 16</li>
+<li>The number of transfer buffer is 8</li>
+<li>MAC address is set to 00-04-25-1c-a0-02</li>
+<li>IP address is set to 192.168.0.2</li>
+<li>IP address is set to 192.168.0.2</li>
+<li>Gateway is set to 192.168.0.1</li>
+<li>Network mask is 255.255.255.0</li>
+<li>PHY operation max retry count is 1000000</li>
+<li>EMAC is configured to not support copy all frame and support broadcast</li>
+<li>The reset PIN of DM9161A is connected to the NRST of SAM3X</li>
+<li>The data will be read from the ethernet</li>
+</ul>
+<h1><a class="anchor" id="emac_basic_use_case_setup"></a>
+Setup steps</h1>
+<h2><a class="anchor" id="emac_basic_use_case_setup_prereq"></a>
+Prerequisites</h2>
+<ol type="1">
+<li>System Clock Management (sysclock)</li>
+<li>Parallel Input/Output Controller (pio)</li>
+<li>Power Management Controller (pmc)</li>
+<li><a class="el" href="a01276.html">Reset Controller (RSTC)</a></li>
+<li>PHY component (DM9161A)</li>
+</ol>
+<h2><a class="anchor" id="emac_basic_use_case_setup_code"></a>
+Example code</h2>
+<p>Content of conf_eth.h </p><div class="fragment"><div class="line"><span class="preprocessor">#define EMAC_RX_BUFFERS                               16</span></div><div class="line"><span class="preprocessor">#define EMAC_TX_BUFFERS                               8</span></div><div class="line"><span class="preprocessor">#define MAC_PHY_RETRY_MAX                             1000000</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR0                        0x00</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR0                        0x00</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR1                        0x04</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR2                        0x25</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR3                        0x1C</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR4                        0xA0</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR5                        0x02</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR0                         192</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR1                         168</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR2                         0</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR3                         2</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR0                   192</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR1                   168</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR2                   0</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR3                   1</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK0                       255</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK1                       255</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK2                       255</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK3                       0</span></div><div class="line"><span class="preprocessor">#define ETH_PHY_MODE                                  BOARD_EMAC_MODE_RMII</span></div></div><!-- fragment --><p>A specific emac device and the receive data buffer must be defined; another ul_frm_size should be defined to trace the actual size of the data received. </p><div class="fragment"><div class="line"><span class="keyword">static</span> <a class="code" href="a00109.html">emac_device_t</a> gs_emac_dev;</div><div class="line"><span class="keyword">static</span> <span class="keyword">volatile</span> uint8_t gs_uc_eth_buffer[<a class="code" href="a01016.html#a48e1b4156feb4a2eb059efc528cbb592">EMAC_FRAME_LENTGH_MAX</a>];</div><div class="line"></div><div class="line">uint32_t ul_frm_size;</div></div><!-- fragment --><p>Add to application C-file: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> emac_init(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    sysclk_init();</div><div class="line"></div><div class="line">    board_init();</div><div class="line"></div><div class="line">    <a class="code" href="a01276.html#ga861b9cd6dd609da3f5a7adde32fd7886">rstc_set_external_reset</a>(<a class="code" href="a01305.html#gaaf4420a3f45b147f964b2913313c2ead">RSTC</a>, 13);</div><div class="line">    <a class="code" href="a01276.html#ga25575e7e621312be7df113027019bb78">rstc_reset_extern</a>(<a class="code" href="a01305.html#gaaf4420a3f45b147f964b2913313c2ead">RSTC</a>);</div><div class="line">    <span class="keywordflow">while</span> (<a class="code" href="a01276.html#ga5e2a79c5266bb7ac20455f3d7f468936">rstc_get_status</a>(<a class="code" href="a01305.html#gaaf4420a3f45b147f964b2913313c2ead">RSTC</a>) &amp; <a class="code" href="a01290.html#ga791295340c9c371953e8f9536d9e6da5">RSTC_SR_NRSTL</a>) {</div><div class="line">    };</div><div class="line"></div><div class="line">    ul_delay = sysclk_get_cpu_hz() / 1000 / 3 * 400;</div><div class="line">    <span class="keywordflow">while</span> (ul_delay--);</div><div class="line"></div><div class="line">    <a class="code" href="a01275.html#gad09de55bb493f4ebdd92305f24f27d62">pmc_enable_periph_clk</a>(<a class="code" href="a01655.html#ga74d0aa9ca691fd8f8b122c11944bbef2">ID_EMAC</a>);</div><div class="line"></div><div class="line">    emac_option.uc_copy_all_frame = 0;</div><div class="line">    emac_option.uc_no_boardcast = 0;</div><div class="line">    memcpy(emac_option.uc_mac_addr, gs_uc_mac_address, <span class="keyword">sizeof</span>(gs_uc_mac_address));</div><div class="line">    gs_emac_dev.<a class="code" href="a00109.html#a3e9aa2b6ce96e02cacdb0d0defa77887">p_hw</a> = <a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>;</div><div class="line"></div><div class="line">    emac_dev_init(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, &amp;gs_emac_dev, &amp;emac_option);</div><div class="line"></div><div class="line">    NVIC_EnableIRQ(<a class="code" href="a01734.html#gga666eb0caeb12ec0e281415592ae89083ac21a9fe1e0e83e7761620687d501067c">EMAC_IRQn</a>);</div><div class="line"></div><div class="line">    ethernet_phy_init(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, BOARD_EMAC_PHY_ADDR, sysclk_get_cpu_hz()</div><div class="line"></div><div class="line">    ethernet_phy_auto_negotiate(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, BOARD_EMAC_PHY_ADDR</div><div class="line"></div><div class="line">    ethernet_phy_set_link(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, BOARD_EMAC_PHY_ADDR, 1)</div></div><!-- fragment --><h2><a class="anchor" id="emac_basic_use_case_setup_flow"></a>
+Workflow</h2>
+<ol type="1">
+<li>Ensure that conf_emac.h is present and contains the following configuration symbol. This configuration file is used by the driver and should not be included by the user.<ul>
+<li><div class="fragment"><div class="line"><span class="preprocessor">#define EMAC_RX_BUFFERS                               16</span></div><div class="line"><span class="preprocessor">#define EMAC_TX_BUFFERS                               8</span></div><div class="line"><span class="preprocessor">#define MAC_PHY_RETRY_MAX                             1000000</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR0                        0x00</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR0                        0x00</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR1                        0x04</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR2                        0x25</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR3                        0x1C</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR4                        0xA0</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_ETHADDR5                        0x02</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR0                         192</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR1                         168</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR2                         0</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_IPADDR3                         2</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR0                   192</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR1                   168</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR2                   0</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_GATEWAY_ADDR3                   1</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK0                       255</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK1                       255</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK2                       255</span></div><div class="line"><span class="preprocessor">#define ETHERNET_CONF_NET_MASK3                       0</span></div><div class="line"><span class="preprocessor">#define ETH_PHY_MODE                                  BOARD_EMAC_MODE_RMII</span></div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Enable the system clock:<ul>
+<li><div class="fragment"><div class="line">sysclk_init(); </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Enable PIO configurations for EMAC:<ul>
+<li><div class="fragment"><div class="line">board_init(); </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Reset PHY; this is required by the DM9161A component:<ul>
+<li><div class="fragment"><div class="line"><a class="code" href="a01276.html#ga861b9cd6dd609da3f5a7adde32fd7886">rstc_set_external_reset</a>(<a class="code" href="a01305.html#gaaf4420a3f45b147f964b2913313c2ead">RSTC</a>, 13);</div><div class="line"><a class="code" href="a01276.html#ga25575e7e621312be7df113027019bb78">rstc_reset_extern</a>(<a class="code" href="a01305.html#gaaf4420a3f45b147f964b2913313c2ead">RSTC</a>);</div><div class="line"><span class="keywordflow">while</span> (<a class="code" href="a01276.html#ga5e2a79c5266bb7ac20455f3d7f468936">rstc_get_status</a>(<a class="code" href="a01305.html#gaaf4420a3f45b147f964b2913313c2ead">RSTC</a>) &amp; RSTC_SR_NRSTL) {</div><div class="line">};</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Wait for PHY ready:<ul>
+<li><div class="fragment"><div class="line">ul_delay = sysclk_get_cpu_hz() / 1000 / 3 * 400;</div><div class="line"><span class="keywordflow">while</span> (ul_delay--);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Enable PMC clock for EMAC:<ul>
+<li><div class="fragment"><div class="line"><a class="code" href="a01275.html#gad09de55bb493f4ebdd92305f24f27d62">pmc_enable_periph_clk</a>(<a class="code" href="a01655.html#ga74d0aa9ca691fd8f8b122c11944bbef2">ID_EMAC</a>); </div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Set the EMAC options; it's set to copy all frame and support broadcast:<ul>
+<li><div class="fragment"><div class="line">emac_option.uc_copy_all_frame = 0;</div><div class="line">emac_option.uc_no_boardcast = 0;</div><div class="line">memcpy(emac_option.uc_mac_addr, gs_uc_mac_address, <span class="keyword">sizeof</span>(gs_uc_mac_address));</div><div class="line">gs_emac_dev.<a class="code" href="a00109.html#a3e9aa2b6ce96e02cacdb0d0defa77887">p_hw</a> = <a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>;</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Initialize EMAC device with the filled option:<ul>
+<li><div class="fragment"><div class="line">emac_dev_init(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, &amp;gs_emac_dev, &amp;emac_option);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Enable the interrupt service for EMAC:<ul>
+<li><div class="fragment"><div class="line">NVIC_EnableIRQ(<a class="code" href="a01734.html#gga666eb0caeb12ec0e281415592ae89083ac21a9fe1e0e83e7761620687d501067c">EMAC_IRQn</a>);</div></div><!-- fragment --></li>
+</ul>
+</li>
+<li>Initialize the PHY component:<ul>
+<li><div class="fragment"><div class="line">ethernet_phy_init(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, BOARD_EMAC_PHY_ADDR, sysclk_get_cpu_hz());</div></div><!-- fragment --></li>
+</ul>
+</li>
+</ol>
+<p>The link will be established based on auto negotiation.</p><ul>
+<li><div class="fragment"><div class="line">ethernet_phy_auto_negotiate(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, BOARD_EMAC_PHY_ADDR);</div></div><!-- fragment --></li>
+</ul>
+<p>Establish the ethernet link; the network can be worked from now on:</p><ul>
+<li><div class="fragment"><div class="line">ethernet_phy_set_link(<a class="code" href="a01656.html#gacf7eb4e68245708b80f67e9e9f8d6921">EMAC</a>, BOARD_EMAC_PHY_ADDR, 1);</div></div><!-- fragment --></li>
+</ul>
+<h1><a class="anchor" id="emac_basic_use_case_usage"></a>
+Usage steps</h1>
+<h2><a class="anchor" id="emac_basic_use_case_usage_code"></a>
+Example code</h2>
+<p>Add to, e.g., main loop in application C-file: </p><div class="fragment"><div class="line">emac_dev_read(&amp;gs_emac_dev, (uint8_t *) gs_uc_eth_buffer, <span class="keyword">sizeof</span>(gs_uc_eth_buffer), &amp;ul_frm_size));</div></div><!-- fragment --><h2><a class="anchor" id="emac_basic_use_case_usage_flow"></a>
+Workflow</h2>
+<ol type="1">
+<li>Start reading the data from the ethernet:<ul>
+<li><div class="fragment"><div class="line">emac_dev_read(&amp;gs_emac_dev, (uint8_t *) gs_uc_eth_buffer, <span class="keyword">sizeof</span>(gs_uc_eth_buffer), &amp;ul_frm_size)); </div></div><!-- fragment --> </li>
+</ul>
+</li>
+</ol>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

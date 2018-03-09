@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Robobo: Member List</title>
+<title>Robobo: Quick start guide for the SAM PMC module</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,8 +46,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -66,14 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
-    </ul>
-  </div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -86,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('a00005.html','');});
+$(document).ready(function(){initNavTree('a00027.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -105,17 +100,44 @@ $(document).ready(function(){initNavTree('a00005.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">RoboboTests Member List</div>  </div>
+<div class="title">Quick start guide for the SAM PMC module </div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="a00005.html">RoboboTests</a>, including all inherited members.</p>
-<table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>arduino</b> (defined in <a class="el" href="a00005.html">RoboboTests</a>)</td><td class="entry"><a class="el" href="a00005.html">RoboboTests</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>RoboboTests</b>() (defined in <a class="el" href="a00005.html">RoboboTests</a>)</td><td class="entry"><a class="el" href="a00005.html">RoboboTests</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SetUp</b>() (defined in <a class="el" href="a00005.html">RoboboTests</a>)</td><td class="entry"><a class="el" href="a00005.html">RoboboTests</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>TearDown</b>() (defined in <a class="el" href="a00005.html">RoboboTests</a>)</td><td class="entry"><a class="el" href="a00005.html">RoboboTests</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><p>This is the quick start guide for the PMC module, with step-by-step instructions on how to configure and use the driver in a selection of use cases.</p>
+<p>The use cases contain several code fragments. The code fragments in the steps for setup can be copied into a custom initialization function, while the steps for usage can be copied into, e.g., the main application function.</p>
+<h1><a class="anchor" id="pmc_use_cases"></a>
+PMC use cases</h1>
+<ul>
+<li><a class="el" href="a00027.html#pmc_basic_use_case">Basic use case - Switch Main Clock sources</a> Basic use case - Switch Main Clock sources</li>
+<li><a class="el" href="a00028.html">Use case #2 - Configure Programmable Clocks</a> Advanced use case - Configure Programmable Clocks</li>
+</ul>
+<h1><a class="anchor" id="pmc_basic_use_case"></a>
+Basic use case - Switch Main Clock sources</h1>
+<p>In this use case, the PMC module is configured for a variety of system clock sources and speeds. A LED is used to visually indicate the current clock speed as the source is switched.</p>
+<h1><a class="anchor" id="pmc_basic_use_case_setup"></a>
+Setup</h1>
+<h2><a class="anchor" id="pmc_basic_use_case_setup_prereq"></a>
+Prerequisites</h2>
+<ol type="1">
+<li>General Purpose I/O Management (gpio)</li>
+</ol>
+<h2><a class="anchor" id="pmc_basic_use_case_setup_code"></a>
+Code</h2>
+<p>The following function needs to be added to the user application, to flash a board LED a variable number of times at a rate given in CPU ticks.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#define FLASH_TICK_COUNT   0x00012345</span></div><div class="line"></div><div class="line"><span class="keywordtype">void</span> flash_led(uint32_t tick_count, uint8_t flash_count)</div><div class="line">{</div><div class="line">    <a class="code" href="a01186.html#gacd96c53beeaff8f603fcda425eb295de">SysTick</a>-&gt;CTRL = <a class="code" href="a01190.html#ga16c9fee0ed0235524bdeb38af328fd1f">SysTick_CTRL_ENABLE_Msk</a>;</div><div class="line">    <a class="code" href="a01186.html#gacd96c53beeaff8f603fcda425eb295de">SysTick</a>-&gt;LOAD = tick_count;</div><div class="line"></div><div class="line">    <span class="keywordflow">while</span> (flash_count--)</div><div class="line">    {</div><div class="line">        gpio_toggle_pin(LED0_GPIO);</div><div class="line">        <span class="keywordflow">while</span> (!(<a class="code" href="a01186.html#gacd96c53beeaff8f603fcda425eb295de">SysTick</a>-&gt;CTRL &amp; <a class="code" href="a01190.html#ga1bf3033ecccf200f59baefe15dbb367c">SysTick_CTRL_COUNTFLAG_Msk</a>));</div><div class="line">        gpio_toggle_pin(LED0_GPIO);</div><div class="line">        <span class="keywordflow">while</span> (!(<a class="code" href="a01186.html#gacd96c53beeaff8f603fcda425eb295de">SysTick</a>-&gt;CTRL &amp; <a class="code" href="a01190.html#ga1bf3033ecccf200f59baefe15dbb367c">SysTick_CTRL_COUNTFLAG_Msk</a>));</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><h1><a class="anchor" id="pmc_basic_use_case_usage"></a>
+Use case</h1>
+<h2><a class="anchor" id="pmc_basic_use_case_usage_code"></a>
+Example code</h2>
+<p>Add to application C-file: </p><div class="fragment"><div class="line"><span class="keywordflow">for</span> (;;)</div><div class="line">{</div><div class="line">    <a class="code" href="a01275.html#ga99fe80ceb242a783b01fa3e68d75f4e6">pmc_switch_mainck_to_fastrc</a>(<a class="code" href="a01288.html#gaaeb3752f6e7cfeb60df9fd3821614451">CKGR_MOR_MOSCRCF_12_MHz</a>);</div><div class="line">    flash_led(FLASH_TICK_COUNT, 5);</div><div class="line">    <a class="code" href="a01275.html#ga99fe80ceb242a783b01fa3e68d75f4e6">pmc_switch_mainck_to_fastrc</a>(<a class="code" href="a01288.html#ga1f689250243e92d6e635f265e6ff1951">CKGR_MOR_MOSCRCF_8_MHz</a>);</div><div class="line">    flash_led(FLASH_TICK_COUNT, 5);</div><div class="line">    <a class="code" href="a01275.html#ga99fe80ceb242a783b01fa3e68d75f4e6">pmc_switch_mainck_to_fastrc</a>(<a class="code" href="a01288.html#ga537fab2d22074bcb009fcf2201aa6ab1">CKGR_MOR_MOSCRCF_4_MHz</a>);</div><div class="line">    flash_led(FLASH_TICK_COUNT, 5);</div><div class="line">    <a class="code" href="a01275.html#ga39888344b1c2781f9755cb1853abf770">pmc_switch_mainck_to_xtal</a>(0);</div><div class="line">    flash_led(FLASH_TICK_COUNT, 5);</div><div class="line">}</div></div><!-- fragment --><h2><a class="anchor" id="pmc_basic_use_case_usage_flow"></a>
+Workflow</h2>
+<ol type="1">
+<li>Wrap the code in an infinite loop: <div class="fragment"><div class="line"><span class="keywordflow">for</span> (;;)</div></div><!-- fragment --></li>
+<li>Switch the Master CPU frequency to the internal 12MHz RC oscillator, flash a LED on the board several times: <div class="fragment"><div class="line"><a class="code" href="a01275.html#ga99fe80ceb242a783b01fa3e68d75f4e6">pmc_switch_mainck_to_fastrc</a>(<a class="code" href="a01288.html#gaaeb3752f6e7cfeb60df9fd3821614451">CKGR_MOR_MOSCRCF_12_MHz</a>);</div><div class="line">flash_led(FLASH_TICK_COUNT, 5);</div></div><!-- fragment --></li>
+<li>Switch the Master CPU frequency to the internal 8MHz RC oscillator, flash a LED on the board several times: <div class="fragment"><div class="line"><a class="code" href="a01275.html#ga99fe80ceb242a783b01fa3e68d75f4e6">pmc_switch_mainck_to_fastrc</a>(<a class="code" href="a01288.html#ga1f689250243e92d6e635f265e6ff1951">CKGR_MOR_MOSCRCF_8_MHz</a>);</div><div class="line">flash_led(FLASH_TICK_COUNT, 5);</div></div><!-- fragment --></li>
+<li>Switch the Master CPU frequency to the internal 4MHz RC oscillator, flash a LED on the board several times: <div class="fragment"><div class="line"><a class="code" href="a01275.html#ga99fe80ceb242a783b01fa3e68d75f4e6">pmc_switch_mainck_to_fastrc</a>(<a class="code" href="a01288.html#ga537fab2d22074bcb009fcf2201aa6ab1">CKGR_MOR_MOSCRCF_4_MHz</a>);</div><div class="line">flash_led(FLASH_TICK_COUNT, 5);</div></div><!-- fragment --></li>
+<li>Switch the Master CPU frequency to the external crystal oscillator, flash a LED on the board several times: <div class="fragment"><div class="line"><a class="code" href="a01275.html#ga39888344b1c2781f9755cb1853abf770">pmc_switch_mainck_to_xtal</a>(0);</div><div class="line">flash_led(FLASH_TICK_COUNT, 5);</div></div><!-- fragment --> </li>
+</ol>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

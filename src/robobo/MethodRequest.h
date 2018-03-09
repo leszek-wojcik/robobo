@@ -6,7 +6,9 @@
 class MethodRequestBase
 {
     public:
-        virtual void execute()=0;
+        bool persistent;
+        MethodRequestBase(): persistent(0) { }
+        virtual void execute();
 };
 
 template<int ...> struct seq {};
