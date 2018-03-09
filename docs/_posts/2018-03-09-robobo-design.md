@@ -13,57 +13,66 @@ embedded programming such as Arduino objective approach is standard. This
 article describes Robobo abstraction for FreeRTOS interface.
 
 
-#Robobo case study
-Before going into details lets try to do some analysis about requirements we
-would have for our application. 
+# Robobo case study
+Before going into details lets try to do some analysis about requirements and
+motivations we would have for our application. 
 
-- Design should be prepared to accept variability of execution elements such as
-  motors. We would like to have ability to introduce new execution elements by
-code addition not by code modification. Examples are: Stepper Motor, hydraulic
-or pneumatic actuator.
+- Robobo design should be prepared to accept variability of executive elements. 
+  We would like to have ability to introduce new executive elements by
+code addition not by code modification. Examples of elements are: Stepper
+Motor, hydraulic or pneumatic actuator. Even if these elements will not be part
+of project we want our software ready just in case. 
 
 - Motor abstraction should be flexible enough to change control algorithm
-  during runtime. 
+  during runtime. For instance if we would like to change PID algorithm
+parameters or even exchange PID with other algorithm Robobo design shoudl allow
+that. For control algorithm introduction plese refer to my [servo post](
+https://leszek-wojcik.github.io/robobo/arduino/servo/encoder/pololu/hbridge/pid/2017/12/29/servo.html).
 
-- Separate threads are to handle control over each engine. Although most of
-  Robobo Motors will be PID driven but we would like to to prioritize control in cases
-where stepper Motor will be used or different control mechanisms implemented.
+- Separate threads are to handle control over each motor. Although most of
+  Robobo Motors will be PID driven we would like still have ability to
+prioritize control. PID itself does not require complex computation but having
+each servo calculated independently provides much more flexibility that single
+threaded approach.
 
-- Robobo design assumes main controller entity which be communicating with all
-  motors and would get notification when requested Motor position will be
-achieved. Main controller will be responsible for geometry calculation. 
+- Robobo design assumes existence of main controller entity. This entity is
+  responsible for communication with all motors. Main controller would run on
+thread with lower priority than servo controllers. It woudl receive
+notification when requested Motor position will be achieved. Main controller
+will be responsible for geometry calculation. 
 
-- Robobo design will allow to pull in external communication component in order
-  to communicate Main controller with user. This communication could be AWS
-cloud or CLI provided by serial USB interface.
+- Robobo design will allow to read external communication from an user. 
+  This communication could be AWS cloud or CLI provided by serial USB interface.
 
 - Robobo design should abstract FreeRTOS in such a way that potential movement
   to different OS would be easy. No hard dependencies between Robobo Logic with
 OS.
 
-#Active Object
+# Active Object
 
 Before going into detailed class design I would like to clarify Active Object
 design pattern. In Object Oriented programming special concept of Active Object
-exist. Active Object is an object which have important property. That property
-is execution context. Whenever calling a method on object it executes on
-context of particular task/thread. 
+was created. Active Object is an object which has important property added on
+top of regular object. This property is execution context. Whenever calling a
+method on Active Object it executes on context of particular task/thread. 
 
-Please refer to my previous article about Real Time Operation System. In
-FreeRTOS we are assigning a priority for each task. If you have
-two active objects and both of them are different execution context and if you
-execute method on both of them then execution order is determined by priority
-you selected for tasks (context)
+Please refer to my previous article about [Real Time Operation
+System](https://leszek-wojcik.github.io/robobo/rtos/2018/01/21/rtos.html). In
+FreeRTOS we are assigning a priority for each task. Consider a case where you
+have two Active Objects and these two objects are assigned to two different
+execution contexts (FreeRTOS tasks). Soppose you execute method on both of them
+then execution order is determined by priority you selected for tasks (context)
 
 Active Object is an object of a class and you treat it as normal object but
 since Active Objects are assigned to particular task they are dynamic from user
-perspective.
+perspective. Once method call is invoked then its execution can happen using
+concurrency mechanisms provided by OS layer;
 
-In order to highlight importance of design note consider our Robobo case. Each
-DC motor executes PID algorithm. PID algorithm is actual computation that takes
-CPU from other tasks. If I would have each `DCMotor` Active Object property
-then I'm getting ability to prioritize PID algorithm execution among multiple
-DCMotors.
+In order to highlight importance of Active Object design please consider our
+Robobo case. Each `DCMotor` executes PID algorithm. PID algorithm is actual
+computation that takes CPU from other tasks. If somebody would like to have
+each `DCMotor` object acting as Active Object then he would get ability to
+prioritize PID algorithm execution among multiple DCMotors.
 
 Following is UML diagram that represents relationship between `DCMotor` and
 `ActiveObject` classes. If you are unfamiliar with UML you might ignore this
