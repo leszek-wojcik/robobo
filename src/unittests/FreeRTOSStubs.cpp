@@ -37,3 +37,25 @@ TickType_t xTaskGetTickCount( void )
 {
     return RoboboTests::rtos->xTaskGetTickCount();
 }
+
+QueueHandle_t xQueueGenericCreate(  const UBaseType_t uxQueueLength, 
+                                    const UBaseType_t uxItemSize, 
+                                    const uint8_t ucQueueType )
+{
+    return RoboboTests::rtos->xQueueGenericCreate( uxQueueLength, uxItemSize, ucQueueType );
+}
+
+BaseType_t xQueueGenericReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait, const BaseType_t xJustPeeking )
+{
+    return RoboboTests::rtos-> xQueueGenericReceive(xQueue,pvBuffer,xTicksToWait,xJustPeeking);
+}
+
+BaseType_t xTaskGenericCreate( TaskFunction_t pxTaskCode, const char * const pcName, const uint16_t usStackDepth, void * const pvParameters, UBaseType_t uxPriority, TaskHandle_t * const pxCreatedTask, StackType_t * const puxStackBuffer, const MemoryRegion_t * const xRegions ) 
+{
+    return RoboboTests::rtos-> xTaskGenericCreate( pxTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask, puxStackBuffer, xRegions );
+}
+
+BaseType_t xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait, const BaseType_t xCopyPosition )
+{
+    return RoboboTests::rtos-> xQueueGenericSend( xQueue, pvItemToQueue, xTicksToWait, xCopyPosition );
+}

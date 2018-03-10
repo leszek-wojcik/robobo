@@ -1,8 +1,9 @@
 #include "gtest/gtest.h"
-#include "grey.h"
+#include "gmock/gmock.h"
 #include "MethodRequest.h"
+#include "ActiveObject.h"
 #include <iostream>
-using ::testing::_;
+
 using ::testing::Return;
 using namespace std;
 
@@ -36,13 +37,13 @@ TEST(MethodRequestTests, methodRequest)
     MethodRequestBase *ptr;
 
     
-    MethodRequest<A,int> mr1(a, &A::method1 ,1);
+    MethodRequest<A,int> mr1(a,false, &A::method1 ,1);
 
     ASSERT_EQ( &(mr1.object), &a );
     ASSERT_EQ( get<0>(mr1.params), 1 );
     ASSERT_EQ( mr1.method_to_call, &A::method1);
 
-    MethodRequest<A,int,int> mr2(a, &A::method2 ,2,3);
+    MethodRequest<A,int,int> mr2(a,false, &A::method2 ,2,3);
     
     EXPECT_CALL(a, method1(1));
     ptr = &mr1;
@@ -54,3 +55,19 @@ TEST(MethodRequestTests, methodRequest)
 
 }
 
+TEST(MethodRequestTests, mem_allocation )
+{
+    class A
+    {
+        public:
+            MOCK_METHOD1(method1, void (int) );
+    };
+    
+    A a;
+    
+    auto macromr = MR1(A,a,method1,int,1);
+    ASSERT_EQ(macromr== NULL, false);
+    delete macromr;
+
+
+}

@@ -17,7 +17,7 @@ TimerHandle_t ActiveObject::createTimer
 {
     if (reload == 1 )
     {
-        mr->persistent = true;
+        mr->setPersistent(true);
     }
 
     return xTimerCreate
@@ -48,7 +48,7 @@ void ActiveObjectTaskFunction( void *q)
     {
         xQueueReceive( queue, &mr, portMAX_DELAY );
         mr->execute();
-        if (mr->persistent == false )
+        if (mr->isPersistent() == false )
         {
             delete mr;
             mr = NULL;

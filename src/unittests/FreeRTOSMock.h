@@ -29,7 +29,30 @@ class FreeRTOSMock
                                 BaseType_t * const , 
                                 const TickType_t ) );
 
-        MOCK_METHOD0 (xTaskGetTickCount, TickType_t ());
-};
+        MOCK_METHOD0(xTaskGetTickCount, TickType_t ());
 
+        MOCK_METHOD3( xQueueGenericCreate, QueueHandle_t (const UBaseType_t,
+                                const UBaseType_t ,
+                                const uint8_t ) );
+
+        MOCK_METHOD4( xQueueGenericReceive, BaseType_t ( QueueHandle_t , 
+                                void * const , 
+                                TickType_t , 
+                                const BaseType_t ) );
+
+        MOCK_METHOD8( xTaskGenericCreate, BaseType_t ( TaskFunction_t , 
+                                const char * const , 
+                                const uint16_t , 
+                                void * const , 
+                                UBaseType_t , 
+                                TaskHandle_t * const , 
+                                StackType_t * const , 
+                                const MemoryRegion_t * const ) );
+
+        MOCK_METHOD4( xQueueGenericSend, BaseType_t ( QueueHandle_t , 
+                                const void * const , 
+                                TickType_t , 
+                                const BaseType_t ));
+
+};
 #endif
