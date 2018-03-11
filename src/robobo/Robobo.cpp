@@ -19,9 +19,9 @@ Robobo::Robobo()
 void Robobo::createSetupV1(void)
 {
    
-    pid1 = new PID(0,0,0);
+    pid1 = new PID(2,0,0);
     dc1 = new DCMotor(19, 20, 22, 24, 2, pid1);
-    dc1->enableReports(2000);
+    dc1->enableReports(3000);
 
 	attachInterrupt(digitalPinToInterrupt(19),encoder1_ISR, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(20),encoder1_ISR, CHANGE);

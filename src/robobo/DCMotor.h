@@ -46,17 +46,15 @@ class DCMotor : public ActiveObject,  public MotorI
         int32_t encoderPosition;
         int32_t requestedPosition;
         int8_t  direction;
+        int32_t dcOutput;
         
-        // PID Controller parameters
-        float kP;
-        float kI;
-        int32_t integral;
 
         // Interface functions
         void setPosition(int32_t);
         int32_t getPosition();
         void stop(void);
         void enableReports(TickType_t period);
+        void setControlStategy(ControlStrategy *strategy);
 
         // these methods are to run in timer expiration
         void reportMethod(void);
@@ -69,7 +67,6 @@ class DCMotor : public ActiveObject,  public MotorI
 
         ControlStrategy *control;
     
-        void calculatePID(void);
         void setDirectionRight(void);
         void setDirectionLeft(void);
         void setVoltage(uint8_t val);

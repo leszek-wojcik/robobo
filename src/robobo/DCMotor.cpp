@@ -46,6 +46,8 @@ void DCMotor::reportMethod(void)
     Serial.println(encoderPosition);
     Serial.print(" Requested Position ");
     Serial.println(requestedPosition);
+    Serial.print(" DC Output ");
+    Serial.println(dcOutput);
     Serial.println(" ------------- ");
 }
 
@@ -67,12 +69,12 @@ void DCMotor::reset(void)
     encoderPosition = 0;
     requestedPosition = 0;
     direction = 0;
-    
+    dcOutput = 0;
+}
 
-    //TODO: This is temporary place
-    integral = 0;
-    kP = 5;
-    
+void DCMotor::setControlStategy(ControlStrategy *strategy)
+{
+    control = strategy;
 }
 
 void DCMotor::updateControl(void)
@@ -83,40 +85,34 @@ void DCMotor::updateControl(void)
 
 void DCMotor::encoderInterrupt(void)
 {
-    int8_t diff;
+    int8_t posUpdate;
+    int32_t diff;
+
     encoderAPrevVal = encoderAVal;
     encoderBPrevVal = encoderBVal;
 
     encoderAVal = digitalRead(encoderAPin);
     encoderBVal = digitalRead(encoderBPin);
 
-    diff =  greyValue(encoderAVal, encoderBVal) - 
+    posUpdate =  greyValue(encoderAVal, encoderBVal) - 
             greyValue(encoderAPrevVal, encoderBPrevVal);
 
-    if (diff == 3)
+    if (posUpdate == 3)
     {
-        diff = -1;
+        posUpdate = -1;
     }
-    else if (diff == -3)
+    else if (posUpdate == -3)
     {
-        diff = 1;
+        posUpdate = 1;
     }
 
-    encoderPosition += diff;
+    encoderPosition += posUpdate;
     
-    calculatePID();
+    diff = requestedPosition - encoderPosition;
 
-}
+    dcOutput = control->calculateControl(diff);
 
-void DCMotor::calculatePID(void)
-{
-    int32_t diff = requestedPosition - encoderPosition;
-    integral = integral + kI*micros();
-
-
-    int32_t output = diff * kP + integral;
-
-    if (output < 0 )
+    if (dcOutput < 0 )
     {
         setDirectionLeft();
     }
@@ -125,13 +121,13 @@ void DCMotor::calculatePID(void)
         setDirectionRight();
     }
 
-    output = abs(output);
+    dcOutput = abs(dcOutput);
 
     //need to scale target value to range 0-255 PWM
-    if (output >255)
-        output = 255;
+    if (dcOutput >255)
+        dcOutput = 255;
 
-    analogWrite(voltagePin, output);
+    analogWrite(voltagePin, dcOutput);
 
 }
 
