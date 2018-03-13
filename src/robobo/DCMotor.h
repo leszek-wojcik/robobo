@@ -1,8 +1,8 @@
-#ifndef ROBOBO_MOTOR_INCLUDED
-#define ROBOBO_MOTOR_INCLUDED
+#ifndef ROBOBO_DCMOTOR_INCLUDED
+#define ROBOBO_DCMOTOR_INCLUDED
 
 #include "Arduino.h"
-#include "MotorI.h"
+#include "Motor.h"
 #include "ActiveObject.h"
 #include "ControlStrategy.h"
 #include "PID.h"
@@ -14,7 +14,7 @@ Motor class is to represent all data associated with DC Motor.
 Motor class captures two wires from DC motor encoder. Stores previous and
 current value of encoder signal.     
 */
-class DCMotor : public ActiveObject,  public MotorI
+class DCMotor : public Motor
 {
     public:
         /** This function is responsible for seting correct pin modes in

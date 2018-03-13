@@ -2,6 +2,9 @@
 #define METHOD_REQUEST_INCLUDED
 
 #include <tuple>
+#include "Arduino.h"
+
+class ActiveObject;
 
 class MethodRequestBase
 {
@@ -9,6 +12,7 @@ class MethodRequestBase
         virtual void execute()=0;
         virtual bool isPersistent()=0;
         virtual void setPersistent(bool)=0;
+        virtual ActiveObject *getActiveObject()=0;
 };
 
 template<int ...> struct seq {};
@@ -31,6 +35,11 @@ class MethodRequest: public MethodRequestBase
             method_to_call(method),
             persistent(p)
         {
+        }
+
+        ActiveObject *getActiveObject()
+        {
+            return static_cast<ActiveObject*>(&object);
         }
 
         void setPersistent(bool p)

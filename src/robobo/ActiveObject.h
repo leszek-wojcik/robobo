@@ -4,14 +4,14 @@
 #include <FreeRTOS.h>
 #include "timers.h"
 #include "queue.h"
-#include "MethodRequest.h"
+
+class MethodRequestBase;
 
 class ActiveObject
 {
-    private:
-        QueueHandle_t queue; 
+    public:
+        QueueHandle_t mrQueue; 
 
-    public: 
         ActiveObject();
 
         TimerHandle_t createTimer (
@@ -20,6 +20,12 @@ class ActiveObject
                 const UBaseType_t uxAutoReload );
 
         uint8_t executeMethod(MethodRequestBase *mr);
+
+        QueueHandle_t getQueue()
+        {
+            return mrQueue; 
+        }
+
 
 };
 

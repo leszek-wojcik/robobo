@@ -5,9 +5,9 @@
 
 ActiveObject::ActiveObject()
 {
-    queue = xQueueCreate(10,sizeof(void*));
+    mrQueue = xQueueCreate(20,sizeof(MethodRequestBase*));
     xTaskCreate( ActiveObjectTaskFunction,
-            "AO", configMINIMAL_STACK_SIZE + 50 ,queue , tskIDLE_PRIORITY, NULL);
+            "AO", configMINIMAL_STACK_SIZE + 50 ,mrQueue , tskIDLE_PRIORITY, NULL);
 }
 
 TimerHandle_t ActiveObject::createTimer
@@ -30,23 +30,31 @@ TimerHandle_t ActiveObject::createTimer
 
 uint8_t ActiveObject::executeMethod(MethodRequestBase *mr)
 {
-    return xQueueSend(queue, mr, 0);
+    return xQueueSend(mrQueue, &mr, 0);
 }
 
 void ActiveObjectTimerCallback( TimerHandle_t xTimer )
 {
+    // At this point we are in timer task context. We need to pass on mr to
+    // ActiveObject context via queue
+    ActiveObject *ao;
     MethodRequestBase *mr = static_cast<MethodRequestBase*>(pvTimerGetTimerID(xTimer));
-    mr->execute();
+    ao =(ActiveObject*) mr->getActiveObject();
+    ao->executeMethod(mr);
 }
 
 void ActiveObjectTaskFunction( void *q)
 {
     QueueHandle_t queue = q;
+    void *recvData;
     MethodRequestBase *mr;
 
     for (;;) 
     {
-        xQueueReceive( queue, &mr, portMAX_DELAY );
+        xQueueReceive( queue, &recvData, portMAX_DELAY );
+
+        mr = static_cast<MethodRequestBase*>(recvData);
+
         mr->execute();
         if (mr->isPersistent() == false )
         {

@@ -16,11 +16,24 @@ PIDMock * RoboboTests::pid2 = NULL;
 ArduinoSerialMock Serial;
 
 
-TEST_F(RoboboTests, Timer)
+TEST_F(RoboboTests, ActiveO_1)
 {
-    PID pid(0,0,0);
-    EXPECT_CALL(*rtos, xTimerCreate(_,_,_,_,_));
-    DCMotor dcm3(1,2,3,4,5,&pid);
+    auto dcm3 = new DCMotor(1,2,3,4,5, pid1);
+    ActiveObject *ptr;
+    void *vptr;
+
+    cout << "wsk na obiekt DCMOTOR " << (void*) &(dcm3->mrQueue) <<endl;
+    vptr = (void*) (ActiveObject*) dcm3;
+    ptr = (ActiveObject*) vptr;
+    cout << "wsk na obiekt AO " << (void*) &(ptr->mrQueue) <<endl<<endl;
+
+    cout << "wsk na obiekt DCMOTOR " << (void*) dcm3 <<endl;
+    cout << "wsk na obiekt DCMOTOR " << (void*) vptr <<endl;
+    cout << "wsk na obiekt DCMOTOR " << (void*) ptr <<endl;
+    
+
+    
+    delete dcm3;
 }
 
 TEST_F(RoboboTests, PID_proportional_1)

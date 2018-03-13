@@ -23,16 +23,19 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     setPinModes();
     reset();
 
-    auto updateControlMR = MR0(DCMotor, *this, updateControl);
-    triggerTimer = createTimer(updateControlMR,1,1);
-    xTimerStart(triggerTimer,0);
+//    auto updateControlMR = MR0(DCMotor, *this, updateControl);
+//    triggerTimer = createTimer(updateControlMR,1,1);
+//    xTimerStart(triggerTimer,0);
 
+    reportMethod();
 }
 
 void DCMotor::enableReports(TickType_t period)
 {
     auto reportMR = MR0(DCMotor, *this, reportMethod);
     reportTimer = createTimer(reportMR,period,1);
+    Serial.println(" - Report timer start - ");
+    Serial.print((long)reportTimer);
     xTimerStart(reportTimer,0);
 }
 
@@ -48,6 +51,8 @@ void DCMotor::reportMethod(void)
     Serial.println(requestedPosition);
     Serial.print(" DC Output ");
     Serial.println(dcOutput);
+    Serial.print(" Queue ");
+    Serial.println((long)getQueue());
     Serial.println(" ------------- ");
 }
 

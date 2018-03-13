@@ -2,7 +2,7 @@
 #define ROBOBO_INCLUDED
 
 #include "Arduino.h"
-#include "MotorI.h"
+#include "Motor.h"
 #include "ControlStrategy.h"
 
 /**
@@ -19,8 +19,8 @@ class Robobo
         Robobo();
         void createSetupV1(void);
 
-        MotorI *dc1;
-        MotorI *dc2;
+        Motor *dc1;
+        Motor *dc2;
         ControlStrategy *pid1;
         ControlStrategy *pid2;
         
