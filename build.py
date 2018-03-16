@@ -73,6 +73,7 @@ class SAMLinkExecutor(ExecutorWithArguments):
         self.add_argument_unfiltered('src/arduino_due_x/libsam_sam3x8e_gcc_rel.a')
         self.add_argument_unfiltered('-Wl,--end-group')
         self.add_argument_unfiltered('-lm')
+        self.add_argument_unfiltered('-lstdc++')
         self.add_argument_unfiltered('-gcc')
 
 

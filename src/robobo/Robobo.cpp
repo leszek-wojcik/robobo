@@ -28,16 +28,12 @@ void Robobo::createSetupV1(void)
 
     pid2 = new PID(5,0.000001,0);
     dc2 = new DCMotor(17, 18, 26, 28, 3, pid2); 
-    dc2->enableReports(5000);
+    //dc2->enableReports(5000);
 
 	attachInterrupt(digitalPinToInterrupt(17),encoder2_ISR, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(18),encoder2_ISR, CHANGE);
 
-//
-//    if (dc1 == NULL || dc2 == NULL)
-//    {
-//        Serial.println(" Allocation problem ");
-//    }
+
 }
 
 Robobo *Robobo::instance = NULL;

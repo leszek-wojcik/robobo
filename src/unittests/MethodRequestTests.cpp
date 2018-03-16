@@ -3,26 +3,21 @@
 #include "MethodRequest.h"
 #include "ActiveObject.h"
 #include <iostream>
+#include <functional>
 
 using ::testing::Return;
 using namespace std;
 
-//TEST(MethodRequestTests, macro_MR1)
-//{
-//    class A: public ActiveObject
-//    {
-//        public:
-//            MOCK_METHOD1(method1, void (int) );
-//            MOCK_METHOD2(method2, void (int,int) );
-//    };
-//    
-//    A a;
-//
-//    auto macromr = MR1(A,a,method1,int,1);
-//    EXPECT_CALL(a, method1(1));
-//    macromr->execute();
-//    delete macromr;
-//}
+TEST(MethodRequestTests, macro_MR1)
+{
+    struct A:public ActiveObject
+    {
+        int func();
+    };
+
+    A a;
+    MRequest *mr;
+}
 
 //TEST(MethodRequestTests, methodRequest)
 //{

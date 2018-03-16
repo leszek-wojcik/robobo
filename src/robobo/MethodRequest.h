@@ -3,44 +3,23 @@
 
 #include <tuple>
 #include "Arduino.h"
+#include <functional>
 
 class ActiveObject;
 
-class MethodRequestBase
+class MRequest
 {
     public:
-        virtual void execute()=0;
-        virtual bool isPersistent()=0;
-        virtual void setPersistent(bool)=0;
-        virtual ActiveObject *getActiveObject()=0;
-};
+        MRequest(ActiveObject *a, std::function<void()> f,bool persistent=false):
+            ao(a),
+            persistent(persistent)
+        {
+            func = new std::function<void()>(f);
+        }
 
-template<int ...> struct seq {};
-template<int N, int ...S> struct gens : gens<N-1, N-1, S...> {};
-template<int ...S> struct gens<0, S...>{ typedef seq<S...> type; };
-
-template <class AO, typename ...Args>
-class MethodRequest: public MethodRequestBase
-{
-    private:
+        ActiveObject *ao;
+        std::function<void()> *func;
         bool persistent;
-    public:
-        std::tuple<Args...> params;
-        void (AO::*method_to_call)(Args...) ;
-        AO &object;
-
-        MethodRequest(AO &o, bool p, void (AO::*method)(Args...), Args... x):
-            params(x...),
-            object(o),
-            method_to_call(method),
-            persistent(p)
-        {
-        }
-
-        ActiveObject *getActiveObject()
-        {
-            return static_cast<ActiveObject*>(&object);
-        }
 
         void setPersistent(bool p)
         {
@@ -55,20 +34,19 @@ class MethodRequest: public MethodRequestBase
                 return false;
         }
 
-        void execute()
+        ActiveObject *getActiveObject()
         {
-            callFunc(typename gens<sizeof...(Args)>::type());
+            return ao;
         }
 
-        template<int ...S>
-        void callFunc(seq<S...>)
+        ~MRequest()
         {
-           (object.*method_to_call)(std::get<S>(params) ...);
+            delete func;
         }
-
+        
 };
 
-#define MR1(classtype,object,funct,argtype,argval)  new  MethodRequest<classtype, argtype>( object,false, & classtype::funct, argval)
-#define MR0(classtype,object,funct)  new  MethodRequest<classtype >( object,false, & classtype::funct )
+
+
 
 #endif

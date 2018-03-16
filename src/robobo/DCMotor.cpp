@@ -3,6 +3,7 @@
 #include "grey.h"
 #include "MethodRequest.h"
 #include "Robobo.h"
+#include <functional>
 
 using namespace std;
 
@@ -23,16 +24,17 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     setPinModes();
     reset();
 
-    auto updateControlMR = MR0(DCMotor, *this, updateControl);
-    triggerTimer = createTimer(updateControlMR,1,1);
+
+    MRequest *mr = new MRequest(this,bind(&DCMotor::updateControl, this ));
+    triggerTimer = createTimer(mr,1,1);
     xTimerStart(triggerTimer,0);
 
 }
 
 void DCMotor::enableReports(TickType_t period)
 {
-    auto reportMR = MR0(DCMotor, *this, reportMethod);
-    reportTimer = createTimer(reportMR,period,1);
+    MRequest *mr = new MRequest(this,bind(&DCMotor::reportMethod, this ));
+    reportTimer = createTimer(mr,period,1);
     xTimerStart(reportTimer,0);
 }
 
@@ -40,6 +42,8 @@ void DCMotor::reportMethod(void)
 {
     Robobo *i = Robobo::instance; 
     Serial.println(" - DC Report - ");
+    Serial.print(" AO ");
+    Serial.println((long)(ActiveObject*)this );
     Serial.print(" Id ");
     Serial.println((long)this);
     Serial.print(" Encoder Position ");

@@ -1,5 +1,6 @@
 #ifndef ROBOBO_MOTOR_INCLUDED
 #define ROBOBO_MOTOR_INCLUDED
+
 #include "FreeRTOS.h"
 #include "ActiveObject.h"
 

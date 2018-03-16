@@ -6,6 +6,7 @@
 #include "queue.h"
 
 class MethodRequestBase;
+class MRequest;
 
 class ActiveObject
 {
@@ -15,11 +16,11 @@ class ActiveObject
         ActiveObject();
 
         TimerHandle_t createTimer (
-                MethodRequestBase *mr, 
+                MRequest *mr, 
                 const TickType_t xTimerPeriod, 
                 const UBaseType_t uxAutoReload );
 
-        uint8_t executeMethod(MethodRequestBase *mr);
+        uint8_t executeMethod(MRequest *mr);
 
         QueueHandle_t getQueue()
         {
