@@ -75,35 +75,42 @@ computation that takes CPU from other tasks. If somebody would like to have
 each `DCMotor` object acting as active object then he would get ability to
 prioritize PID algorithm execution among multiple `DCMotor` objects.
 
+# Active Object in Robobo
+
 Following is UML diagram that represents relationship between `DCMotor` and
 `ActiveObject` classes. If you are unfamiliar with UML you might ignore this
 and refer to code directly.
 
 ![Diagram](https://leszek-wojcik.github.io/robobo/images/DCMotor.jpg)
 
-In FreeRTOS active object implementation we need to delegate all concurrency
+When implementing active object we need to delegate all concurrency
 control to FreeRTOS API. As mentioned above Robobo aims to separate FreeRTOS
 from control logic in order to enable future design changes such as OS
 replacement. This can be achieved when all FreeRTOS calls will be contained in
-single class. ActiveObject implementation aims to cover all dependencies with
-OS. Lets summarize:
+single class. ActiveObject makes perfect spot to do that. Lets summarize
+dependencies of `ActiveObject` with FreeRTOS:
 
 - Each ActiveObject is associated with FreeRTOS task. During `ActiveObject`
   constructor execution following call is made:
-```
+
+```c
     xTaskCreate( ActiveObjectTaskFunction,
-            "AO", configMINIMAL_STACK_SIZE + 50 ,mrQueue , tskIDLE_PRIORITY, NULL);
+            "AO", 
+            configMINIMAL_STACK_SIZE + 50,
+            mrQueue, 
+            tskIDLE_PRIORITY, 
+            NULL);
 ```
 
-- In order to abstract inter process communication each active object will
-  contain its own FreeRTOS queue which is created in costructor:
-```
+- In order to abstract inter process communication each `ActiveObject` will
+  contain its own FreeRTOS queue which is created in constructor:
+```c
     mrQueue = xQueueCreate(...);
 ```
 
 - When `ActiveObject` client wishes to execute method in context of
-  `ActiveObject` task it calls `executeMethod(...)`. Then call is translated to 
-  `xQueueSend(mrQueue, &mr, 0);` FreeRTOS call.
+  `ActiveObject` instance task it calls `executeMethod(...)`. Then call is
+translated to `xQueueSend(mrQueue, &mr, 0)` FreeRTOS call.
 
 - Main `ActiveObject` task routine `ActiveObjectTaskFunction` will just block
   on `mrQueue` and receive functions requests and execute them. 
@@ -125,11 +132,11 @@ translates it to FreeRTOS `xTimerCreate` function:
 
 As I described above in order to facilitate interprocess communication we are
 using FreeRTOS queues. Whenever there is a need for calling an active object
-method caller in fact will create a message and it will put it on Active Object
+method, caller in fact will create a message and it will put it on Active Object
 `mrQueue` in his own execution context. This happens under the hood of
 `executeMethod()` call. 
 
-```C
+```c
 uint8_t ActiveObject::executeMethod(const std::function<void()> &f )
 {
     auto mr = new MRequest(this, f);
@@ -139,12 +146,12 @@ uint8_t ActiveObject::executeMethod(const std::function<void()> &f )
 
 Special `MRequest` structure was created in order to pass all necessary information to
 active object context to make it able to execute. Please note that
-`executeMethod` doesn't block. We can call it asynchronous as we are requesting
-`f` to be executed and we are not waiting for completion anyhow. That is
-current assumption for Robobo design and might change in future if needed.
+`executeMethod` doesn't block. We can call it *asynchronous* as we are requesting
+`f` to be executed but we are not waiting for completion anyhow. Asynchronous
+exection of function calls  is current assumption of Robobo design. 
 `MRequest` or method request is defined as follow:
 
-```C
+```c
 class MRequest
 {
         ...
@@ -155,7 +162,7 @@ class MRequest
 };
 ```
 
-Each MRequest includes pointer reference to `ActiveObject`, a function call and
+Each `MRequest` includes pointer reference to `ActiveObject`, a function call and
 persistence flag. Persistence flag is detail important from heap management
 perspective. I will skip explanation of this flag for now. `ActiveObject` pointer
 holds pointer to object in which context execution should happen. In reality
@@ -165,30 +172,39 @@ perspective key is `function<void()> *func`. This C++11 standard class is used t
 encapsulate function calls in objects. Reference can be found
 [here](http://en.cppreference.com/w/cpp/utility/functional/function).
 
+*(As side note I will mention that lack of fully compilant C++ standard
+library on AVR caused me to switch Arduino Mega with Arduino Due)*
+
 When client creates `MRequest` and put in on `ActiveObject` `mrQueue` then as
 part of  receiver context following will happen:
 
-```C
+```c
+void ActiveObjectTaskFunction( void *q)
+{
+    ...
     for (;;) 
     {
         xQueueReceive( queue, &mr, portMAX_DELAY );
         (*(mr->func))();
         ...
     }
+}
 ```
 
 # Client interface
 
-In order to dispatch method request following call must be executed:
+In order to dispatch method request following call has be executed:
 
-```C
+```c
 executeMethod(std::function<void()>(bind(&DCMotor::reportMethod,this)),
 ```
-here we take advantage of c++11 `bind`.
+call takes advantage of c++11 `bind`.
 [Bind](http://en.cppreference.com/w/cpp/utility/functional/bind) allows us to
 create `function<void()>` objects even from methods that actually takes
-parameters.  This is flexible mechanism that allows us to call literally every
-method even if they require to provide parameter set. 
+parameters. This is flexible mechanism that allows us to call literally every
+method even if they require to provide parameter set. Above `executeMethod`
+call will pass `function<void()>` created from `void DCMotor::reportMethod()`
+method and create `MRequest` object and then place it on `mrQueue`. 
 
 # Summary 
 
