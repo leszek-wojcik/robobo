@@ -4,6 +4,7 @@
 #include <FreeRTOS.h>
 #include "timers.h"
 #include "queue.h"
+#include <functional>
 
 class MethodRequestBase;
 class MRequest;
@@ -15,18 +16,23 @@ class ActiveObject
 
         ActiveObject();
 
-        TimerHandle_t createTimer (
-                MRequest *mr, 
-                const TickType_t xTimerPeriod, 
-                const UBaseType_t uxAutoReload );
+        TimerHandle_t createTimer (  
+                const std::function<void()> &f, 
+                const TickType_t period, 
+                const UBaseType_t reload );
 
-        uint8_t executeMethod(MRequest *mr);
+        uint8_t executeMethod(const std::function<void()> &);
 
         QueueHandle_t getQueue()
         {
             return mrQueue; 
         }
 
+    private:
+        uint8_t executeMethod(MRequest *mr);
+
+    friend void ActiveObjectTimerCallback( TimerHandle_t xTimer );
+    friend void ActiveObjectTaskFunction( void * );
 
 };
 

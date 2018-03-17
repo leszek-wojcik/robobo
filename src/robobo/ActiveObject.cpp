@@ -12,10 +12,13 @@ ActiveObject::ActiveObject()
 
 
 TimerHandle_t ActiveObject::createTimer
-     (   MRequest *mr, 
+     (   const std::function<void()> &f, 
          const TickType_t period, 
          const UBaseType_t reload )
 {
+
+    auto mr = new MRequest( this, f);
+
     if (reload == 1 )
     {
         mr->setPersistent(true);
@@ -31,6 +34,12 @@ TimerHandle_t ActiveObject::createTimer
 
 uint8_t ActiveObject::executeMethod(MRequest *mr)
 {
+    return xQueueSend(mrQueue, &mr, 0);
+}
+
+uint8_t ActiveObject::executeMethod(const std::function<void()> &f )
+{
+    auto mr = new MRequest(this, f);
     return xQueueSend(mrQueue, &mr, 0);
 }
 

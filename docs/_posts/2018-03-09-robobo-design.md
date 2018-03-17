@@ -66,7 +66,8 @@ then execution order is determined by priority you selected for tasks.
 Active object is like any other object. You treat it as normal object but
 since active objects are assigned to particular task they are dynamic from user
 perspective. Once method call is invoked then its execution can happen using
-concurrency mechanisms provided by OS layer;
+concurrency mechanisms provided by OS layer. In such light active object
+concept is concept of requesting others to execute something. 
 
 In order to highlight importance of active object design please consider our
 Robobo case. Each `DCMotor` executes PID algorithm. PID algorithm is actual
@@ -95,11 +96,10 @@ OS. Lets summarize:
 ```
 
 - In order to abstract inter process communication each active object will
-  contain its own FreeRTOS queue:
+  contain its own FreeRTOS queue which is created in costructor:
 ```
     mrQueue = xQueueCreate(...);
 ```
-  Queue creation is done as part of `ActiveObject` constructor. 
 
 - When `ActiveObject` client wishes to execute method in context of
   `ActiveObject` task it calls `executeMethod(...)`. Then call is translated to 
@@ -121,16 +121,83 @@ translates it to FreeRTOS `xTimerCreate` function:
           ActiveObjectTimerCallback );
 ```
 
-# DCMotor class
-As highlighted in UML diagram additional `Motor` interface class is
-provided.Motor interface is provided to abstract executive elements to main
-Robobo controller. Its implementation example is made by `DCMotor` class. This
-abstraction fulfils design assumption of having ability of adding new executive
-elements by code addition. In order to add a stepper motor to robobo we will
-have to provide implementation of methods `setPosition`, `getPosition`, `reset`
-and others which are motor type specific.
+# Method Request
 
-One more aspect to highlight in `DCMotor` is `control` member. 
+As I described above in order to facilitate interprocess communication we are
+using FreeRTOS queues. Whenever there is a need for calling an active object
+method caller in fact will create a message and it will put it on Active Object
+`mrQueue` in his own execution context. This happens under the hood of
+`executeMethod()` call. 
 
-*Details to be provided soon*
+```C
+uint8_t ActiveObject::executeMethod(const std::function<void()> &f )
+{
+    auto mr = new MRequest(this, f);
+    return xQueueSend(mrQueue, &mr, 0);
+}
+```
+
+Special `MRequest` structure was created in order to pass all necessary information to
+active object context to make it able to execute. Please note that
+`executeMethod` doesn't block. We can call it asynchronous as we are requesting
+`f` to be executed and we are not waiting for completion anyhow. That is
+current assumption for Robobo design and might change in future if needed.
+`MRequest` or method request is defined as follow:
+
+```C
+class MRequest
+{
+        ...
+        ActiveObject *ao;
+        std::function<void()> *func;
+        bool persistent;
+        ...
+};
+```
+
+Each MRequest includes pointer reference to `ActiveObject`, a function call and
+persistence flag. Persistence flag is detail important from heap management
+perspective. I will skip explanation of this flag for now. `ActiveObject` pointer
+holds pointer to object in which context execution should happen. In reality
+this reference is in place in order to satisfy FreeRTOS software timer design.
+Once again I will skip explanation for now.  From understanding
+perspective key is `function<void()> *func`. This C++11 standard class is used to 
+encapsulate function calls in objects. Reference can be found
+[here](http://en.cppreference.com/w/cpp/utility/functional/function).
+
+When client creates `MRequest` and put in on `ActiveObject` `mrQueue` then as
+part of  receiver context following will happen:
+
+```C
+    for (;;) 
+    {
+        xQueueReceive( queue, &mr, portMAX_DELAY );
+        (*(mr->func))();
+        ...
+    }
+```
+
+# Client interface
+
+In order to dispatch method request following call must be executed:
+
+```C
+executeMethod(std::function<void()>(bind(&DCMotor::reportMethod,this)),
+```
+here we take advantage of c++11 `bind`.
+[Bind](http://en.cppreference.com/w/cpp/utility/functional/bind) allows us to
+create `function<void()>` objects even from methods that actually takes
+parameters.  This is flexible mechanism that allows us to call literally every
+method even if they require to provide parameter set. 
+
+# Summary 
+
+In this article I started with Robobo design considerations. Then I introduced
+you active object concept. I showed you how active object allows us to isolate OS
+specific function calls to make our code portable. At the end I showed you
+essentials of active object mechanics realized in FreeRTOS. I hope this gives
+you entry level knowledge that allows you to read code further in order to
+understand remaining active objects implementation. 
+
+
 

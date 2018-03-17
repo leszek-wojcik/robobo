@@ -25,16 +25,20 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     reset();
 
 
-    MRequest *mr = new MRequest(this,bind(&DCMotor::updateControl, this ));
-    triggerTimer = createTimer(mr,1,1);
+    triggerTimer = createTimer(
+            std::function<void()>(bind(&DCMotor::updateControl, this)),
+            1,
+            1);
     xTimerStart(triggerTimer,0);
 
 }
 
 void DCMotor::enableReports(TickType_t period)
 {
-    MRequest *mr = new MRequest(this,bind(&DCMotor::reportMethod, this ));
-    reportTimer = createTimer(mr,period,1);
+    reportTimer = createTimer( 
+        std::function<void()>(bind(&DCMotor::reportMethod,this)),
+        period,
+        true);
     xTimerStart(reportTimer,0);
 }
 
