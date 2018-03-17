@@ -78,3 +78,59 @@ Following is UML diagram that represents relationship between `DCMotor` and
 `ActiveObject` classes. If you are unfamiliar with UML you might ignore this
 and refer to code directly.
 
+![Diagram](https://leszek-wojcik.github.io/robobo/images/DCMotor.jpg)
+
+In FreeRTOS active object implementation we need to delegate all concurrency
+control to FreeRTOS API. As mentioned above Robobo aims to separate FreeRTOS
+from control logic in order to enable future design changes such as OS
+replacement. This can be achieved when all FreeRTOS calls will be contained in
+single class. ActiveObject implementation aims to cover all dependencies with
+OS. Lets summarize:
+
+- Each ActiveObject is associated with FreeRTOS task. During `ActiveObject`
+  constructor execution following call is made:
+```
+    xTaskCreate( ActiveObjectTaskFunction,
+            "AO", configMINIMAL_STACK_SIZE + 50 ,mrQueue , tskIDLE_PRIORITY, NULL);
+```
+
+- In order to abstract inter process communication each active object will
+  contain its own FreeRTOS queue:
+```
+    mrQueue = xQueueCreate(...);
+```
+  Queue creation is done as part of `ActiveObject` constructor. 
+
+- When `ActiveObject` client wishes to execute method in context of
+  `ActiveObject` task it calls `executeMethod(...)`. Then call is translated to 
+  `xQueueSend(mrQueue, &mr, 0);` FreeRTOS call.
+
+- Main `ActiveObject` task routine `ActiveObjectTaskFunction` will just block
+  on `mrQueue` and receive functions requests and execute them. 
+
+- Each `ActiveObject` will provide timer creation ability to its child classes.
+  ActiveObject delivers implementation of `createTimer` method which then
+translates it to FreeRTOS `xTimerCreate` function:
+
+```
+    xTimerCreate
+        ( "tmr",
+          period,
+          reload,
+          mr,
+          ActiveObjectTimerCallback );
+```
+
+# DCMotor class
+As highlighted in UML diagram additional `Motor` interface class is
+provided.Motor interface is provided to abstract executive elements to main
+Robobo controller. Its implementation example is made by `DCMotor` class. This
+abstraction fulfils design assumption of having ability of adding new executive
+elements by code addition. In order to add a stepper motor to robobo we will
+have to provide implementation of methods `setPosition`, `getPosition`, `reset`
+and others which are motor type specific.
+
+One more aspect to highlight in `DCMotor` is `control` member. 
+
+*Details to be provided soon*
+
