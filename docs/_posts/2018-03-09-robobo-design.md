@@ -14,7 +14,7 @@ article describes Robobo abstraction for FreeRTOS interface.
 
 
 # Robobo case study
-Before going into details lets try to do some analysis about requirements and
+Before going into details lets try to do some analysis of requirements and
 motivations we would have for our application. 
 
 - Robobo design should be prepared to accept variability of executive elements. 
@@ -23,9 +23,9 @@ code addition not by code modification. Examples of elements are: Stepper
 Motor, hydraulic or pneumatic actuator. Even if these elements will not be part
 of project we want our software ready to accommodate them just in case. 
 
-- Motor abstraction should be flexible enough to change control algorithm
+- Motor control should be flexible enough to change control algorithm
   during runtime. For instance if we would like to change PID algorithm
-parameters or even exchange PID with other algorithm Robobo design should allow
+parameters or even exchange PID with other algorithm then Robobo design should allow
 to do that. For control algorithm introduction please refer to my [servo post](
 https://leszek-wojcik.github.io/robobo/arduino/servo/encoder/pololu/hbridge/pid/2017/12/29/servo.html).
 
@@ -37,7 +37,7 @@ single thread approach.
 
 - Robobo design assumes existence of main controller entity. This entity is
   responsible for communication with all motors. Main controller would run on
-thread with lower priority than servo controllers. It woudl receive
+thread with lower priority than servo controllers. It would receive
 notification when requested Motor position will be achieved. Main controller
 will be responsible for geometry calculation. 
 
@@ -51,17 +51,19 @@ OS.
 # Active Object
 
 Before going into detailed class design I would like to clarify active object
-design pattern. In Object Oriented programming special concept of active object
-was created. Active object is an object which has important property added on
-top of regular object. This property is execution context. Whenever calling a
-method on Active Object it executes on context of particular task/thread. 
+design pattern. In [Object-Oriented
+Programming](https://en.wikipedia.org/wiki/Object-oriented_programming) special
+concept of [active object](https://en.wikipedia.org/wiki/Active_object) was
+created. Active object is an object which has important property added on top
+of regular object. This property is execution context. Whenever calling a
+method on Active Object it executes on context of particular thread. 
 
-Please refer to my previous article about [Real Time Operation
-System](https://leszek-wojcik.github.io/robobo/rtos/2018/01/21/rtos.html). In
-FreeRTOS we are assigning a priority for each task. Consider a case where you
-have two Active objects and these two objects are assigned to two different
-FreeRTOS tasks. Suppose you execute method on both of them
-then execution order is determined by priority you selected for tasks.
+In FreeRTOS we are assigning a priority for each task. Please refer to my
+previous article about [Real Time Operation
+System](https://leszek-wojcik.github.io/robobo/rtos/2018/01/21/rtos.html).
+Consider a case where you have two Active objects and these two objects are
+assigned to two different FreeRTOS tasks. Suppose you execute method on both of
+them then execution order is determined by priority you selected for tasks.
 
 Active object is like any other object. You treat it as normal object but
 since active objects are assigned to particular task they are dynamic from user
@@ -134,7 +136,7 @@ As I described above in order to facilitate interprocess communication we are
 using FreeRTOS queues. Whenever there is a need for calling an active object
 method, caller in fact will create a message and it will put it on Active Object
 `mrQueue` in his own execution context. This happens under the hood of
-`executeMethod()` call. 
+`executeMethod()` call: 
 
 ```c
 uint8_t ActiveObject::executeMethod(const std::function<void()> &f )
@@ -173,7 +175,7 @@ encapsulate function calls in objects. Reference can be found
 [here](http://en.cppreference.com/w/cpp/utility/functional/function).
 
 *(As side note I will mention that lack of fully compilant C++ standard
-library on AVR caused me to switch Arduino Mega with Arduino Due)*
+library on AVR caused me to switch Arduino Mega to Arduino Due)*
 
 When client creates `MRequest` and put in on `ActiveObject` `mrQueue` then as
 part of  receiver context following will happen:
@@ -213,7 +215,7 @@ you active object concept. I showed you how active object allows us to isolate O
 specific function calls to make our code portable. At the end I showed you
 essentials of active object mechanics realized in FreeRTOS. I hope this gives
 you entry level knowledge that allows you to read code further in order to
-understand remaining active objects implementation. 
+understand remaining details of active objects implementation. 
 
 
 
