@@ -6,8 +6,9 @@
 #include "ActiveObject.h"
 #include "ControlStrategy.h"
 #include "PID.h"
+#include <string>
 
-
+using namespace std;
 /**
 Motor class is to represent all data associated with DC Motor. 
 
@@ -29,7 +30,7 @@ class DCMotor : public Motor
                     uint8_t hBridgeAPinV,
                     uint8_t hBridgeBPinV,
                     uint8_t voltagePinV,
-                    ControlStrategy *strategy);
+                    string name="\0");
 
         // Pins
         uint8_t encoderAPin;
@@ -47,18 +48,20 @@ class DCMotor : public Motor
         int32_t requestedPosition;
         int8_t  direction;
         int32_t dcOutput;
+        uint8_t stoped;
+
+        // Internal
+        string motorName;
         
 
         // Interface functions
         void setPosition(int32_t);
-        int32_t getPosition();
+        int32_t getCurrentPosition();
         void stop(void);
         void enableReports(TickType_t period);
-        void setControlStategy(ControlStrategy *strategy);
 
-        // these methods are to run in timer expiration
-        void reportMethod(void);
-        void updateControl(void);
+        void setControlStrategy(ControlStrategy *strategy);
+        void report(void);
 
         /** This method is called on interrupt associated with encoder */
         void encoderInterrupt(void);
@@ -72,8 +75,6 @@ class DCMotor : public Motor
         void setVoltage(uint8_t val);
 
 
-        TimerHandle_t triggerTimer;
-        TimerHandle_t reportTimer;
 
     friend int main(void);
 

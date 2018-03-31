@@ -3,6 +3,8 @@
 
 #include "ControlStrategy.h" 
 #include "Arduino.h"
+#include "Motor.h"
+#include <functional>
 
 class PID: public ControlStrategy
 {
@@ -12,14 +14,31 @@ class PID: public ControlStrategy
         float kD;
         uint32_t prevMicros;
         int32_t integral; 
+        TimerHandle_t triggerTimer;
+        Motor &motor;
 
     public:
-        PID(float kP, float kI, float kD): 
+        PID(float kP, float kI, float kD, Motor &m): 
             kP(kP), 
             kI(kI),
             kD(kD),
             prevMicros(0),
-            integral(0)
+            integral(0),
+            motor(m)
+        {
+            triggerTimer = createTimer(
+                    std::function<void()>(std::bind(&PID::periodExpiry, this)),
+                    1,
+                    1);
+            xTimerStart(triggerTimer,0);
+        }
+
+        void setMotor(Motor &m)
+        {
+            motor = m;
+        }
+
+        void periodExpiry(void)
         {
         }
 

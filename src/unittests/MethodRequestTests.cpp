@@ -8,16 +8,16 @@
 using ::testing::Return;
 using namespace std;
 
-TEST(MethodRequestTests, macro_MR1)
-{
-    struct A:public ActiveObject
-    {
-        int func();
-    };
-
-    A a;
-    MRequest *mr;
-}
+//TEST(MethodRequestTests, macro_MR1)
+//{
+//    struct A:public ActiveObject
+//    {
+//        int func();
+//    };
+//
+//    A a;
+//    MRequest *mr;
+//}
 
 //TEST(MethodRequestTests, methodRequest)
 //{

@@ -13,43 +13,26 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
                     uint8_t hBridgeAPinV,
                     uint8_t hBridgeBPinV,
                     uint8_t voltagePinV,
-                    ControlStrategy *strategy):
+                    string name):
     encoderAPin(encoderAPinV),
     encoderBPin(encoderBPinV),
     hBridgeAPin(hBridgeAPinV),
     hBridgeBPin(hBridgeBPinV),
     voltagePin (voltagePinV ),
-    control(strategy)
+    motorName(name)
 {
     setPinModes();
     reset();
-
-
-    triggerTimer = createTimer(
-            std::function<void()>(bind(&DCMotor::updateControl, this)),
-            1,
-            1);
-    xTimerStart(triggerTimer,0);
-
 }
 
-void DCMotor::enableReports(TickType_t period)
-{
-    reportTimer = createTimer( 
-        std::function<void()>(bind(&DCMotor::reportMethod,this)),
-        period,
-        true);
-    xTimerStart(reportTimer,0);
-}
-
-void DCMotor::reportMethod(void)
+void DCMotor::report(void)
 {
     Robobo *i = Robobo::instance; 
     Serial.println(" - DC Report - ");
-    Serial.print(" AO ");
-    Serial.println((long)(ActiveObject*)this );
     Serial.print(" Id ");
     Serial.println((long)this);
+    Serial.print(" Name ");
+    Serial.println(motorName.c_str());
     Serial.print(" Encoder Position ");
     Serial.println(encoderPosition);
     Serial.print(" Requested Position ");
@@ -78,18 +61,13 @@ void DCMotor::reset(void)
     requestedPosition = 0;
     direction = 0;
     dcOutput = 0;
+    stoped = 1;
 }
 
-void DCMotor::setControlStategy(ControlStrategy *strategy)
+void DCMotor::setControlStrategy(ControlStrategy *strategy)
 {
     control = strategy;
 }
-
-void DCMotor::updateControl(void)
-{
-    this->encoderInterrupt();
-}
-
 
 void DCMotor::encoderInterrupt(void)
 {
@@ -135,7 +113,8 @@ void DCMotor::encoderInterrupt(void)
     if (dcOutput >255)
         dcOutput = 255;
 
-    analogWrite(voltagePin, dcOutput);
+    if (!stoped)
+        analogWrite(voltagePin, dcOutput);
 
 }
 
@@ -169,15 +148,16 @@ void DCMotor::stop(void)
     analogWrite(voltagePin, 0);
     digitalWrite(hBridgeAPin, 0);
     digitalWrite(hBridgeBPin, 0);
+    stoped = 1;
 }
 
 void DCMotor::setPosition(int32_t x)
 {
     requestedPosition = x;
+    stoped = 0;
 }
 
-int32_t DCMotor::getPosition()
+int32_t DCMotor::getCurrentPosition()
 {
-
     return encoderPosition;
 }

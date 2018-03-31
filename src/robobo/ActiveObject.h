@@ -5,6 +5,9 @@
 #include "timers.h"
 #include "queue.h"
 #include <functional>
+#include <string>
+
+using namespace std;
 
 class MethodRequestBase;
 class MRequest;
@@ -14,7 +17,7 @@ class ActiveObject
     public:
         QueueHandle_t mrQueue; 
 
-        ActiveObject();
+        ActiveObject(string name="\0",UBaseType_t priority=tskIDLE_PRIORITY);
 
         TimerHandle_t createTimer (  
                 const std::function<void()> &f, 

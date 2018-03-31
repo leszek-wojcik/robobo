@@ -3,11 +3,16 @@
 #include "MethodRequest.h"
 
 
-ActiveObject::ActiveObject()
+ActiveObject::ActiveObject(string name, UBaseType_t priority)
 {
     mrQueue = xQueueCreate(20,sizeof(MRequest*));
+
     xTaskCreate( ActiveObjectTaskFunction,
-            "AO", configMINIMAL_STACK_SIZE + 50 ,mrQueue , tskIDLE_PRIORITY, NULL);
+            name.c_str(), 
+            configMINIMAL_STACK_SIZE + 50,
+            mrQueue, 
+            priority,
+            NULL);
 }
 
 
