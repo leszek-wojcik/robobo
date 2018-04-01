@@ -61,7 +61,7 @@ void DCMotor::reset(void)
     requestedPosition = 0;
     direction = 0;
     dcOutput = 0;
-    stoped = 1;
+    stopped = 1;
 }
 
 void DCMotor::setControlStrategy(ControlStrategy *strategy)
@@ -94,27 +94,6 @@ void DCMotor::encoderInterrupt(void)
 
     encoderPosition += posUpdate;
     
-    diff = requestedPosition - encoderPosition;
-
-    dcOutput = control->calculateControl(diff);
-
-    if (dcOutput < 0 )
-    {
-        setDirectionLeft();
-    }
-    else
-    {
-        setDirectionRight();
-    }
-
-    dcOutput = abs(dcOutput);
-
-    //need to scale target value to range 0-255 PWM
-    if (dcOutput >255)
-        dcOutput = 255;
-
-    if (!stoped)
-        analogWrite(voltagePin, dcOutput);
 
 }
 
@@ -148,13 +127,23 @@ void DCMotor::stop(void)
     analogWrite(voltagePin, 0);
     digitalWrite(hBridgeAPin, 0);
     digitalWrite(hBridgeBPin, 0);
-    stoped = 1;
+    stopped = 1;
+}
+
+bool DCMotor::isStopped()
+{
+    return stopped;
 }
 
 void DCMotor::setPosition(int32_t x)
 {
     requestedPosition = x;
-    stoped = 0;
+    stopped = 0;
+}
+
+int32_t DCMotor::getRequestedPosition(void)
+{
+    return requestedPosition;
 }
 
 int32_t DCMotor::getCurrentPosition()

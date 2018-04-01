@@ -39,6 +39,9 @@ class DCMotor : public Motor
         uint8_t hBridgeBPin;
         uint8_t voltagePin;
 
+        // Internal
+        string motorName;
+
         // State
         uint8_t encoderAVal;
         uint8_t encoderBVal;
@@ -48,17 +51,16 @@ class DCMotor : public Motor
         int32_t requestedPosition;
         int8_t  direction;
         int32_t dcOutput;
-        uint8_t stoped;
-
-        // Internal
-        string motorName;
-        
+        uint8_t stopped;
 
         // Interface functions
         void setPosition(int32_t);
+        int32_t getRequestedPosition(void);
         int32_t getCurrentPosition();
         void stop(void);
+        bool isStopped(void);
         void enableReports(TickType_t period);
+        void setVoltage(uint8_t val);
 
         void setControlStrategy(ControlStrategy *strategy);
         void report(void);
@@ -72,7 +74,6 @@ class DCMotor : public Motor
     
         void setDirectionRight(void);
         void setDirectionLeft(void);
-        void setVoltage(uint8_t val);
 
 
 

@@ -33,7 +33,6 @@ class Controller : public ActiveObject
         {
             int32_t pos = a->getCurrentPosition();
             b->setPosition(pos);
-            a->report();
         }
 
 };
