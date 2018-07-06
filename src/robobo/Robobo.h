@@ -5,6 +5,7 @@
 #include "Motor.h"
 #include "ControlStrategy.h"
 #include "Controller.h"
+#include "DisplayManager.h"
 
 /**
 Robobo class is simple wrapper around global values that are accessible from
@@ -19,12 +20,16 @@ class Robobo
     public:
         Robobo();
         void createSetupV1(void);
+        void createSetupV2(void);
 
         Motor *dc1;
         Motor *dc2;
         ControlStrategy *pid1;
         ControlStrategy *pid2;
         Controller *controller;
+
+        DisplayManager *disp;
+        LCDisplay *lcd;
         
         // Serial
         long serialSpeed; 

@@ -28,10 +28,12 @@ int main(void)
     pinMode(LED_BUILTIN, OUTPUT);
 
     Serial.begin(9600);
-    Serial.println("start");
+    Serial.println("Robobo ver ...");
 
   	Robobo *r = new Robobo();
-    r->createSetupV1();
+    r->createSetupV2();
+
+    Serial.println("Robobo start");
 
     vTaskStartScheduler();
     Serial.println("Insufficient RAM");
