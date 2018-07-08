@@ -5,6 +5,11 @@
 
 ActiveObject::ActiveObject(string name, UBaseType_t priority)
 {
+
+    Serial.print("Active Object creation: ");
+    Serial.println((long)this);
+
+    TaskHandle_t newTask;
     mrQueue = xQueueCreate(20,sizeof(MRequest*));
 
     xTaskCreate( ActiveObjectTaskFunction,
@@ -12,7 +17,9 @@ ActiveObject::ActiveObject(string name, UBaseType_t priority)
             configMINIMAL_STACK_SIZE + 50,
             mrQueue, 
             priority,
-            NULL);
+            &newTask);
+
+    activeObjectMap[newTask] = this;
 }
 
 
@@ -22,6 +29,7 @@ TimerHandle_t ActiveObject::createTimer
          const UBaseType_t reload )
 {
 
+    TaskHandle_t callerHandle = xTaskGetCurrentTaskHandle();
     auto mr = new MRequest( this, f);
 
     if (reload == 1 )
@@ -48,6 +56,20 @@ uint8_t ActiveObject::executeMethod(const std::function<void()> &f )
     return xQueueSend(mrQueue, &mr, 0);
 }
 
+uint32_t ActiveObject::executeMethodSynchronously(const std::function<void()> &f)
+{
+    TaskHandle_t callerHandle = xTaskGetCurrentTaskHandle();
+    auto mr = new MRequest(this, f, callerHandle);
+    xQueueSend(mrQueue, &mr, 0);
+    uint32_t returnValue;
+
+    // block until notification from receiver task
+    returnValue =  ulTaskNotifyTake( pdTRUE, portMAX_DELAY ); 
+
+    return returnValue;
+}
+
+
 void ActiveObjectTimerCallback( TimerHandle_t xTimer )
 {
     // At this point we are in timer task context. We need to pass on mr to
@@ -67,6 +89,15 @@ void ActiveObjectTaskFunction( void *q)
         xQueueReceive( queue, &mr, portMAX_DELAY );
 
         (*(mr->func))();
+
+        // If callerID is set this mean that calling task expects notification
+        // after function call end
+        if (mr->callerID != NULL)
+        {
+
+           xTaskNotifyGive( mr->callerID ); 
+        }
+
         if (mr->isPersistent() == false )
         {
             delete mr;
@@ -74,3 +105,6 @@ void ActiveObjectTaskFunction( void *q)
         }
     }
 }
+
+std::map<TaskHandle_t, ActiveObject*> ActiveObject::activeObjectMap;
+

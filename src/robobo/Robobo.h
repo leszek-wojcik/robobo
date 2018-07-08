@@ -6,6 +6,7 @@
 #include "ControlStrategy.h"
 #include "Controller.h"
 #include "DisplayManager.h"
+#include "PlatformManager.h"
 
 /**
 Robobo class is simple wrapper around global values that are accessible from
@@ -30,6 +31,7 @@ class Robobo
 
         DisplayManager *disp;
         LCDisplay *lcd;
+        PlatformManager *pm;
         
         // Serial
         long serialSpeed; 

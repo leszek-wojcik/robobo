@@ -1,8 +1,9 @@
 #include "DisplayManager.h"
 #include "Arduino.h"
+#include "task.h"
 
 DisplayManager::DisplayManager(string name, UBaseType_t priority, LCDisplay *lcd):
-        ActiveObject( name, priority), myLcd(lcd)
+        ActiveObject(name, priority), myLcd(lcd)
 {
     myLcd->begin(16, 2);
     myLcd->print("AO Display Manager");
@@ -18,12 +19,17 @@ DisplayManager::DisplayManager(string name, UBaseType_t priority, LCDisplay *lcd
 
 void DisplayManager::print(string str)
 {
-    myLcd->print(str.c_str()) ;
+    TaskHandle_t h = xTaskGetCurrentTaskHandle();
+
+    Serial.println("Inside print function");
+    Serial.print("context: ");
+    Serial.println( (long) h );
+
+ //   myLcd->print(str.c_str()) ;
 }
 
 void DisplayManager::refresh()
 {
-    Serial.println("refresh");
-    myLcd->setCursor(0, 1);
-    myLcd->print(couter++);
+
+    myLcd->setCursor(0, 0);
 }
