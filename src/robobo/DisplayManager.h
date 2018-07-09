@@ -2,20 +2,20 @@
 #define DISPLAY_MANAGER_INCLUDED
 
 #include "ActiveObject.h"
-#include "LCDisplay.h"
+#include "LiquidCrystal.h"
 
-// Class is active object with reference to LCDisplay. It delegates calls to
-// LCDisplay object.
+// Class is active object with reference to LiquidCrystal. It delegates
+// calls to LiquidCrystal object.
 
 class DisplayManager: public ActiveObject
 {
     private:
-        LCDisplay *myLcd;
+        LiquidCrystal *myLcd;
         TimerHandle_t refreshTimer;
         int couter;
 
     public:
-        DisplayManager(string name, UBaseType_t priority, LCDisplay *lcd);
+        DisplayManager(string name, UBaseType_t priority, LiquidCrystal *lcd);
         void refresh();
         void print(string);
 };

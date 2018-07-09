@@ -22,7 +22,7 @@ Robobo::Robobo()
 void Robobo::createSetupV2(void)
 {
     const int rs = 2, en = 3, d4 = 4, d5 = 5, d6 = 6, d7 = 7;
-    lcd = new LCDisplay(rs, en, d4, d5, d6, d7);
+    lcd = new LiquidCrystal(rs, en, d4, d5, d6, d7);
     disp = new DisplayManager("lcd_task\0", tskIDLE_PRIORITY, lcd);
     pm = new PlatformManager("plm_task\0", tskIDLE_PRIORITY, disp);
 }

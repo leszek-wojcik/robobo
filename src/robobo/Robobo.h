@@ -30,7 +30,7 @@ class Robobo
         Controller *controller;
 
         DisplayManager *disp;
-        LCDisplay *lcd;
+        LiquidCrystal *lcd;
         PlatformManager *pm;
         
         // Serial

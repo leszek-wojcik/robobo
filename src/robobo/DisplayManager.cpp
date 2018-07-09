@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "task.h"
 
-DisplayManager::DisplayManager(string name, UBaseType_t priority, LCDisplay *lcd):
+DisplayManager::DisplayManager(string name, UBaseType_t priority, LiquidCrystal *lcd):
         ActiveObject(name, priority), myLcd(lcd)
 {
     myLcd->begin(16, 2);
