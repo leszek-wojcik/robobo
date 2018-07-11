@@ -59,3 +59,18 @@ BaseType_t xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQ
 {
     return RoboboTests::rtos-> xQueueGenericSend( xQueue, pvItemToQueue, xTicksToWait, xCopyPosition );
 }
+
+TaskHandle_t xTaskGetCurrentTaskHandle( void ) 
+{
+    return RoboboTests::rtos->xTaskGetCurrentTaskHandle();
+}
+
+uint32_t ulTaskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait ) 
+{
+    return RoboboTests::rtos->ulTaskNotifyTake( xClearCountOnExit, xTicksToWait );
+}
+
+BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue ) 
+{
+    return RoboboTests::rtos->xTaskGenericNotify( xTaskToNotify, ulValue, eAction, pulPreviousNotificationValue ) ;
+}

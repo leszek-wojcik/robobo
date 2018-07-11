@@ -29,9 +29,9 @@ class RoboboTests : public ::testing::Test, public Robobo
             pid2    = new::testing::NiceMock<PIDMock>();
 
             // We need to configure parent class object
-            dcm1 = new DCMotor(1,2,3,4,5);
+            dcm1 = new DCMotor(1,2,3,4,5,"dcm1");
             dcm1->setControlStrategy(pid1);
-            dcm2 = new DCMotor(11,12,13,14,15);
+            dcm2 = new DCMotor(11,12,13,14,15,"dcm2");
             dcm2->setControlStrategy(pid2);
             dc1 = dcm1;
             dc2 = dcm2;

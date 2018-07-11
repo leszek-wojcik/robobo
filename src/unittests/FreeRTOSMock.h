@@ -30,6 +30,9 @@ class FreeRTOSMock
                                 const TickType_t ) );
 
         MOCK_METHOD0(xTaskGetTickCount, TickType_t ());
+        MOCK_METHOD0(xTaskGetCurrentTaskHandle, TaskHandle_t ( void )) ;
+
+        MOCK_METHOD2( ulTaskNotifyTake, uint32_t ( BaseType_t , TickType_t ) );
 
         MOCK_METHOD3( xQueueGenericCreate, QueueHandle_t (const UBaseType_t,
                                 const UBaseType_t ,
@@ -54,5 +57,9 @@ class FreeRTOSMock
                                 TickType_t , 
                                 const BaseType_t ));
 
+        MOCK_METHOD4 (xTaskGenericNotify, BaseType_t ( TaskHandle_t, 
+                                uint32_t, 
+                                eNotifyAction,
+                                uint32_t *));
 };
 #endif

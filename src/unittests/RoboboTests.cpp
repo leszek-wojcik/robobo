@@ -18,14 +18,15 @@ ArduinoSerialMock Serial;
 
 TEST_F(RoboboTests, PID_proportional_1)
 {
-
-    PID pid(0.5,0,0,*dcm1);
+    PID pid(0.5,0,0,dcm1);
     dcm1->setControlStrategy(&pid);
     dcm1->reset();
     dcm1->setPosition(100);
 
+    std::cout<<"dupa "<< (int) dcm1->direction<<std::endl;
     EXPECT_CALL(*arduino, analogWrite(dcm1->voltagePin, 50));
     encoder1_ISR();
+    pid.periodExpiry();
     ASSERT_EQ(dcm1->direction,1);
 }
 
@@ -34,7 +35,7 @@ TEST_F(RoboboTests, PID_proportional_2)
     // This scenario test control output when controller determined need for
     // switching direction. Expectation is that HBridge Pins will change
 
-    PID pid(0.5,0,0,*dcm1);
+    PID pid(0.5,0,0,dcm1);
     dcm1->setPosition(-100);
     dcm1->encoderPosition=0;
     dcm1->direction = 0;
@@ -45,6 +46,7 @@ TEST_F(RoboboTests, PID_proportional_2)
     EXPECT_CALL(*arduino, digitalWrite(dcm1->hBridgeBPin, 1));
 
     encoder1_ISR();
+    pid.periodExpiry();
     ASSERT_EQ(dcm1->direction,-1);
 }
 
