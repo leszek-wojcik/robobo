@@ -61,5 +61,9 @@ class FreeRTOSMock
                                 uint32_t, 
                                 eNotifyAction,
                                 uint32_t *));
+
+        MOCK_METHOD0 (xTaskGetSchedulerState, BaseType_t ( void ));
+
+        MOCK_METHOD1(uxTaskGetStackHighWaterMark,  UBaseType_t ( TaskHandle_t xTask ));
 };
 #endif

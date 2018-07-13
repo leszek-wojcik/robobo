@@ -4,7 +4,8 @@
 #include <iostream>
 
 
-ActiveObject::ActiveObject(string name, UBaseType_t priority)
+ActiveObject::ActiveObject(string name, UBaseType_t priority):
+    name(name)
 {
     TaskHandle_t newTask;
     mrQueue = xQueueCreate(20,sizeof(MRequest*));
@@ -16,7 +17,10 @@ ActiveObject::ActiveObject(string name, UBaseType_t priority)
             priority,
             &newTask);
 
-    activeObjectMap[newTask] = this;
+    taskHandles[this] = newTask;
+
+    Serial.print ("tworze: ");
+    Serial.println ((long)newTask);
 }
 
 
@@ -101,5 +105,5 @@ void ActiveObjectTaskFunction( void *q)
     }
 }
 
-std::map<TaskHandle_t, ActiveObject*> ActiveObject::activeObjectMap;
+std::map<ActiveObject*, TaskHandle_t> ActiveObject::taskHandles;
 

@@ -19,7 +19,7 @@ class PID: public ControlStrategy
         TickType_t samplePeriod;
 
     public:
-        PID(float kP, float kI, float kD, Motor *m, TickType_t sPeriod=1): 
+        PID(string name, UBaseType_t priority, float kP, float kI, float kD, Motor *m, TickType_t sPeriod=1): 
             kP(kP), 
             kI(kI),
             kD(kD),

@@ -13,9 +13,11 @@ using namespace std;
 class MethodRequestBase;
 class MRequest;
 
+
 class ActiveObject
 {
     public:
+        string name;
         QueueHandle_t mrQueue; 
 
         ActiveObject(string name="\0",UBaseType_t priority=tskIDLE_PRIORITY);
@@ -40,7 +42,7 @@ class ActiveObject
     protected:
         // Structure collects all running active objects in order to
         // synchronize tasks when needed.
-        static std::map<TaskHandle_t, ActiveObject*> activeObjectMap;
+        static std::map<ActiveObject*, TaskHandle_t> taskHandles;
 
     private:
         uint8_t executeMethod(MRequest *mr);
@@ -53,5 +55,6 @@ class ActiveObject
 
 void ActiveObjectTimerCallback( TimerHandle_t xTimer );
 void ActiveObjectTaskFunction( void * );
+
 
 #endif

@@ -74,3 +74,13 @@ BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNo
 {
     return rtos->xTaskGenericNotify( xTaskToNotify, ulValue, eAction, pulPreviousNotificationValue ) ;
 }
+
+BaseType_t xTaskGetSchedulerState( void )
+{
+    return rtos->xTaskGetSchedulerState();
+}
+
+UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask )
+{
+    return rtos->uxTaskGetStackHighWaterMark(xTask);
+}

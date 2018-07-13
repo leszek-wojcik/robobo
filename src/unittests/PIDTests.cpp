@@ -11,7 +11,7 @@ using namespace std;
 
 TEST_F(RoboboTests, PID_Proportional_1)
 {
-    PID pid(3,0,0,dcm1);
+    PID pid("",0,3,0,0,dcm1);
     ASSERT_EQ(pid.calculateControl(1), 3);
 }
 
@@ -19,7 +19,7 @@ TEST_F(RoboboTests, PID_Integral_1)
 {
     int32_t val;
 
-    PID pid(0,3,0,dcm1);
+    PID pid("",0,0,3,0,dcm1);
     EXPECT_CALL(*arduino, micros()).WillOnce(Return(0));
     pid.calculateControl(1);
 

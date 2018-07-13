@@ -6,12 +6,16 @@
 
 class PlatformManager: public ActiveObject
 {
+    private:
         DisplayManager *disp;
+        std::map<ActiveObject*, int> handles;
+        std::map<ActiveObject*, int>::iterator handlesIt;
 
     public:
+        PlatformManager(string name, UBaseType_t priority, DisplayManager*);
+        void registerForReports(ActiveObject *);
         TimerHandle_t refreshTimer; 
         void collect(void);
-        PlatformManager(string name, UBaseType_t priority, DisplayManager*);
 
 };
 
