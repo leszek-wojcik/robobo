@@ -18,16 +18,13 @@ class ActiveObject
     public:
         QueueHandle_t mrQueue; 
 
-
         ActiveObject(string name="\0",UBaseType_t priority=tskIDLE_PRIORITY);
 
         TimerHandle_t createTimer (  
                 const std::function<void()> &f, 
-                const TickType_t period, 
-                const UBaseType_t reload );
+                const TickType_t period );
 
         uint8_t executeMethod(const std::function<void()> &);
-
 
         // This method is used to dispatch function call on active object and
         // block until it executed on other thread context

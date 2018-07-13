@@ -24,9 +24,7 @@ class Controller : public ActiveObject
 
             measureTimer = createTimer(
                     std::function<void()>(bind(&Controller::alignAttempt, this)),
-                    3000,
-                    1);
-            xTimerStart(measureTimer,0);
+                    3000);
         }
 
         void alignAttempt(void)

@@ -11,8 +11,6 @@ PlatformManager::PlatformManager(string name, UBaseType_t priority, DisplayManag
 {
     refreshTimer = createTimer(
             std::function<void()>(std::bind(&PlatformManager::collect, this)),
-            2000,
-            1);
-    xTimerStart(refreshTimer,0);
+            2000);
 }
 

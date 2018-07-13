@@ -22,24 +22,22 @@ ActiveObject::ActiveObject(string name, UBaseType_t priority)
 
 TimerHandle_t ActiveObject::createTimer
      (   const std::function<void()> &f, 
-         const TickType_t period, 
-         const UBaseType_t reload )
+         const TickType_t period )
 {
-
-    TaskHandle_t callerHandle = xTaskGetCurrentTaskHandle();
+    TimerHandle_t returnTimer;
     auto mr = new MRequest( this, f);
+    mr->setPersistent(true);
 
-    if (reload == 1 )
-    {
-        mr->setPersistent(true);
-    }
-
-    return xTimerCreate
+    returnTimer = xTimerCreate
         ( "tmr",
           period,
-          reload,
+          1,
           mr,
           ActiveObjectTimerCallback );
+
+    xTimerStart(returnTimer,0);
+
+    return returnTimer;
 }
 
 uint8_t ActiveObject::executeMethod(MRequest *mr)

@@ -30,9 +30,7 @@ class PID: public ControlStrategy
         {
             triggerTimer = createTimer(
                     std::function<void()>(std::bind(&PID::periodExpiry, this)),
-                    samplePeriod,
-                    1);
-            xTimerStart(triggerTimer,0);
+                    samplePeriod);
         }
 
         void periodExpiry(void)

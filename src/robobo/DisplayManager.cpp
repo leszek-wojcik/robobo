@@ -12,9 +12,7 @@ DisplayManager::DisplayManager(string name, UBaseType_t priority, LiquidCrystal 
 
     switchTimer = createTimer(
             std::function<void()>(std::bind(&DisplayManager::switchData, this)),
-            period,
-            1);
-    xTimerStart(switchTimer,0);
+            period);
     
     pos = data.begin();
 
