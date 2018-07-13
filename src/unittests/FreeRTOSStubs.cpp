@@ -12,14 +12,14 @@ TimerHandle_t xTimerCreate(	const char * const pcTimerName,
         TimerCallbackFunction_t pxCallbackFunction )
 {
 
-    return RoboboTests::rtos->xTimerCreate(pcTimerName, xTimerPeriodInTicks,
+    return rtos->xTimerCreate(pcTimerName, xTimerPeriodInTicks,
             uxAutoReload, pvTimerID, pxCallbackFunction);
 }
 
 void *pvTimerGetTimerID( const TimerHandle_t xTimer )
 {
 
-    return RoboboTests::rtos->pvTimerGetTimerID(xTimer);
+    return rtos->pvTimerGetTimerID(xTimer);
 }
 
 BaseType_t xTimerGenericCommand( TimerHandle_t xTimer, 
@@ -29,48 +29,48 @@ BaseType_t xTimerGenericCommand( TimerHandle_t xTimer,
                                 const TickType_t xTicksToWait ) 
 {
 
-    return RoboboTests::rtos-> xTimerGenericCommand( xTimer, xCommandID,
+    return rtos-> xTimerGenericCommand( xTimer, xCommandID,
             xOptionalValue, pxHigherPriorityTaskWoken, xTicksToWait ) ;
 }
 
 TickType_t xTaskGetTickCount( void )
 {
-    return RoboboTests::rtos->xTaskGetTickCount();
+    return rtos->xTaskGetTickCount();
 }
 
 QueueHandle_t xQueueGenericCreate(  const UBaseType_t uxQueueLength, 
                                     const UBaseType_t uxItemSize, 
                                     const uint8_t ucQueueType )
 {
-    return RoboboTests::rtos->xQueueGenericCreate( uxQueueLength, uxItemSize, ucQueueType );
+    return rtos->xQueueGenericCreate( uxQueueLength, uxItemSize, ucQueueType );
 }
 
 BaseType_t xQueueGenericReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait, const BaseType_t xJustPeeking )
 {
-    return RoboboTests::rtos-> xQueueGenericReceive(xQueue,pvBuffer,xTicksToWait,xJustPeeking);
+    return rtos-> xQueueGenericReceive(xQueue,pvBuffer,xTicksToWait,xJustPeeking);
 }
 
 BaseType_t xTaskGenericCreate( TaskFunction_t pxTaskCode, const char * const pcName, const uint16_t usStackDepth, void * const pvParameters, UBaseType_t uxPriority, TaskHandle_t * const pxCreatedTask, StackType_t * const puxStackBuffer, const MemoryRegion_t * const xRegions ) 
 {
-    return RoboboTests::rtos-> xTaskGenericCreate( pxTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask, puxStackBuffer, xRegions );
+    return rtos-> xTaskGenericCreate( pxTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask, puxStackBuffer, xRegions );
 }
 
 BaseType_t xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait, const BaseType_t xCopyPosition )
 {
-    return RoboboTests::rtos-> xQueueGenericSend( xQueue, pvItemToQueue, xTicksToWait, xCopyPosition );
+    return rtos-> xQueueGenericSend( xQueue, pvItemToQueue, xTicksToWait, xCopyPosition );
 }
 
 TaskHandle_t xTaskGetCurrentTaskHandle( void ) 
 {
-    return RoboboTests::rtos->xTaskGetCurrentTaskHandle();
+    return rtos->xTaskGetCurrentTaskHandle();
 }
 
 uint32_t ulTaskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait ) 
 {
-    return RoboboTests::rtos->ulTaskNotifyTake( xClearCountOnExit, xTicksToWait );
+    return rtos->ulTaskNotifyTake( xClearCountOnExit, xTicksToWait );
 }
 
 BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue ) 
 {
-    return RoboboTests::rtos->xTaskGenericNotify( xTaskToNotify, ulValue, eAction, pulPreviousNotificationValue ) ;
+    return rtos->xTaskGenericNotify( xTaskToNotify, ulValue, eAction, pulPreviousNotificationValue ) ;
 }

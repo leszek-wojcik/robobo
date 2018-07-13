@@ -9,8 +9,8 @@ using ::testing::_;
 using ::testing::Return;
 using namespace std;
 
-ArduinoMock * RoboboTests::arduino = NULL;
-FreeRTOSMock * RoboboTests::rtos = NULL;
+//ArduinoMock * RoboboTests::arduino = NULL;
+//FreeRTOSMock * RoboboTests::rtos = NULL;
 PIDMock * RoboboTests::pid1 = NULL;
 PIDMock * RoboboTests::pid2 = NULL;
 ArduinoSerialMock Serial;
@@ -23,7 +23,6 @@ TEST_F(RoboboTests, PID_proportional_1)
     dcm1->reset();
     dcm1->setPosition(100);
 
-    std::cout<<"dupa "<< (int) dcm1->direction<<std::endl;
     EXPECT_CALL(*arduino, analogWrite(dcm1->voltagePin, 50));
     encoder1_ISR();
     pid.periodExpiry();

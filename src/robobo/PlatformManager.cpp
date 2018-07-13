@@ -3,8 +3,6 @@
 
 void PlatformManager::collect()
 {
-    disp->executeMethodSynchronously(
-            std::function<void()>(std::bind(&DisplayManager::print, disp,"test\0")));
 }
 
 PlatformManager::PlatformManager(string name, UBaseType_t priority, DisplayManager *disp): 

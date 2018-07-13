@@ -1,35 +1,83 @@
 #include "DisplayManager.h"
 #include "Arduino.h"
 #include "task.h"
+#include <string>
 
-DisplayManager::DisplayManager(string name, UBaseType_t priority, LiquidCrystal *lcd):
+DisplayManager::DisplayManager(string name, UBaseType_t priority, LiquidCrystal *lcd, int period):
         ActiveObject(name, priority), myLcd(lcd)
 {
     myLcd->begin(16, 2);
-    myLcd->print("AO Display Manager");
-    couter = 0;
+    myLcd->print(ROBOBO_VERSION_STRING);
+    counter = 0;
 
-    refreshTimer = createTimer(
-            std::function<void()>(std::bind(&DisplayManager::refresh, this)),
-            1000,
+    switchTimer = createTimer(
+            std::function<void()>(std::bind(&DisplayManager::switchData, this)),
+            period,
             1);
-    xTimerStart(refreshTimer,0);
+    xTimerStart(switchTimer,0);
+    
+    pos = data.begin();
 
 }
 
 void DisplayManager::print(string str)
 {
-    TaskHandle_t h = xTaskGetCurrentTaskHandle();
-
-    Serial.println("Inside print function");
-    Serial.print("context: ");
-    Serial.println( (long) h );
-
- //   myLcd->print(str.c_str()) ;
+    myLcd->print(str.c_str()) ;
 }
 
-void DisplayManager::refresh()
+void DisplayManager::switchData()
 {
+    if (data.size() != 0)
+    {
+        
+        myLcd->clear();
+        myLcd->setCursor(0, 0);
+        print(pos->second.header.c_str());
+        myLcd->setCursor(0, 1);
+        print(pos->second.value.c_str());
 
+        pos++;
+
+        if (pos == data.end())
+        {
+            pos = data.begin();
+        }
+
+
+    }
+
+}
+
+void DisplayManager::registerDisplayData( 
+        int *handle, 
+        string desc,
+        string unit)
+{
+    counter++;
+    *handle = counter;
+    data[counter].header = desc;
+    data[counter].unit = unit;
+
+    // after element additon we start from begining
+    pos = data.begin();
+}
+
+void DisplayManager::displayHeader(int handle)
+{
     myLcd->setCursor(0, 0);
+    myLcd->print (data[handle].header.c_str() );
+}
+
+void DisplayManager::postData(int handle, int dataToPost)
+{
+    // crapy code - reason is lack of to_string in std for arm gcc
+    char str[17];
+    sprintf(str,"%d", dataToPost);
+    data[handle].value = string(str);
+}
+
+void DisplayManager::displayValue(int handle)
+{
+    myLcd->setCursor(1, 0);
+    myLcd->print (data[handle].value.c_str() );
 }

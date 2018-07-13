@@ -25,6 +25,20 @@ void Robobo::createSetupV2(void)
     lcd = new LiquidCrystal(rs, en, d4, d5, d6, d7);
     disp = new DisplayManager("lcd_task\0", tskIDLE_PRIORITY, lcd);
     pm = new PlatformManager("plm_task\0", tskIDLE_PRIORITY, disp);
+
+    int handle1;
+    int handle2;
+    int handle3;
+    int handle4;
+
+    disp->registerDisplayData(&handle1, "A");
+    disp->registerDisplayData(&handle2, "B");
+    disp->registerDisplayData(&handle3, "C");
+    disp->registerDisplayData(&handle4, "D");
+    disp->postData(handle1,1);
+    disp->postData(handle2,2);
+    disp->postData(handle3,3);
+    disp->postData(handle4,4);
 }
 
 void Robobo::createSetupV1(void)

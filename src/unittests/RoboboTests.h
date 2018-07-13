@@ -6,14 +6,15 @@
 #include "FreeRTOSMock.h"
 #include "PIDMock.h"
 #include <iostream>
+#include "UnitTestsGlobals.h"
 
 using namespace std;
 
 class RoboboTests : public ::testing::Test, public Robobo
 {
     public:
-        static ArduinoMock *arduino;
-        static FreeRTOSMock *rtos;
+        //static ArduinoMock *arduino;
+        //static FreeRTOSMock *rtos;
         static ArduinoSerialMock Serial;
         static PIDMock *pid1;
         static PIDMock *pid2;
@@ -53,7 +54,6 @@ class RoboboTests : public ::testing::Test, public Robobo
             delete rtos; 
             delete pid1;
             delete pid2;
-            
         }
 
 };

@@ -1,14 +1,11 @@
 #include "Arduino.h"
 #include "ActiveObject.h"
 #include "MethodRequest.h"
+#include <iostream>
 
 
 ActiveObject::ActiveObject(string name, UBaseType_t priority)
 {
-
-    Serial.print("Active Object creation: ");
-    Serial.println((long)this);
-
     TaskHandle_t newTask;
     mrQueue = xQueueCreate(20,sizeof(MRequest*));
 
