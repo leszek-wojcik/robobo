@@ -84,3 +84,10 @@ UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask )
 {
     return rtos->uxTaskGetStackHighWaterMark(xTask);
 }
+
+void vPortEnterCritical( void )
+{
+}
+void vPortExitCritical( void )
+{
+}

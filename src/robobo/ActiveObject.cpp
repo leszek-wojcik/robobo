@@ -19,8 +19,6 @@ ActiveObject::ActiveObject(string name, UBaseType_t priority):
 
     taskHandles[this] = newTask;
 
-    Serial.print ("tworze: ");
-    Serial.println ((long)newTask);
 }
 
 

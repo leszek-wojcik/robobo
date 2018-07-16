@@ -28,11 +28,16 @@ void DisplayManager::switchData()
     if (data.size() != 0)
     {
         
+        taskENTER_CRITICAL();
         myLcd->clear();
         myLcd->setCursor(0, 0);
-        print(pos->second.header.c_str());
+        print(pos->second.header);
         myLcd->setCursor(0, 1);
-        print(pos->second.value.c_str());
+        print(pos->second.value);
+        taskEXIT_CRITICAL();
+
+        Serial.println(pos->second.header.c_str());
+        Serial.println(pos->second.value.c_str());
 
         pos++;
 
@@ -40,7 +45,6 @@ void DisplayManager::switchData()
         {
             pos = data.begin();
         }
-
 
     }
 

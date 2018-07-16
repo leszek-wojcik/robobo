@@ -7,6 +7,7 @@
 #include "Controller.h"
 #include "DisplayManager.h"
 #include "PlatformManager.h"
+#include "Axis.h"
 
 
 /**
