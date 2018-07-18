@@ -78,6 +78,11 @@ void DisplayManager::postData(int handle, int dataToPost)
     data[handle].value = string(str);
 }
 
+void DisplayManager::postStringData(int handle, string dataToPost)
+{
+    data[handle].value = dataToPost;
+}
+
 void DisplayManager::displayValue(int handle)
 {
     myLcd->setCursor(1, 0);

@@ -22,9 +22,15 @@ class ActiveObject
 
         ActiveObject(string name="\0",UBaseType_t priority=tskIDLE_PRIORITY);
 
-        TimerHandle_t createTimer (  
+        TimerHandle_t createOneTimeTimer(
                 const std::function<void()> &f, 
                 const TickType_t period );
+
+        TimerHandle_t createTimer (
+                const std::function<void()> &f, 
+                const TickType_t period );
+
+        void stopTimer(TimerHandle_t tmr);
 
         uint8_t executeMethod(const std::function<void()> &);
 

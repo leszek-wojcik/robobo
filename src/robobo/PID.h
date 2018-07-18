@@ -28,9 +28,16 @@ class PID: public ControlStrategy
             motor(m),
             samplePeriod(sPeriod)
         {
+        }
+        void enable()
+        {
             triggerTimer = createTimer(
                     std::function<void()>(std::bind(&PID::periodExpiry, this)),
                     samplePeriod);
+        }
+        void disable()
+        {
+            stopTimer(triggerTimer);
         }
 
         void periodExpiry(void)
@@ -56,7 +63,7 @@ class PID: public ControlStrategy
             if (dcOutput >255)
                 dcOutput = 255;
 
-            if (!motor->isStopped())
+            if (!motor->isEmergencyStopped())
                 motor->setVoltage(dcOutput);
         }
 

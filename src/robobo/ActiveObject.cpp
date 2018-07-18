@@ -21,6 +21,30 @@ ActiveObject::ActiveObject(string name, UBaseType_t priority):
 
 }
 
+TimerHandle_t ActiveObject::createOneTimeTimer
+     (   const std::function<void()> &f, 
+         const TickType_t period )
+{
+    TimerHandle_t returnTimer;
+    auto mr = new MRequest( this, f);
+    mr->setPersistent(false);
+
+    returnTimer = xTimerCreate
+        ( "tmr",
+          period,
+          0,
+          mr,
+          ActiveObjectTimerCallback );
+
+    xTimerStart(returnTimer,0);
+
+    return returnTimer;
+}
+
+void ActiveObject::stopTimer(TimerHandle_t tmr)
+{
+    xTimerStop( tmr, 0 );
+}
 
 TimerHandle_t ActiveObject::createTimer
      (   const std::function<void()> &f, 

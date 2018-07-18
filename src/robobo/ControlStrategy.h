@@ -7,6 +7,9 @@ class ControlStrategy: public ActiveObject
 {
     public: 
         virtual int32_t calculateControl(int32_t diff) = 0;
+        virtual void enable() = 0;
+        virtual void disable() = 0;
+
 };
 
 #endif

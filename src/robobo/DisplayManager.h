@@ -41,6 +41,7 @@ class DisplayManager: public ActiveObject
         void displayValue(int handle);
 
         void postData(int handle, int data);
+        void postStringData(int handle, string data);
 
 
 };

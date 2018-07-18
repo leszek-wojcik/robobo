@@ -52,18 +52,25 @@ class DCMotor : public Motor
         int8_t  direction;
         int32_t dcOutput;
         uint8_t stopped;
+        bool calibrationInd;
 
         // Interface functions
-        void setPosition(int32_t);
+        void setRequestedPosition(int32_t);
         int32_t getRequestedPosition(void);
         int32_t getCurrentPosition();
-        void stop(void);
-        bool isStopped(void);
+        void emergencyStop(void);
+        bool isEmergencyStopped(void);
         void enableReports(TickType_t period);
         void setVoltage(uint8_t val);
 
         void setControlStrategy(ControlStrategy *strategy);
+
+        void enableControlStrategy();
+        void disableControlStrategy();
+
         void report(void);
+        bool isCalibrationDone();
+        void setCalibrationDone(bool);
 
         /** This method is called on interrupt associated with encoder */
         void encoderInterrupt(void);

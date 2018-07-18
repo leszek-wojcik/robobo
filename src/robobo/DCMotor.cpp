@@ -19,7 +19,8 @@ DCMotor::DCMotor(   uint8_t encoderAPinV,
     hBridgeAPin(hBridgeAPinV),
     hBridgeBPin(hBridgeBPinV),
     voltagePin (voltagePinV ),
-    motorName(name)
+    motorName(name),
+    calibrationInd(false) 
 {
     setPinModes();
     reset();
@@ -67,6 +68,18 @@ void DCMotor::reset(void)
 void DCMotor::setControlStrategy(ControlStrategy *strategy)
 {
     control = strategy;
+}
+
+void DCMotor::enableControlStrategy()
+{
+    auto f = std::function<void()>(std::bind(&ControlStrategy::enable,control));
+    control->executeMethod(f);
+}
+
+void DCMotor::disableControlStrategy()
+{
+    auto f = std::function<void()>(std::bind(&ControlStrategy::disable,control));
+    control->executeMethod(f);
 }
 
 void DCMotor::encoderInterrupt(void)
@@ -120,9 +133,10 @@ void DCMotor::setDirectionLeft(void)
 void DCMotor::setVoltage(uint8_t val)
 {
     analogWrite(voltagePin, val);
+    stopped = 0;
 }
 
-void DCMotor::stop(void)
+void DCMotor::emergencyStop(void)
 {
     analogWrite(voltagePin, 0);
     digitalWrite(hBridgeAPin, 0);
@@ -130,12 +144,12 @@ void DCMotor::stop(void)
     stopped = 1;
 }
 
-bool DCMotor::isStopped()
+bool DCMotor::isEmergencyStopped()
 {
     return stopped;
 }
 
-void DCMotor::setPosition(int32_t x)
+void DCMotor::setRequestedPosition(int32_t x)
 {
     requestedPosition = x;
     stopped = 0;
@@ -149,4 +163,14 @@ int32_t DCMotor::getRequestedPosition(void)
 int32_t DCMotor::getCurrentPosition()
 {
     return encoderPosition;
+}
+
+bool DCMotor::isCalibrationDone()
+{
+    return calibrationInd;
+}
+
+void DCMotor::setCalibrationDone(bool val)
+{
+    calibrationInd = val;
 }

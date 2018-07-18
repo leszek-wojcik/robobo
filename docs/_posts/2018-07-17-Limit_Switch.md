@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "End Switch"
+title:  "Limit Switch"
 date:   2018-07-17 10:10:00 +0100
 excerpt: "Article presents how to connect end switch to Arduino"
 categories: limit switch Arduino Servo
@@ -9,14 +9,15 @@ categories: limit switch Arduino Servo
 Servos are used to run Robobo platform axis. Servo mechanism described
 [here](https://leszek-wojcik.github.io/robobo/arduino/servo/encoder/pololu/hbridge/pid/2017/12/29/servo.html)
 lacks one fundamental concept that would make it complete. That is absolute
-positioning. As mentioned encoder is to find relative movement only. This
-article describes limit switch hardware component and Robobo software design for
-it. 
+positioning. As mentioned simple encoder is able to find relative movement
+only. This article describes limit switch hardware component and Robobo
+software design for it. 
 
 # Limit Switch Hardware
 
 Typical limit switch logic is presented on diagram:
 ![Diagram](https://leszek-wojcik.github.io/robobo/images/LimitSwitch.jpg)
+
 Where (I suppose) NC stands for Normally Closed and NO as Normally Opened. These
 mean when no force applied on switch then NC is connected to C.
 
@@ -31,17 +32,17 @@ and NC. By this DC Motor can be powered as long as there is no contact of Limit
 Switch. This design is well suited for power robots where risk of robot's
 surroundings or robot itself damage exists. In this case Limit switch can be
 safeguard for multiple failure scenarios such as: Control board failure,
-program failure or user Mistake.
+program error or user mistake.
 
-In software option we connect limit switch to our main controller. C terminal
-serves as output and NC and NO are connected to ground and 5V (3.3V for Due). C
-output in this case is logical `1` or logical `0`. In this option it is up to
-controller to stop a shaft to prevent any damage. In this option limit switch
-acts like normal button.
+In software option we connect limit switch to our main controller. Switch C
+terminal serves as output and NC and NO are connected to ground and 5V (3.3V
+for Due). Switch C output in this case is logical `1` or logical `0`. In this
+option it is up to controller to stop a shaft to prevent any damage. In this
+option limit switch acts like normal button.
 
 # Robobo consideration
 
-For Robobo case software limit seems suitable. This concept in fact is to
+For Robobo case software approach seems suitable. This concept in fact is to
 address two problems. First problem is that we don't want our shaft to cross
 boundary and second problem of finding absolute position of shaft.
 
