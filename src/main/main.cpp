@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "Robobo.h"
-#include "EncoderISR.h"
+#include "ISR.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -31,7 +31,7 @@ int main(void)
     Serial.println("Robobo ver ...");
 
   	Robobo *r = new Robobo();
-    r->createSetupV2();
+    r->createSetupV3();
 
     Serial.println("Robobo start");
 

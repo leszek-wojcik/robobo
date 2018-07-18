@@ -7,7 +7,7 @@
 #include "Controller.h"
 #include "DisplayManager.h"
 #include "PlatformManager.h"
-#include "Axis.h"
+#include "Calibrator.h"
 
 
 /**
@@ -25,6 +25,7 @@ class Robobo
         Robobo();
         void createSetupV1(void);
         void createSetupV2(void);
+        void createSetupV3(void);
 
         Motor *dc1;
         Motor *dc2;
@@ -35,7 +36,7 @@ class Robobo
         DisplayManager *disp;
         LiquidCrystal *lcd;
         PlatformManager *pm;
-        
+
         // Serial
         long serialSpeed; 
         static Robobo *instance;

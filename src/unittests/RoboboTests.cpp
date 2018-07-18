@@ -1,5 +1,5 @@
 #include "RoboboTests.h"
-#include "EncoderISR.h"
+#include "ISR.h"
 #include "Robobo.h"
 #include "DCMotor.h"
 #include <iostream>
