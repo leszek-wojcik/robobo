@@ -27,4 +27,5 @@ void limitSwitchDc2_ISR()
     Robobo *i = Robobo::instance; 
     i->dc2->emergencyStop();
     i->dc2->setCalibrationDone(true);
+    Serial.print("ISR2");
 }

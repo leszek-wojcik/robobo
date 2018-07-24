@@ -63,6 +63,9 @@ class PID: public ControlStrategy
             if (dcOutput >255)
                 dcOutput = 255;
 
+            if (dcOutput < 7)
+                dcOutput = 0;
+
             if (!motor->isEmergencyStopped())
                 motor->setVoltage(dcOutput);
         }

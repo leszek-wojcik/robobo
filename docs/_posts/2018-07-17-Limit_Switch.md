@@ -16,6 +16,7 @@ software design for it.
 # Limit Switch Hardware
 
 Typical limit switch logic is presented on diagram:
+
 ![Diagram](https://leszek-wojcik.github.io/robobo/images/LimitSwitch.jpg)
 
 Where (I suppose) NC stands for Normally Closed and NO as Normally Opened. These

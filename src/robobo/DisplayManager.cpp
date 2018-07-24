@@ -30,9 +30,21 @@ void DisplayManager::switchData()
         
         taskENTER_CRITICAL();
         myLcd->clear();
+        taskEXIT_CRITICAL();
+
+        taskENTER_CRITICAL();
         myLcd->setCursor(0, 0);
+        taskEXIT_CRITICAL();
+
+        taskENTER_CRITICAL();
         print(pos->second.header);
+        taskEXIT_CRITICAL();
+
+        taskENTER_CRITICAL();
         myLcd->setCursor(0, 1);
+        taskEXIT_CRITICAL();
+
+        taskENTER_CRITICAL();
         print(pos->second.value);
         taskEXIT_CRITICAL();
 
