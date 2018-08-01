@@ -90,7 +90,7 @@ class Controller : public ActiveObject
                 stopTimer(calibrationTimer);
                 calibrationTimer = createTimer(
                         std::function<void()>(bind(&Controller::mainFunc, this)),
-                        1000);
+                        100);
             }
         }
 
