@@ -1,3 +1,5 @@
+extern int printf(void);
+
 #include "Robobo.h"
 #include "Arduino.h"
 #include "DCMotor.h"

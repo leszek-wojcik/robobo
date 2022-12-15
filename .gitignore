@@ -1,3 +1,7 @@
+# build direcory
+build/
+robobo.map
+
 # Prerequisites
 *.d
 

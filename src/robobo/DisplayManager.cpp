@@ -7,7 +7,7 @@ DisplayManager::DisplayManager(string name, UBaseType_t priority, LiquidCrystal 
         ActiveObject(name, priority), myLcd(lcd)
 {
     myLcd->begin(16, 2);
-    myLcd->print(ROBOBO_VERSION_STRING);
+    myLcd->print("Robobo 0.1");
     counter = 0;
 
     switchTimer = createTimer(

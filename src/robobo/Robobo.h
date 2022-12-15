@@ -1,6 +1,7 @@
 #ifndef ROBOBO_INCLUDED
 #define ROBOBO_INCLUDED
 
+#include <string>
 #include "Arduino.h"
 #include "Motor.h"
 #include "ControlStrategy.h"

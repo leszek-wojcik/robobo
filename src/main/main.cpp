@@ -26,6 +26,14 @@ int main(void)
 #endif
 
     pinMode(LED_BUILTIN, OUTPUT);
+    
+    for(int i=0; i<10; i++)
+    {
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(1000);
+      digitalWrite(LED_BUILTIN, LOW);
+      delay(1000);
+    }
 
     Serial.begin(9600);
     Serial.println("Robobo ver ...");
